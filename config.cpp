@@ -614,12 +614,12 @@ void Config::save( std::string name, bool to_clipboard ) {
 
 	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, 0, path ) ) )
 	{
-		folder = std::string( path ) + ( XOR( "\\deathrow.pub\\" ) );
-		file = std::string( path ) + ( XOR( "\\deathrow.pub\\" ) + name);
+		folder = std::string( path ) + ( XOR( "\\undercover.host\\" ) );
+		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name);
 
 		CreateDirectory( folder.c_str( ), NULL );
 		for( auto& e : g_cfg ) {
-			WritePrivateProfileStringA( XOR( "deathrow.pub" ), e.first.c_str( ), std::to_string( e.second.get< double >( ) ).c_str( ), file.c_str( ) );
+			WritePrivateProfileStringA( XOR( "undercover.host" ), e.first.c_str( ), std::to_string( e.second.get< double >( ) ).c_str( ), file.c_str( ) );
 		}
 
 	}
@@ -637,12 +637,12 @@ void Config::load( std::string name, bool from_clipboard ) {
 
 	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, 0, path ) ) )
 	{
-		file = std::string( path ) + ( XOR( "\\deathrow.pub\\" ) + name + XOR( ".ini" ) );
+		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name + XOR( ".ini" ) );
 
 		for( auto& e : g_cfg ) {
 			char value[ 64 ] = { '\0' };
 
-			GetPrivateProfileStringA( XOR( "deathrow.pub" ), e.first.c_str( ), "", value, 64, file.c_str( ) );
+			GetPrivateProfileStringA( XOR( "undercover.host" ), e.first.c_str( ), "", value, 64, file.c_str( ) );
 
 			e.second.set< double >( atof( value ) );
 		}
@@ -720,7 +720,7 @@ void handle_refresh_controller( )
 	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, 0, path ) ) )
 	{
 		g_config.configs.clear( );
-		std::string config_dir = std::string( path ) + ( XOR( "\\deathrow.pub\\*.ini" ) ); 
+		std::string config_dir = std::string( path ) + ( XOR( "\\undercover.host\\*.ini" ) ); 
 		search_files( config_dir.c_str( ), read_configs, FALSE );
 	}
 
