@@ -636,7 +636,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						if ( g_cfg[ XOR( "misc_unlock_cvars" ) ].get<bool>( ) )
 							g_cl.UnlockHiddenConvars( );
 
-						g_frw.ComboBox( XOR( "Clantag type" ), XOR( "misc_clantag_type" ), XOR( "None\0Tapped\0Custom" ), 4 );
+						g_frw.ComboBox( XOR( "Clantag type" ), XOR( "misc_clantag_type" ), XOR( "None\0Undercover\0Custom" ), 4 );
 						g_frw.ComboBox( XOR( "Clantag mode" ), XOR( "misc_clantag_mode" ), XOR( "Static\0Rotating " ), 4 );
 
 						if ( g_cfg[ XOR( "misc_clantag_type" ) ].get<int>( ) == 2 ) {
