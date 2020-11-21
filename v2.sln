@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tapped", "tapped.vcxproj", "{099DE97A-54D6-47DE-A760-7CA4184D45DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Loader|x86 = Loader|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{099DE97A-54D6-47DE-A760-7CA4184D45DB}.Debug|x86.ActiveCfg = Debug|Win32
+		{099DE97A-54D6-47DE-A760-7CA4184D45DB}.Debug|x86.Build.0 = Debug|Win32
+		{099DE97A-54D6-47DE-A760-7CA4184D45DB}.Loader|x86.ActiveCfg = Loader|Win32
+		{099DE97A-54D6-47DE-A760-7CA4184D45DB}.Loader|x86.Build.0 = Loader|Win32
+		{099DE97A-54D6-47DE-A760-7CA4184D45DB}.Release|x86.ActiveCfg = Release|Win32
+		{099DE97A-54D6-47DE-A760-7CA4184D45DB}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D259C80-7362-4FD3-8D93-28CAFDF98608}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+put the paper in potrait.
+draw a square in the middle of the paper
+draw a circle inside of the square.
+after that draw a triangle inside of that circle.
+draw a half circle above the square with it's flat side facing downwards.
+draw a line from the half circle's center to the top of the paper.
+draw a line from the bottom center of the square to the bottom of the paper.
+draw a large circle to the left of the square.
+draw a large rectangle to the right of the square.

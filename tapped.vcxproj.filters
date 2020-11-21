@@ -1,0 +1,789 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="math.cpp">
+      <Filter>mathematics</Filter>
+    </ClCompile>
+    <ClCompile Include="aimbot.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="chams.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="knifebot.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="lagcomp.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="animations.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="visuals.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="resolver.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="grenades.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="skins.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="tickbase_shift.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="penetration.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="events.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="game_movement.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\fonts\agency_bold.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="fnv1a.cpp">
+      <Filter>filesystem\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\fonts\droid_sans_bold.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="hvh.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="inputsystem.cpp">
+      <Filter>user_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\ColorPicker\ColorPicker.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D9Manager.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D9Shaders.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D9Texture.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawManager.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Dropdown\Dropdown.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Elements.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Form\Form.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Group\Group.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\GUI.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Hotkey\Hotkey.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\imgui\imgui.cpp">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\imgui\imgui_draw.cpp">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\imgui\dx9\imgui_impl_dx9.cpp">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="font.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Helpers\InputHelper.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>user_interface\tapped_gui</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\wrapper.cpp">
+      <Filter>user_interface\tapped_gui</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\fonts\droid_sans.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="movement.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Label\Label.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\MultiDropdown\MultiDropdown.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Checkbox\Checkbox.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Listbox\Listbox.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\images\logo.c">
+      <Filter>user_interface\images</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\images\background.c">
+      <Filter>user_interface\images</Filter>
+    </ClCompile>
+    <ClCompile Include="pred.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="tapped_gui\fonts\SegoeUI.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Slider\Slider.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="shots.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\Framework\Button\Button.cpp">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="hitsounds.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="csgo.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="wndproc.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="viewrender.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="surface.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="shadowmgr.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="renderview.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="prediction.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="playsound.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="panel.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="netdata.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="netchannel.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="modelrender.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="matchframework.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="firebullets.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="entry.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="engine.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="directx.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="detours.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="cvar.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="clientmode.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="clientdll.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="client.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="materialsystem.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="anti_debugger.cpp">
+      <Filter>filesystem\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="dormancy.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="gamemovement_rebuilt.cpp">
+      <Filter>foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\buildserver_chars.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\CParallelProcessor.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\generichash.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\GetValveAllocator.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\stringpool.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\strtools.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\threadtools.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="threading\utlsymbol.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vector2.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="utlvector.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="unique_vector.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="x86.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="base64.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="clientmode.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="entlist.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="entoffsets.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="glow.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="globalvars.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="aimbot.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="chams.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="lagcomp.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="clientclass.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="animations.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="visuals.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="resolver.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="grenades.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="skins.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="tickbase_shift.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="syscall.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="address.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="cvar.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="datamap.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Helpers\Easing.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="firebullets.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="angle.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="events.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped.h" />
+    <ClInclude Include="basehandle.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="game_movement.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="trace.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="surface.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="hud.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="fnv1a.h">
+      <Filter>filesystem\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="engineclient.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="hvh.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="gameevents.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="gamerules.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="hash.h">
+      <Filter>filesystem\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="xorstr.h">
+      <Filter>filesystem\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="inputsystem.h">
+      <Filter>user_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="localize.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\ColorPicker\ColorPicker.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D9Manager.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D9Shaders.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D9Texture.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawManager.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Dropdown\Dropdown.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Elements.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Form\Form.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Group\Group.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\GUI.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Hotkey\Hotkey.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\imgui.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\dx9\imgui_impl_dx9.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\imgui_internal.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Helpers\InputHelper.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>user_interface\tapped_gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Listbox\Listbox.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="beams.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="penetration.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="netvars.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="movement.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Label\Label.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\MultiDropdown\MultiDropdown.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Checkbox\Checkbox.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Button\Button.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\imconfig.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="memalloc.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="modules.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="pred.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="stack.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="pe.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="pattern.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="netdata.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="notify.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="nt.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="matchframework.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="studio.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="studiorender.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\Framework\Slider\Slider.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="winapir.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="networkstringtable.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="titlebar.h">
+      <Filter>user_interface\images</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\stb_rect_pack.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\stb_textedit.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\imgui\stb_truetype.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="STBRectPack.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="prediction.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="vmt.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyformat.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="shots.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="hitsounds.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="csgo.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="detours.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="clientdll.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="client.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="anti_debugger.h">
+      <Filter>filesystem\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="sound_data.h">
+      <Filter>filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="dormancy.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="gamemovement_rebuilt.h">
+      <Filter>foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="tapped_gui\wrapper.h">
+      <Filter>user_interface\tapped_gui</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\buildserver_chars.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\CParallelProcessor.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\CUtlMemory.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\dbg.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\dbgflag.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\functors.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\generichash.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\GetValveAllocator.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\interlocked_ptr.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\IThreadPool.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\memalloc.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\memdbgoff.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\memdbgon.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\platform.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\precompiled.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\refcount.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\string_encrypted_include.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\stringpool.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\strtools.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\threadtools.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlblockmemory.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utldict.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlfixedmemory.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utllinkedlist.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlmap.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlmemory.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlrbtree.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlsymbol.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\utlvector.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\valve_off.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="threading\valve_on.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="sequences.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="mathematics">
+      <UniqueIdentifier>{d3214724-34eb-4ea7-8679-8df39e1070fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="memory">
+      <UniqueIdentifier>{a53da4de-aa31-43fb-b0c8-a5b4afd1bf7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{d7ef60b4-072a-4605-a5a5-ce8d97ca7557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks">
+      <UniqueIdentifier>{338b5d46-6602-4b99-a835-1b358fa7d65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="foundation">
+      <UniqueIdentifier>{17c572b2-e87f-4ed0-a6e9-74ea6d3f7da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="filesystem">
+      <UniqueIdentifier>{7f027fe6-91dc-481c-a837-fdd13ef5c5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="filesystem\encryption">
+      <UniqueIdentifier>{35669476-adcc-4eee-98b1-b2a3f4e87aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface">
+      <UniqueIdentifier>{bc1778f5-bfa7-4f54-a510-93e22b425ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface\fonts">
+      <UniqueIdentifier>{cc11bde5-c325-4776-9ce8-0780e5267fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface\legacy_ui">
+      <UniqueIdentifier>{5245f6f7-1b6b-4181-ac41-7bda0175c759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface\dear_imgui">
+      <UniqueIdentifier>{4ee26930-4363-4904-9960-42f6ccc47d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface\tapped_gui">
+      <UniqueIdentifier>{7a07c722-fb01-44dc-9456-a0c97715699e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface\images">
+      <UniqueIdentifier>{0bc9c454-94d5-4351-84a8-17586d0349c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="threading">
+      <UniqueIdentifier>{aa7a164a-9c86-4934-a240-29cfd8a7e2b1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="detours.lib">
+      <Filter>memory</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
