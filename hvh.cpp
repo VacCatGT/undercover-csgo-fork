@@ -558,7 +558,7 @@ void HVH::Fakelag( ) {
 	auto v10 = g_cfg[ XOR( "aa_fl_jitter" ) ].get< int >( );
 	auto v9 = g_cfg[ XOR( "aa_fl_triggers_amt" ) ].get< int >( );  
 
-	if ( g_cl.m_local->m_fFlags( ) & FL_FROZEN || !g_tickbase.m_shift_data.m_shift_time || g_tickbase.m_shift_data.m_shift_time + 10 > g_csgo.m_globals->m_tick_count ){
+	if ( g_cl.m_local->m_fFlags( ) & FL_FROZEN || !g_tickbase.m_shift_data.m_shift_time && g_cfg[XOR("aimbot_exploits_teleport")].get< bool >() || g_tickbase.m_shift_data.m_shift_time + 10 > g_csgo.m_globals->m_tick_count ){
 
 		g_cl.m_packet = g_csgo.m_cl->m_choked_commands >= 1;
 		return;
@@ -623,9 +623,15 @@ LABEL_5:
 	if ( g_cfg[ XOR( "aa_fl_on_land" ) ].get<bool>( ) ) {
 		auto v106 = g_inputpred.PredictionData.m_flUnpredictedFlags & FL_ONGROUND;
 		auto v132 = g_cl.m_local->m_fFlags( ) & FL_ONGROUND;
+		static bool v69 = false;
+
+		if ( v69 ) {
+			v69 = false;
+			v81 = v9;
+		}
 
 		if ( v132 && !v106 )
-			v81 = v9;
+			v69 = true;
 	}
 
 	if( g_cfg[ XOR( "aa_fl_break_lagcomp" ) ].get< bool >( ) ) {
