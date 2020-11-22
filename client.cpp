@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 Client g_cl{ };
 
@@ -129,10 +129,10 @@ void Client::ClanTag( )
 		using SetClanTag_t = int( __fastcall* )( const char*, const char* );
 		static auto SetClanTagFn = pattern::find( g_csgo.m_engine_dll, XOR( "53 56 57 8B DA 8B F9 FF 15" ) ).as <SetClanTag_t >( );
 
-		SetClanTagFn( tag.c_str( ), XOR( "deathrow.pub" ) );
+		SetClanTagFn( tag.c_str( ), XOR( "undercover.host" ) );
 	};
 
-	std::string szClanTag = g_cfg[ XOR( "misc_clantag_type" ) ].get< int >( ) == 1 ? XOR( "deathrow.pub " ) : g_cl.clantag_lable;
+	std::string szClanTag = g_cfg[ XOR( "misc_clantag_type" ) ].get< int >( ) == 1 ? XOR( "undercover.host " ) : g_cl.clantag_lable;
 
 	if ( szClanTag.size( ) < 1 )
 		return;
@@ -650,7 +650,7 @@ void Client::print( const std::string text, ... ) {
 	Color clr = { 12, 132, 196, 255 };
 
 	// print to console.
-	g_csgo.m_cvar->ConsoleColorPrintf( clr, XOR( "[ deathrow.pub ] " ) );
+	g_csgo.m_cvar->ConsoleColorPrintf( clr, XOR( "[ undercover.host ] " ) );
 	g_csgo.m_cvar->ConsoleColorPrintf( colors::white, buf.append( XOR( "\n" ) ).c_str( ) );
 }
 

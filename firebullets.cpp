@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 void __stdcall Hooks::PostDataUpdate(C_TEFireBullets* thisptr, DataUpdateType_t type ) {
 	//C_TEFireBullets* shot = ( C_TEFireBullets* )this;

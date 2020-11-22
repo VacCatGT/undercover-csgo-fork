@@ -66,7 +66,7 @@ public:
 
 	struct Palette_t {
 		static Color Black(int alpha = 255) { return Color(13, 13, 13, alpha); }
-		static Color LightBlack(int alpha = 255) { return Color(32, 32, 32, alpha); }
+		static Color LightBlack(int alpha = 255) { return Color(24,24,24, alpha); }
 		static Color DarkGrey(int alpha = 255) { return Color(44, 44, 44, alpha); }
 		static Color Grey(int alpha = 255) { return Color(60, 60, 60, alpha); }
 		static Color LightGrey(int alpha = 255) { return Color(77, 77, 77, alpha); }

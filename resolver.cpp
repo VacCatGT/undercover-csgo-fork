@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 Resolver g_resolver{ };;
 Player* m_pPlayer;
@@ -69,7 +69,7 @@ void Resolver::StoreMatrices( LagComp::LagRecord_t& record ) {
 	memcpy( record.center_matrix, m_pPlayer->m_BoneCache( ).m_pCachedBones->Base( ), sizeof( matrix3x4_t ) * m_pPlayer->GetBoneCount( ) );
 	memcpy( g_chams.m_stored_matrices[ m_pPlayer->index( ) - 1 ], record.center_matrix, sizeof( matrix3x4_t ) * m_pPlayer->GetBoneCount( ) );
 	m_pPlayer->GetAnimLayers( record.center_layers );
-	//g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 0 ] );
+	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 0 ] );//TESTING
 
 	// restore.
 	g_resolver.RestoreData( &data );
@@ -87,7 +87,7 @@ void Resolver::StoreMatrices( LagComp::LagRecord_t& record ) {
 		m_pPlayer->SetupBones( nullptr, 128, BONE_USED_BY_ANYTHING, m_pPlayer->m_flSimulationTime( ) );
 		memcpy( record.right_matrix, m_pPlayer->m_BoneCache( ).m_pCachedBones->Base( ), sizeof( matrix3x4_t ) * m_pPlayer->GetBoneCount( ) );
 	}
-	//	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 1 ] );
+	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 1 ] );//TESTING
 
 		// restore.
 	g_resolver.RestoreData( &data );
@@ -106,7 +106,7 @@ void Resolver::StoreMatrices( LagComp::LagRecord_t& record ) {
 	}
 
 	// store data from rebuilt animations.
-//	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 2 ] );
+   g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 2 ] ); //TESTING
 
 	// restore.
 	g_resolver.RestoreData( &data );
@@ -304,6 +304,9 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 	if ( !info )
 		return;
 
+	//if (!g_cfg[("aimbot_resolver")].get< bool >())
+	//	return;
+
 	float eye_yaw = record->m_pState->eye_angles_y;
 
 	// detect if player is using maximum desync.
@@ -365,9 +368,10 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		}
 	}
 
-	if ( g_cfg[ ( "aimbot_resolver" ) ].get< bool >( ) ) {
+	//wtf is this dogshit??
+	/*if ( g_cfg[ ( "aimbot_resolver" ) ].get< bool >( ) ) {
 		Resolver::check_low_delta_desync( data, m_pPlayer, record );
-	}
+	}*/
 }
 
 float Resolver::ResolveShot( AimPlayer* data, LagComp::LagRecord_t* record ) {

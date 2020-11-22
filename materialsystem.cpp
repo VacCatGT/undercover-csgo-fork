@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 bool Hooks::OverrideConfig( MaterialSystem_Config_t* config, bool update ) {
 	if(g_cfg[XOR("misc_world_fullbright")].get<bool>())

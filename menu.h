@@ -103,15 +103,24 @@ public:
 		segue_ui = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( SegoeUI_compressed_data, SegoeUI_compressed_size, 15 );
 	}
 	void SetupTextures( IDirect3DDevice9* device ) {
-		if ( tapped_logo == nullptr )
-			D3DXCreateTextureFromFileInMemoryEx( device, tapped_raw_data, sizeof( tapped_raw_data ), 58, 46, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &tapped_logo );
-		if ( tapped_background == nullptr )
-			D3DXCreateTextureFromFileInMemoryEx( device, background_raw_data, sizeof( background_raw_data ), 798, 541, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &tapped_background );
+
+		
+		if (undercover_top_left_line == nullptr)
+			D3DXCreateTextureFromFileInMemoryEx(device, bitchass, sizeof(bitchass), 239, 33, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_top_left_line);
+		
+		if ( undercover_logo == nullptr )
+			D3DXCreateTextureFromFileInMemoryEx( device, undercover_raw_data, sizeof( undercover_raw_data ), 58, 46, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_logo );
+		
+		if (undercover_groupbox == nullptr)
+			D3DXCreateTextureFromFileInMemoryEx(device, niggafuck, sizeof(niggafuck), 212, 35, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_groupbox);
+
+		if ( undercover_background == nullptr )
+			D3DXCreateTextureFromFileInMemoryEx( device, background_raw_data, sizeof( background_raw_data ), 798, 541, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_background );
 	}
 
 	void __stdcall EndPresent( IDirect3DDevice9* device ) {
 		ImGui::Render( );
-	//	stateBlock->Release( );
+	//	stateBlock->Release( );background_raw_data
 	}
 
 	IDirect3DStateBlock9* stateBlock = nullptr;
@@ -133,6 +142,8 @@ public:
 	ImFont* droid_sans;
 	ImFont* segue_ui;
 	ImFont* droid_sans_bold_small;
-	LPDIRECT3DTEXTURE9 tapped_logo;
-	LPDIRECT3DTEXTURE9 tapped_background;
+	LPDIRECT3DTEXTURE9 undercover_logo;
+	LPDIRECT3DTEXTURE9 undercover_background;
+	LPDIRECT3DTEXTURE9 undercover_top_left_line;
+	LPDIRECT3DTEXTURE9 undercover_groupbox;
 }; extern Menu g_menu;

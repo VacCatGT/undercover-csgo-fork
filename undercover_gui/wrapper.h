@@ -18,7 +18,8 @@ enum positions {
 	center_top,
 	center_bottom,
 	right_top,
-	right_bottom
+	right_bottom,
+	wide_nigga
 };
 
 class MenuFramework {

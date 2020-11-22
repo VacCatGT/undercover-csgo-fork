@@ -19,7 +19,7 @@
     <ProjectGuid>{099DE97A-54D6-47DE-A760-7CA4184D45DB}</ProjectGuid>
     <RootNamespace>supremacy_csgo</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>tapped</ProjectName>
+    <ProjectName>undercover.host</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -73,8 +73,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>..\debug</IntDir>
-    <IncludePath>C:\Users\Dutu1337\Desktop\tapfix\Detours\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Dutu1337\Desktop\tapfix\Detours\Library;D:\videos\csoggo\weedbot\soar1337\tapped_supremacy\Detours\Library;C:\Users\Louis\Desktop\tapped\Detours\Library;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Library;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Kian\Desktop\tapped-master\Detours\Include;C:\Users\Dutu1337\Desktop\tapfix\Detours\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Kian\Desktop\undercover.host\Detours\Library;C:\Users\Kian\Desktop\tapped-master\Detours\Library;C:\Users\Dutu1337\Desktop\tapfix\Detours\Library;D:\videos\csoggo\weedbot\soar1337\tapped_supremacy\Detours\Library;C:\Users\Louis\Desktop\tapped\Detours\Library;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -225,7 +225,7 @@
     <ClInclude Include="hvh.h" />
     <ClInclude Include="sequences.h" />
     <ClInclude Include="sound_data.h" />
-    <ClInclude Include="tapped.h" />
+    <ClInclude Include="undercover.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inputsystem.h" />
     <ClInclude Include="interfaces.h" />
@@ -264,14 +264,14 @@
     <ClInclude Include="studiorender.h" />
     <ClInclude Include="surface.h" />
     <ClInclude Include="syscall.h" />
-    <ClInclude Include="tapped_gui\imgui\dx9\imgui_impl_dx9.h" />
-    <ClInclude Include="tapped_gui\imgui\imconfig.h" />
-    <ClInclude Include="tapped_gui\imgui\imgui.h" />
-    <ClInclude Include="tapped_gui\imgui\imgui_internal.h" />
-    <ClInclude Include="tapped_gui\imgui\stb_rect_pack.h" />
-    <ClInclude Include="tapped_gui\imgui\stb_textedit.h" />
-    <ClInclude Include="tapped_gui\imgui\stb_truetype.h" />
-    <ClInclude Include="tapped_gui\wrapper.h" />
+    <ClInclude Include="undercover_gui\imgui\dx9\imgui_impl_dx9.h" />
+    <ClInclude Include="undercover_gui\imgui\imconfig.h" />
+    <ClInclude Include="undercover_gui\imgui\imgui.h" />
+    <ClInclude Include="undercover_gui\imgui\imgui_internal.h" />
+    <ClInclude Include="undercover_gui\imgui\stb_rect_pack.h" />
+    <ClInclude Include="undercover_gui\imgui\stb_textedit.h" />
+    <ClInclude Include="undercover_gui\imgui\stb_truetype.h" />
+    <ClInclude Include="undercover_gui\wrapper.h" />
     <ClInclude Include="threading\buildserver_chars.h" />
     <ClInclude Include="threading\CParallelProcessor.h" />
     <ClInclude Include="threading\CUtlMemory.h" />
@@ -391,16 +391,16 @@
     <ClCompile Include="shots.cpp" />
     <ClCompile Include="skins.cpp" />
     <ClCompile Include="surface.cpp" />
-    <ClCompile Include="tapped_gui\fonts\agency_bold.cpp" />
-    <ClCompile Include="tapped_gui\fonts\droid_sans.cpp" />
-    <ClCompile Include="tapped_gui\fonts\droid_sans_bold.cpp" />
-    <ClCompile Include="tapped_gui\fonts\SegoeUI.cpp" />
-    <ClCompile Include="tapped_gui\images\background.c" />
-    <ClCompile Include="tapped_gui\images\logo.c" />
-    <ClCompile Include="tapped_gui\imgui\dx9\imgui_impl_dx9.cpp" />
-    <ClCompile Include="tapped_gui\imgui\imgui.cpp" />
-    <ClCompile Include="tapped_gui\imgui\imgui_draw.cpp" />
-    <ClCompile Include="tapped_gui\wrapper.cpp" />
+    <ClCompile Include="undercover_gui\fonts\agency_bold.cpp" />
+    <ClCompile Include="undercover_gui\fonts\droid_sans.cpp" />
+    <ClCompile Include="undercover_gui\fonts\droid_sans_bold.cpp" />
+    <ClCompile Include="undercover_gui\fonts\SegoeUI.cpp" />
+    <ClCompile Include="undercover_gui\images\background.c" />
+    <ClCompile Include="undercover_gui\images\logo.c" />
+    <ClCompile Include="undercover_gui\imgui\dx9\imgui_impl_dx9.cpp" />
+    <ClCompile Include="undercover_gui\imgui\imgui.cpp" />
+    <ClCompile Include="undercover_gui\imgui\imgui_draw.cpp" />
+    <ClCompile Include="undercover_gui\wrapper.cpp" />
     <ClCompile Include="threading\buildserver_chars.cpp" />
     <ClCompile Include="threading\CParallelProcessor.cpp" />
     <ClCompile Include="threading\generichash.cpp" />

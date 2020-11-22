@@ -46,17 +46,11 @@
     <ClCompile Include="game_movement.cpp">
       <Filter>foundation</Filter>
     </ClCompile>
-    <ClCompile Include="tapped_gui\fonts\agency_bold.cpp">
-      <Filter>user_interface\fonts</Filter>
-    </ClCompile>
     <ClCompile Include="config.cpp">
       <Filter>filesystem</Filter>
     </ClCompile>
     <ClCompile Include="fnv1a.cpp">
       <Filter>filesystem\encryption</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\fonts\droid_sans_bold.cpp">
-      <Filter>user_interface\fonts</Filter>
     </ClCompile>
     <ClCompile Include="hvh.cpp">
       <Filter>foundation</Filter>
@@ -97,15 +91,6 @@
     <ClCompile Include="gui\Framework\Hotkey\Hotkey.cpp">
       <Filter>user_interface\legacy_ui</Filter>
     </ClCompile>
-    <ClCompile Include="tapped_gui\imgui\imgui.cpp">
-      <Filter>user_interface\dear_imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\imgui\imgui_draw.cpp">
-      <Filter>user_interface\dear_imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\imgui\dx9\imgui_impl_dx9.cpp">
-      <Filter>user_interface\dear_imgui</Filter>
-    </ClCompile>
     <ClCompile Include="font.cpp">
       <Filter>user_interface\legacy_ui</Filter>
     </ClCompile>
@@ -113,13 +98,7 @@
       <Filter>user_interface\legacy_ui</Filter>
     </ClCompile>
     <ClCompile Include="menu.cpp">
-      <Filter>user_interface\tapped_gui</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\wrapper.cpp">
-      <Filter>user_interface\tapped_gui</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\fonts\droid_sans.cpp">
-      <Filter>user_interface\fonts</Filter>
+      <Filter>user_interface\undercover_gui</Filter>
     </ClCompile>
     <ClCompile Include="movement.cpp">
       <Filter>foundation</Filter>
@@ -136,17 +115,8 @@
     <ClCompile Include="gui\Framework\Listbox\Listbox.cpp">
       <Filter>user_interface\legacy_ui</Filter>
     </ClCompile>
-    <ClCompile Include="tapped_gui\images\logo.c">
-      <Filter>user_interface\images</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\images\background.c">
-      <Filter>user_interface\images</Filter>
-    </ClCompile>
     <ClCompile Include="pred.cpp">
       <Filter>foundation</Filter>
-    </ClCompile>
-    <ClCompile Include="tapped_gui\fonts\SegoeUI.cpp">
-      <Filter>user_interface\fonts</Filter>
     </ClCompile>
     <ClCompile Include="gui\Framework\Slider\Slider.cpp">
       <Filter>user_interface\legacy_ui</Filter>
@@ -274,6 +244,36 @@
     <ClCompile Include="threading\utlsymbol.cpp">
       <Filter>threading</Filter>
     </ClCompile>
+    <ClCompile Include="undercover_gui\fonts\agency_bold.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\fonts\droid_sans.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\fonts\droid_sans_bold.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\fonts\SegoeUI.cpp">
+      <Filter>user_interface\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\images\background.c">
+      <Filter>user_interface\images</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\images\logo.c">
+      <Filter>user_interface\images</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\imgui\dx9\imgui_impl_dx9.cpp">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\imgui\imgui.cpp">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\imgui\imgui_draw.cpp">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="undercover_gui\wrapper.cpp">
+      <Filter>user_interface\undercover_gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vector2.h">
@@ -384,7 +384,6 @@
     <ClInclude Include="events.h">
       <Filter>sdk</Filter>
     </ClInclude>
-    <ClInclude Include="tapped.h" />
     <ClInclude Include="basehandle.h">
       <Filter>sdk</Filter>
     </ClInclude>
@@ -469,15 +468,6 @@
     <ClInclude Include="gui\Framework\Hotkey\Hotkey.h">
       <Filter>user_interface\legacy_ui</Filter>
     </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\imgui.h">
-      <Filter>user_interface\dear_imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\dx9\imgui_impl_dx9.h">
-      <Filter>user_interface\dear_imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\imgui_internal.h">
-      <Filter>user_interface\dear_imgui</Filter>
-    </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>user_interface\legacy_ui</Filter>
     </ClInclude>
@@ -485,7 +475,7 @@
       <Filter>user_interface\legacy_ui</Filter>
     </ClInclude>
     <ClInclude Include="menu.h">
-      <Filter>user_interface\tapped_gui</Filter>
+      <Filter>user_interface\undercover_gui</Filter>
     </ClInclude>
     <ClInclude Include="gui\Framework\Listbox\Listbox.h">
       <Filter>user_interface\legacy_ui</Filter>
@@ -513,9 +503,6 @@
     </ClInclude>
     <ClInclude Include="gui\Framework\Button\Button.h">
       <Filter>user_interface\legacy_ui</Filter>
-    </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\imconfig.h">
-      <Filter>user_interface\dear_imgui</Filter>
     </ClInclude>
     <ClInclude Include="memalloc.h">
       <Filter>memory</Filter>
@@ -583,15 +570,6 @@
     <ClInclude Include="random.h">
       <Filter>mathematics</Filter>
     </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\stb_rect_pack.h">
-      <Filter>user_interface\legacy_ui</Filter>
-    </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\stb_textedit.h">
-      <Filter>user_interface\legacy_ui</Filter>
-    </ClInclude>
-    <ClInclude Include="tapped_gui\imgui\stb_truetype.h">
-      <Filter>user_interface\legacy_ui</Filter>
-    </ClInclude>
     <ClInclude Include="STBRectPack.h">
       <Filter>user_interface\legacy_ui</Filter>
     </ClInclude>
@@ -636,9 +614,6 @@
     </ClInclude>
     <ClInclude Include="gamemovement_rebuilt.h">
       <Filter>foundation</Filter>
-    </ClInclude>
-    <ClInclude Include="tapped_gui\wrapper.h">
-      <Filter>user_interface\tapped_gui</Filter>
     </ClInclude>
     <ClInclude Include="threading\buildserver_chars.h">
       <Filter>threading</Filter>
@@ -736,6 +711,31 @@
     <ClInclude Include="sequences.h">
       <Filter>sdk</Filter>
     </ClInclude>
+    <ClInclude Include="undercover.h" />
+    <ClInclude Include="undercover_gui\imgui\dx9\imgui_impl_dx9.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\imgui\imconfig.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\imgui\imgui.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\imgui\imgui_internal.h">
+      <Filter>user_interface\dear_imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\imgui\stb_rect_pack.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\imgui\stb_textedit.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\imgui\stb_truetype.h">
+      <Filter>user_interface\legacy_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="undercover_gui\wrapper.h">
+      <Filter>user_interface\undercover_gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="mathematics">
@@ -771,14 +771,14 @@
     <Filter Include="user_interface\dear_imgui">
       <UniqueIdentifier>{4ee26930-4363-4904-9960-42f6ccc47d66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="user_interface\tapped_gui">
-      <UniqueIdentifier>{7a07c722-fb01-44dc-9456-a0c97715699e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="user_interface\images">
       <UniqueIdentifier>{0bc9c454-94d5-4351-84a8-17586d0349c0}</UniqueIdentifier>
     </Filter>
     <Filter Include="threading">
       <UniqueIdentifier>{aa7a164a-9c86-4934-a240-29cfd8a7e2b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user_interface\undercover_gui">
+      <UniqueIdentifier>{7a07c722-fb01-44dc-9456-a0c97715699e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

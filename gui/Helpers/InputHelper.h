@@ -1,5 +1,5 @@
 #pragma once
-#include "../../tapped.h"
+#include "../../undercover.h"
 
 namespace InputHelper {
 	inline bool KeyState[ 256 ];

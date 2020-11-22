@@ -5480,7 +5480,7 @@ bool ImGui::ButtonExT_Filled( const char* label, const ImVec2& size_arg, ImGuiBu
 	bool pressed = ButtonBehavior( bb, id, &hovered, &held, flags );
 
 	if ( page == in ) {
-		window->DrawList->AddRectFilled(ImVec2(bb.Min.x, bb.Min.y), ImVec2(bb.Max.x, bb.Max.y), ImColor(21, 119, 205));
+		window->DrawList->AddRectFilled(ImVec2(bb.Min.x, bb.Min.y), ImVec2(bb.Max.x, bb.Max.y), ImColor(23, 23, 23));
 		PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1));
 		RenderTextClipped(bb.Min + style.FramePadding, bb.Max - style.FramePadding, label, NULL, &label_size, ImVec2(0.5, 0.5), &bb);
 		PopStyleColor( );
@@ -5529,8 +5529,8 @@ bool ImGui::ButtonEx( const char* label, const ImVec2& size_arg, ImGuiButtonFlag
 	bool pressed = ButtonBehavior( bb, id, &hovered, &held, flags );
 
 	// Render // fortnite
-	const ImU32 col = ( ( hovered && held ) ? ImColor(255, 255, 255, 100) : hovered ? ImColor(21, 119, 205, 255) : ImColor(31, 37, 43) );
-	RenderFrame(bb.Min - ImVec2(1, 1) , bb.Max + ImVec2(1, 1), ImColor(56, 59, 62, 255), false, style.FrameRounding);
+	const ImU32 col = ( ( hovered && held ) ? ImColor(255, 255, 255, 100) : hovered ? ImColor(205, 21, 21, 255) : ImColor(31, 37, 43) );
+	RenderFrame(bb.Min - ImVec2(1, 1) , bb.Max + ImVec2(1, 1), ImColor(47, 47, 47, 255), false, style.FrameRounding);
 	RenderFrame( bb.Min, bb.Max, col, false, style.FrameRounding );
 	RenderTextClipped( bb.Min + style.FramePadding, bb.Max - style.FramePadding, label, NULL, &label_size, style.ButtonTextAlign, &bb );
 
@@ -6315,8 +6315,8 @@ bool ImGui::SliderBehavior( const ImRect& frame_bb, ImGuiID id, const char* disp
 	const ImGuiStyle& style = g.Style;
 
 	// Draw frame
-	RenderFrame(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), ImColor(56, 59, 62, 255), false, style.FrameRounding);
-	RenderFrame(frame_bb.Min, frame_bb.Max, ImColor(31, 37, 43, 255), false, style.FrameRounding);
+	RenderFrame(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), ImColor(47, 47, 47, 255), false, style.FrameRounding);
+	RenderFrame(frame_bb.Min, frame_bb.Max, ImColor(31, 31, 31, 255), false, style.FrameRounding);
 
 	const bool is_non_linear = (power < 1.0f - 0.00001f) || (power > 1.0f + 0.00001f);
 	const bool is_horizontal = (flags & ImGuiSliderFlags_Vertical) == 0;
@@ -6414,7 +6414,7 @@ bool ImGui::SliderBehavior( const ImRect& frame_bb, ImGuiID id, const char* disp
 	else
 		grab_bb = ImRect(ImVec2(frame_bb.Min.x + grab_padding, grab_pos - grab_sz * 0.5f), ImVec2(frame_bb.Max.x - grab_padding, grab_pos + grab_sz * 0.5f));
 
-	window->DrawList->AddRectFilled(frame_bb.Min, ImVec2(grab_bb.Max.x - (*v == 0.f ? 2.f : *v == 100 ? -2 : 0.f), grab_bb.Max.y + 2), ImColor(21, 119, 205, 255), style.FrameRounding); // Main gradient.
+	window->DrawList->AddRectFilled(frame_bb.Min, ImVec2(grab_bb.Max.x - (*v == 0.f ? 2.f : *v == 100 ? -2 : 0.f), grab_bb.Max.y + 2), ImColor(217, 0, 28, 255), style.FrameRounding); // Main gradient.
 
 	return value_changed;
 }
@@ -7092,8 +7092,8 @@ bool ImGui::ShowCheckbox(const char* label) {
 		total_bb = ImRect(ImMin(check_bb.Min, text_bb.Min), ImMax(check_bb.Max, text_bb.Max));
 	}
 
-	window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1),  ImColor(56, 59, 62, 255), style.FrameRounding);
-	window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(31, 37, 43, 255), style.FrameRounding);
+//	window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1),  ImColor(47, 47, 47, 255), style.FrameRounding);
+	//window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(31, 31, 31, 255), style.FrameRounding);
 
 	if (label_size.x > 0.0f) {
 		RenderText(text_bb.GetTL() - ImVec2(0, 2), label);
@@ -7132,12 +7132,12 @@ bool ImGui::Checkbox( const char* label, bool* v ) {
 	if ( pressed )
 		*v = !( *v );
 
-	window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), hovered ? held ? ImColor(140, 145, 140, 255) : ImColor(100, 105, 110, 255) : ImColor(56, 59, 62, 255), style.FrameRounding);
-	window->DrawList->AddRectFilled( check_bb.Min, check_bb.Max, ImColor(31, 37, 43, 255), style.FrameRounding );
+	window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), hovered ? held ? ImColor(140, 145, 140, 255) : ImColor(110, 105, 100, 255) : ImColor(62, 59, 56, 255), style.FrameRounding);
+	window->DrawList->AddRectFilled( check_bb.Min, check_bb.Max, ImColor(31, 31, 31, 255), style.FrameRounding );
 
 	if ( *v ) {
-		window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), ImColor(13, 82, 143), style.FrameRounding); // Main gradient.
-		window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(21, 119, 205, 255), style.FrameRounding); // Main gradient.
+		window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), ImColor(47, 47, 47), style.FrameRounding); // Main gradient.
+		window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(217, 0, 28, 255), style.FrameRounding); // Main gradient.
 	}
 
 	if ( g.LogEnabled )
@@ -8431,8 +8431,8 @@ bool ImGui::BeginCombo(const char* label, const char* preview_value, ImVec2 popu
 
 	bool popup_open = IsPopupOpen(id);
 
-	window->DrawList->AddRectFilled(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), ImColor(56, 59, 62, 255), 1.45f);
-	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, ImColor(31, 37, 43, 255), 1.45f);
+	window->DrawList->AddRectFilled(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), ImColor(47, 47, 47, 255), 1.45f);
+	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, ImColor(31, 31, 31, 255), 1.45f);
 
 	if (label_size.x > 0)
 		RenderText(ImVec2(frame_bb.Min.x, frame_bb.Min.y - 17), label);
@@ -8484,8 +8484,8 @@ bool ImGui::BeginCombo(const char* label, const char* preview_value, ImVec2 popu
 		PushStyleVar(ImGuiStyleVar_WindowPadding, style.FramePadding);
 
 		PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-		PushStyleColor(ImGuiCol_FrameBg, ImVec4(31 / 255.f, 37 / 255.f, 43 / 255.f, 255 / 255.f));
-		PushStyleColor(ImGuiCol_Border, ImVec4(56 / 255.f, 59 / 255.f, 62 / 255.f, 255 / 255.f));
+		PushStyleColor(ImGuiCol_FrameBg, ImVec4(31 / 255.f, 31 / 255.f, 31 / 255.f, 255 / 255.f));
+		PushStyleColor(ImGuiCol_Border, ImVec4(47 / 255.f, 47 / 255.f, 47 / 255.f, 255 / 255.f));
 
 		const ImGuiWindowFlags flags = ImGuiWindowFlags_ComboBox | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoScrollbar;
 
@@ -8540,8 +8540,8 @@ bool ImGui::Combo( const char* label, int* current_item, bool( *items_getter )( 
 
 	const ImRect value_bb( frame_bb.Min, frame_bb.Max - ImVec2( arrow_size, 0.0f ) );
 
-	window->DrawList->AddRectFilled( frame_bb.Min - ImVec2( 1, 1 ), frame_bb.Max + ImVec2( 1, 1 ), ImColor(56, 59, 62, 255), style.FrameRounding );
-	window->DrawList->AddRectFilled( frame_bb.Min, frame_bb.Max, ImColor(31, 37, 43, 255), style.FrameRounding );
+	window->DrawList->AddRectFilled( frame_bb.Min - ImVec2( 1, 1 ), frame_bb.Max + ImVec2( 1, 1 ), ImColor(47, 47, 47, 255), style.FrameRounding );
+	window->DrawList->AddRectFilled( frame_bb.Min, frame_bb.Max, ImColor(31, 31, 31, 255), style.FrameRounding );
 
 	if ( *current_item >= 0 && *current_item < items_count ) {
 		const char* item_text;
@@ -8595,8 +8595,8 @@ bool ImGui::Combo( const char* label, int* current_item, bool( *items_getter )( 
 		SetNextWindowPos( popup_rect.Min + ImVec2( -1, 3 ) );
 		SetNextWindowSize( popup_rect.GetSize( ) + ImVec2( 2, 5 ) );
 		PushStyleVar( ImGuiStyleVar_WindowPadding, ImVec2( 0, 0 ) );
-		PushStyleColor(ImGuiCol_FrameBg, ImVec4(31 / 255.f, 37 / 255.f, 43 / 255.f, 255 / 255.f));
-		PushStyleColor(ImGuiCol_Border, ImVec4(56 / 255.f, 59 / 255.f, 62 / 255.f, 255 / 255.f));
+		PushStyleColor(ImGuiCol_FrameBg, ImVec4(31 / 255.f, 31 / 255.f, 31 / 255.f, 255 / 255.f));
+		PushStyleColor(ImGuiCol_Border, ImVec4(47 / 255.f, 47 / 255.f, 47 / 255.f, 255 / 255.f));
 
 		const ImGuiWindowFlags flags = ImGuiWindowFlags_ComboBox | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoScrollbar;
 		if ( BeginPopupEx( id, flags ) ) {
@@ -8772,9 +8772,9 @@ bool ImGui::Selectable( const char* label, bool selected, ImGuiSelectableFlags f
 		bb_with_spacing.Max.x -= ( GetContentRegionMax( ).x - max_x );
 	}
 	if(hovered)
-	ImGui::GetCurrentWindow()->DrawList->AddRectFilled(bb.Min + ImVec2(0, 4) - ImVec2(0, 5), bb_with_spacing.Max + ImVec2(4, 2), ImColor(48, 141, 191, 30), 0);
+	ImGui::GetCurrentWindow()->DrawList->AddRectFilled(bb.Min + ImVec2(0, 4) - ImVec2(0, 5), bb_with_spacing.Max + ImVec2(4, 2), ImColor(191, 48, 48, 30), 0);
 
-	if(selected)PushStyleColor( ImGuiCol_Text, ImVec4(21 / 255.f, 119 / 255.f, 205 / 255.f, 1.f) );
+	if(selected)PushStyleColor( ImGuiCol_Text, ImVec4(205 / 255.f, 21 / 255.f, 21 / 255.f, 1.f) );
 	RenderTextClipped( bb.Min + ImVec2( 4, 4 ), bb_with_spacing.Max + ImVec2( 4, 4 ), label, NULL, &label_size, ImVec2( 0.0f, 0.0f ) );
 	if (selected)PopStyleColor( );
 

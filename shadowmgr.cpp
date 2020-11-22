@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 void Hooks::ComputeShadowDepthTextures( const CViewSetup &view, bool unk ) {
 	if( !unk )

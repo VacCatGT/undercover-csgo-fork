@@ -1,4 +1,4 @@
-	#include "tapped.h"
+	#include "undercover.h"
 
 bool Hooks::ShouldDrawParticles( ) {
 	return g_hooks.m_client_mode.GetOldMethod< ShouldDrawParticles_t >( IClientMode::SHOULDDRAWPARTICLES )( this );

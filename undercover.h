@@ -59,15 +59,15 @@ using ulong_t = unsigned long;
 #include "tinyformat.h"
 
 // imgui
-#include "tapped_gui/imgui/imgui.h"
-#include "tapped_gui/fonts/droid_sans.cpp"
-#include "tapped_gui/fonts/droid_sans_bold.cpp"
-#include "tapped_gui/fonts/agency_bold.cpp"
-#include "tapped_gui/fonts/SegoeUI.cpp"
-#include "tapped_gui/images/logo.c"
-#include "tapped_gui/images/background.c"
-#include "tapped_gui/imgui/imgui.h"
-#include "tapped_gui/imgui/dx9/imgui_impl_dx9.h"
+#include "undercover_gui/imgui/imgui.h"
+#include "undercover_gui/fonts/droid_sans.cpp"
+#include "undercover_gui/fonts/droid_sans_bold.cpp"
+#include "undercover_gui/fonts/agency_bold.cpp"
+#include "undercover_gui/fonts/SegoeUI.cpp"
+#include "undercover_gui/images/logo.c"
+#include "undercover_gui/images/background.c"
+#include "undercover_gui/imgui/imgui.h"
+#include "undercover_gui/imgui/dx9/imgui_impl_dx9.h"
 
 // other includes.
 #include "hash.h"
@@ -128,7 +128,7 @@ using ulong_t = unsigned long;
 
 #include "Renderer.h"
 #include "menu.h"
-#include "tapped_gui/wrapper.h"
+#include "undercover_gui/wrapper.h"
 #include "gui/Helpers/Easing.h"
 #include "gui/Framework/GUI.h"
 #include "gui/Elements.h"

@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 Menu g_menu{ };
 
@@ -25,7 +25,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Checkbox( XOR( "Enable Aimbot" ), XOR( "aimbot_enable" ) );
 						g_frw.Checkbox( XOR( "Auto Shoot" ), XOR( "aimbot_autofire" ) );
 						g_frw.Checkbox( XOR( "Silent" ), XOR( "aimbot_silent" ) );
-						g_frw.Checkbox( XOR( "Beta Resolver" ), XOR( "aimbot_resolver" ) );
+						g_frw.Checkbox( XOR( "Resolver" ), XOR( "aimbot_resolver" ) );
 						g_frw.Checkbox( XOR( "Pitch Resolver" ), XOR( "aimbot_pitch_resolver" ) );
 						//g_frw.Checkbox( XOR( "Taser Bot" ), XOR( "aimbot_zeusbot" ) );
 						//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );
@@ -35,12 +35,18 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.GetKey( XOR( "safepoint" ), XOR( "safepoint_key" ), XOR( "safepoint_key_type" ) );
 						g_frw.KeybindCheckbox( XOR( "Override Damage" ) );
 						g_frw.GetKey( XOR( "override_min_dmg" ), XOR( "override_min_dmg_key" ), XOR( "override_min_dmg_type" ) );
+						g_frw.Checkbox(XOR("Enable Exploits (Unsafe)"), XOR("aimbot_exploits_enable"));
+						g_frw.Checkbox(XOR("Instant Peek"), XOR("aimbot_exploits_teleport"));
+						//g_frw.NumberPicker( XOR( "Rapid fire hitchance" ), XOR( "rapid_hc" ), 0, 100, XOR( "%0.f" ), 1 );
+						g_frw.Checkbox(XOR("Hide Shot Angle"), XOR("aimbot_hide_shots"));
+						g_frw.KeybindCheckbox(XOR("Silence Exploits"));
+						g_frw.GetKey(XOR("exploit_disable"), XOR("aimbot_disable_exploits_key"), XOR("aimbot_disable_exploits_key_type"));
 						//g_frw.MultiCombo( XOR( "Performance" ), { XOR( "aimbot_performance_bt" ) }, { XOR( "Limited Backtracking" ) } );
 					} g_frw.EndModule( );
 
 					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::center_top, sizes::full, XOR( "AIMBOT_CONFIG" ) ); {
+					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "AIMBOT_CONFIG" ) ); {
 						std::string weapon_name, weapon_cfg_name;
 						g_frw.Checkbox( XOR( "Adaptive Weapon Config" ), XOR( "aimbot_adaptive_config" ) );
 						if ( g_cfg[ XOR( "aimbot_adaptive_config" ) ].get<bool>( ) )
@@ -90,16 +96,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 					} g_frw.EndModule( );
 
-					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "AIMBOT_EXPLOITS" ) ); {
-						g_frw.Checkbox( XOR( "Enable Exploits (Unsafe)" ), XOR( "aimbot_exploits_enable" ) );
-						g_frw.Checkbox( XOR( "Instant Peek" ), XOR( "aimbot_exploits_teleport" ) );
-						//g_frw.NumberPicker( XOR( "Rapid fire hitchance" ), XOR( "rapid_hc" ), 0, 100, XOR( "%0.f" ), 1 );
-						g_frw.Checkbox( XOR( "Hide Shot Angle" ), XOR( "aimbot_hide_shots" ) );
-						g_frw.KeybindCheckbox( XOR( "Silence Exploits" ) );
-						g_frw.GetKey( XOR( "exploit_disable" ), XOR( "aimbot_disable_exploits_key" ), XOR( "aimbot_disable_exploits_key_type" ) );
-					} g_frw.EndModule( );
 
 					g_frw.ConcludeModuleHeader( );
 
@@ -107,7 +104,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 				case 1: {
 					g_frw.BeginModuleHeader( );
 
-					g_frw.RenderModule( positions::left_top, sizes::half, XOR( "ANTIAIM_REAL" ) ); {
+					g_frw.RenderModule( positions::left_top, sizes::full, XOR( "ANTIAIM_REAL" ) ); {
 						g_frw.Checkbox( XOR( "Enabled" ), XOR( "aa_enabled" ) );
 						g_frw.Checkbox( XOR( "At Targets" ), XOR( "aa_at_targets" ) );
 						g_frw.Checkbox( XOR( "Auto Direction" ), XOR( "aa_freestand" ) );
@@ -115,22 +112,19 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.KeybindCheckbox( XOR( "Jitter" ) );
 						g_frw.GetKey( XOR( "jitterkey" ), XOR( "aa_jitter_key" ), XOR( "aa_jitter_key_type" ) );
 						g_frw.NumberPicker( XOR( "Jitter Offset" ), XOR( "aa_jitter_offset" ), -180, 180, XOR( "%0.f" ), 1 );
+						g_frw.Checkbox(XOR("Fake Enable"), XOR("aa_fake"));
+						g_frw.ComboBox(XOR("Air mode"), XOR("aa_air_mode"), XOR("Normal\0Spin"), 2);
+						g_frw.ComboBox(XOR("LBY mode"), XOR("aa_lby_mode"), XOR("Normal\0Opposite\0Sway"), 3);
+						g_frw.Checkbox(XOR("Fake Desync"), XOR("aa_fake_desync"));
+						g_frw.KeybindCheckbox(XOR("Inverter"));
+						g_frw.GetKey(XOR("interterkey"), XOR("aa_inverter_key"), XOR("aa_inverter_key_type"));
+						g_frw.MultiCombo(XOR("Inverter Flip"), { XOR("invertflip_walking"), XOR("invertflip_moving"), XOR("invertflip_air") }, { XOR("Walk"), XOR("Run"), XOR("In Air") });
 					}g_frw.EndModule( );
 
-					g_frw.RenderModule( positions::left_bottom, sizes::half, XOR( "ANTIAIM_FAKE" ) ); {
-						g_frw.Checkbox( XOR( "Fake Enable" ), XOR( "aa_fake" ) );
-						g_frw.ComboBox( XOR( "Air mode" ), XOR( "aa_air_mode" ), XOR( "Normal\0Spin" ), 2 );
-						g_frw.ComboBox( XOR( "LBY mode" ), XOR( "aa_lby_mode" ), XOR( "Normal\0Opposite\0Sway" ), 3 );
-						g_frw.Checkbox( XOR( "Fake Desync" ), XOR( "aa_fake_desync" ) );
-						g_frw.KeybindCheckbox( XOR( "Inverter" ) );
-						g_frw.GetKey( XOR( "interterkey" ), XOR( "aa_inverter_key" ), XOR( "aa_inverter_key_type" ) );
-						g_frw.MultiCombo( XOR( "Inverter Flip" ), { XOR( "invertflip_walking" ), XOR( "invertflip_moving" ), XOR( "invertflip_air" ) }, { XOR( "Walk" ), XOR( "Run" ), XOR( "In		Air" ) } );
-		
-					}g_frw.EndModule( );
 
 					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::center_top, sizes::full, XOR( "ANTIAIM_LAG" ) ); {
+					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "ANTIAIM_LAG" ) ); {
 						g_frw.Checkbox( XOR( "Enable Fake-Lag" ), XOR( "aa_fakelag" ) );
 						g_frw.NumberPicker( XOR( "Limit" ), XOR( "aa_factor" ), 0, 16, XOR( "%0.f" ), 1 );
 						g_frw.NumberPicker( XOR( "Jitter" ), XOR( "aa_fl_jitter" ), 0, 100, XOR( "%0.f" ), 1 );
@@ -153,7 +147,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 			case tabs::tab_two: {
 				static int current_subtab;
-				switch ( g_frw.RenderSecondaryHeader( current_subtab, { XOR( "PLAYER" ), XOR( "OTHER" ), XOR( "COSMETICS" ) } ) )
+				switch ( g_frw.RenderSecondaryHeader( current_subtab, { XOR( "PLAYER" ), XOR( "OTHER" ), XOR( "COSMETICS" ), XOR("LOCAL") } ) )
 				{
 				case 0: 
 					g_frw.BeginModuleHeader( );
@@ -203,7 +197,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::center_top, sizes::full, XOR( "COLORED_MODELS" ) ); {
+					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "COLORED_MODELS" ) ); {
 						g_frw.Checkbox( XOR( "Enemies visible chams" ), XOR( "chams_enemy" ) );
 						g_frw.ColorPicker( XOR( "Visible color" ), XOR( "esp_chams_enemies_color" ) );
 						g_frw.ComboBox( XOR( "Material" ), XOR( "esp_chams_visible_enemies" ), XOR( "Disabled\0Unlit\0Lit\0Silhouette" ), 4 );
@@ -247,29 +241,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.ColorPicker( XOR( "Smoke proximity color" ), XOR( "misc_world_smoke_proximity_color" ) );
 						g_frw.Checkbox( XOR( "Force Low Violence Mode" ), XOR( "misc_low_violence" ) );
 
-
-					} g_frw.EndModule( );
-
-					g_frw.ContinueModule( );
-
-					g_frw.RenderModule( positions::center_top, sizes::full, XOR( "LOCAL" ) ); {
-
-						g_frw.Checkbox( XOR( "Hand chams" ), XOR( "chams_hand" ) );
-						g_frw.ColorPicker( XOR( "Hand color" ), XOR( "hand_chams_color" ) );
-						g_frw.ComboBox( XOR( "Hand material" ), XOR( "hand_chams_material" ), XOR( "Disabled\0Unlit\0Lit\0Silhouette" ), 4 );
-
-						g_frw.Checkbox( XOR( "Local chams" ), XOR( "chams_local" ) );
-						g_frw.ColorPicker( XOR( "Local color" ), XOR( "local_chams_color" ) );
-						g_frw.ComboBox( XOR( "Local Material" ), XOR( "local_chams_material" ), XOR( "Disabled\0Unlit\0Lit\0Silhouette" ), 4 );
-						g_frw.Checkbox( XOR( "Hold Firing Animation" ), XOR( "firing_anim" ) );
-
-						g_frw.Checkbox( XOR( "Fake chams" ), XOR( "chams_desync" ) );
-						g_frw.ColorPicker( XOR( "Fake color" ), XOR( "desync_chams_color" ) );
-						g_frw.ComboBox( XOR( "Fake Material" ), XOR( "desyc_chams_material" ), XOR( "Disabled\0Unlit\0Lit\0Silhouette" ), 4 );
-
-						g_frw.Checkbox( XOR( "Local Glow" ), XOR( "esp_local_glow" ) );
-						g_frw.ColorPicker( XOR( "Local Glow Color" ), XOR( "esp_local_glow_color" ) );
-						
 
 					} g_frw.EndModule( );
 
@@ -527,15 +498,17 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::center_top, sizes::full, XOR( " " ) ); {
-						g_frw.KeybindCheckbox( XOR( "Enable Skin Changer" ) );
-						g_frw.KeybindCheckbox( XOR( "Enable Knife Changer" ) );
+					g_frw.RenderModule( positions::right_top, sizes::full, XOR( " " ) ); {
+						//g_frw.KeybindCheckbox( XOR( "Enable Skin Changer" ) );
+					//	g_frw.KeybindCheckbox( XOR( "Enable Knife Changer" ) );
+						g_frw.Checkbox(XOR("Enable Agent Changer"), XOR("skins_agent_enable"));
+						g_frw.ComboBox(XOR("Agent Model"), XOR("skins_agent"), XOR("Special Agent Ava\0Operator\0Markus Delrow\0Michael Syfers\0B Squadron Officer\0Seal Team 6 Soldier\0Buckshot\0Lt. Commander Ricksaw\0 3rd Commando Company\0'Two Times' McCoy\0Dragomir\0Rezan The Ready\0'The Doctor' Romanov\0Maximus\0Blackwolf\0The Elite Mr. Muhlik\0Ground Rebel\0Osiris\0Prof. Shahmat\0Enforcer\0Slingshot\0Soldier"), 8);
 						g_frw.ComboBox( XOR( "Knife model" ), XOR( "skins_knife" ), XOR( "Disabled\0Bayonet\0Bowie\0Butterfly\0Falchion\0Flip knife\0Gut knife\0Huntsman\0Karambit\0M9 Bayonet\0Shadow Daggers\0CSS\0Paracord Knife\0Survival Knife\0Ursus knife\0Navaja Knife\0Nomad Knife\0Stiletto Knife\0Talon Knife\0Skeleton Knife" ), 8 );
-						g_frw.KeybindCheckbox( XOR( "Enable Rare Animations" ) );
+					//	g_frw.KeybindCheckbox( XOR( "Enable Rare Animations" ) );
 						g_frw.MultiCombo( XOR( "Force Rare Animations" ), { XOR( "skins_rare_deagle" ), XOR( "skins_rare_r8" ), XOR( "skins_rare_falcheon" ) }, { XOR( "Deagle" ), XOR( "Revolver" ), XOR( "Falcheon Knife" ) } );
-						g_frw.KeybindCheckbox( XOR( "Enable Glove Changer" ) );
+						//g_frw.KeybindCheckbox( XOR( "Enable Glove Changer" ) );
 						g_frw.ComboBox( XOR( "Glove model" ), XOR( "skins_gloves" ), XOR( "Disabled\0Bloodhound\0Sport\0Driver\0Handwraps\0Motorcycle\0Specialist" ), 6 );
-						g_frw.KeybindCheckbox( XOR( "Enable Glove Skin" ) );
+					//	g_frw.KeybindCheckbox( XOR( "Enable Glove Skin" ) );
 						ImGui::SetCursorPosX( ImGui::GetCursorPosX( ) + 3 );
 						ImGui::SetCursorPosY( ImGui::GetCursorPosY( ) + 5 );
 						if ( !g_skins.m_glove_kits.empty( ) ) {
@@ -545,16 +518,34 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Button( XOR( "Refresh" ), &g_skins.m_update );
 					} g_frw.EndModule( );
 
-					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "   " ) ); {
-						g_frw.Checkbox( XOR( "Enable Agent Changer" ), XOR( "skins_agent_enable" ) );
-						g_frw.ComboBox( XOR( "Agent Model" ), XOR( "skins_agent" ), XOR( "Special Agent Ava\0Operator\0Markus Delrow\0Michael Syfers\0B Squadron Officer\0Seal Team 6 Soldier\0Buckshot\0Lt. Commander Ricksaw\0 3rd Commando Company\0'Two Times' McCoy\0Dragomir\0Rezan The Ready\0'The Doctor' Romanov\0Maximus\0Blackwolf\0The Elite Mr. Muhlik\0Ground Rebel\0Osiris\0Prof. Shahmat\0Enforcer\0Slingshot\0Soldier" ), 8 );
-
-					} g_frw.EndModule( );
 
 					g_frw.ConcludeModuleHeader( );
 
+					break;
+					case 3:
+					{
+						g_frw.RenderModule(positions::left_top, sizes::full, XOR("LOCAL")); {
+
+							g_frw.Checkbox(XOR("Hand chams"), XOR("chams_hand"));
+							g_frw.ColorPicker(XOR("Hand color"), XOR("hand_chams_color"));
+							g_frw.ComboBox(XOR("Hand material"), XOR("hand_chams_material"), XOR("Disabled\0Unlit\0Lit\0Silhouette"), 4);
+
+							g_frw.Checkbox(XOR("Local chams"), XOR("chams_local"));
+							g_frw.ColorPicker(XOR("Local color"), XOR("local_chams_color"));
+							g_frw.ComboBox(XOR("Local Material"), XOR("local_chams_material"), XOR("Disabled\0Unlit\0Lit\0Silhouette"), 4);
+							g_frw.Checkbox(XOR("Hold Firing Animation"), XOR("firing_anim"));
+
+							g_frw.Checkbox(XOR("Fake chams"), XOR("chams_desync"));
+							g_frw.ColorPicker(XOR("Fake color"), XOR("desync_chams_color"));
+							g_frw.ComboBox(XOR("Fake Material"), XOR("desyc_chams_material"), XOR("Disabled\0Unlit\0Lit\0Silhouette"), 4);
+
+							g_frw.Checkbox(XOR("Local Glow"), XOR("esp_local_glow"));
+							g_frw.ColorPicker(XOR("Local Glow Color"), XOR("esp_local_glow_color"));
+
+
+						} g_frw.EndModule();
+					}
 					break;
 				};
 			}break;
@@ -583,7 +574,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 					g_frw.ContinueModule( );
 
-					g_frw.RenderModule( positions::center_top, sizes::full, XOR( "UTILITIES" ) ); {
+					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "UTILITIES" ) ); {
 						g_frw.Checkbox( XOR( "Enable automatic purchases" ), XOR( "misc_buybot_enable" ) );
 						g_frw.ComboBox( XOR( "Loadout" ), XOR( "misc_buybot_loadout" ), XOR( "Loadout One\0Loadout Two\0Loadout Three\0Loadout Four" ), 4 );
 						switch ( g_cfg[ XOR( "misc_buybot_loadout" ) ].get<int>( ) ) {
@@ -636,7 +627,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						if ( g_cfg[ XOR( "misc_unlock_cvars" ) ].get<bool>( ) )
 							g_cl.UnlockHiddenConvars( );
 
-						g_frw.ComboBox( XOR( "Clantag type" ), XOR( "misc_clantag_type" ), XOR( "None\0Tapped\0Custom" ), 4 );
+						g_frw.ComboBox( XOR( "Clantag type" ), XOR( "misc_clantag_type" ), XOR( "None\0undercover\0Custom" ), 4 );
 						g_frw.ComboBox( XOR( "Clantag mode" ), XOR( "misc_clantag_mode" ), XOR( "Static\0Rotating " ), 4 );
 
 						if ( g_cfg[ XOR( "misc_clantag_type" ) ].get<int>( ) == 2 ) {
@@ -657,10 +648,15 @@ void Menu::Think( IDirect3DDevice9* device ) {
 				static int current_subtab;
 				g_frw.RenderSecondaryHeader( current_subtab, { XOR( "CONFIG" ) } );
 
-				g_frw.RenderModule( positions::left_top, sizes::full, XOR( "CONFIGS" ) ); {
+				g_frw.RenderModule( positions::wide_nigga, sizes::full, XOR( "CONFIGS" ) ); {
+					ImGui::Columns(2, NULL, false);
+
 					bool t1, t2, t3, t4, t5;
 					static char config_name[ 25 ];
 					g_frw.ListBox( XOR( "Configs" ), XOR( "cfg" ), g_config.configs, 8 );
+
+					ImGui::NextColumn();
+
 					g_frw.TextInput( XOR( "Name" ), config_name, true );
 					g_frw.Button( XOR( "Create new file" ), &t4 );
 					if ( t4 ) {
@@ -680,6 +676,8 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_skins.m_update = true;
 					}
 					g_frw.Button( XOR( "Delete file" ), &t5 );
+
+					ImGui::Columns();
 
 				}g_frw.EndModule( );
 				break;

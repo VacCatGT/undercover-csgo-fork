@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 void Player::ModifyEyePosition( CCSGOPlayerAnimState* state, vec3_t* pos ) {
 	if( !this )

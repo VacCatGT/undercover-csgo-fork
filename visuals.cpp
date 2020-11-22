@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 Visuals g_visuals{ };;
 
@@ -455,14 +455,14 @@ void Visuals::Watermark( ) {
 	const char* server_ip = g_csgo.m_engine->GetNetChannelInfo( ) ? g_csgo.m_engine->GetNetChannelInfo( )->GetAddress( ) : XOR( "" );
 
 	// todo: clean this up and add a not ingame indicator.
-	std::string text = g_csgo.m_engine->IsInGame( ) ? tfm::format( XOR( "deathrow.pub | delay: %ims | %itick | %s | %s" ), ms, rate, local ? XOR( "local server" ) : server_ip, time.str( ).data( ) ) : tfm::format( XOR( "deathrow.pub | Not In-game | %s" ), time.str( ).data( ) );
+	std::string text = g_csgo.m_engine->IsInGame( ) ? tfm::format( XOR( "undercover.host | delay: %ims | %itick | %s | %s" ), ms, rate, local ? XOR( "local server" ) : server_ip, time.str( ).data( ) ) : tfm::format( XOR( "undercover.host | Not In-game | %s" ), time.str( ).data( ) );
 
 	// render background.
 	render::rect_filled( position.x, position.y, render::esp.size( text ).m_width + 10, 19, Color( 30, 30, 30, 120 ) );
 
 	// render top bar.
 	// todo: make a dynamic glow like otv3.
-	render::rect_filled( position.x, position.y - 1, render::esp.size( text ).m_width + 10, 2, { 103, 142, 240, 255 } );
+	render::rect_filled( position.x, position.y - 1, render::esp.size( text ).m_width + 10, 2, { 240, 142, 103, 255 } );
 
 	// render text.
 	render::esp.string( position.x + 5, position.y + 3, { 255, 255, 255, 255 }, text, render::ALIGN_LEFT );
@@ -566,7 +566,7 @@ void Visuals::Spectators( ) {
 
 	// render top bar.
 	// todo: make a dynamic glow like otv3.
-	render::rect_filled( position.x, position.y - 1, ( g_menu.m_opened ? 240 : 160 ), 2, { 103, 142, 240, 255 } );
+	render::rect_filled( position.x, position.y - 1, ( g_menu.m_opened ? 240 : 160 ), 2, { 240, 142, 103, 255 } );
 
 	// render text.
 	render::esp.string( position.x + ( g_menu.m_opened ? 120 : 80 ), position.y + 3, { 255, 255, 255, 255 }, XOR( "Spectators" ), render::ALIGN_CENTER );
@@ -666,7 +666,7 @@ void Visuals::Keybinds( ) {
 
 	// render top bar.
 	// todo: make a dynamic glow like otv3.
-	render::rect_filled( position.x, position.y - 1, ( g_menu.m_opened ? 240 : 160 ), 2, { 103, 142, 240, 255 } );
+	render::rect_filled( position.x, position.y - 1, ( g_menu.m_opened ? 240 : 160 ), 2, { 240, 142, 103, 255 } );
 
 	// render text.
 	render::esp.string( position.x + ( g_menu.m_opened ? 120 : 80 ), position.y + 3, { 255, 255, 255, 255 }, XOR( "Keybinds" ), render::ALIGN_CENTER );
@@ -1164,15 +1164,15 @@ void Visuals::DrawPlayer( Player* player ) {
 		int fill = ( int )std::round( hp * h / 100.f );
 
 		// render background.
-		render::rect_filled( box.x - 6, y - 1, 4, h + 2, { 10, 10, 10, low_alpha } );
+		render::rect_filled( box.x - 6, y - 1, 3, h + 2, { 10, 10, 10, low_alpha } );
 
 		// render actual bar.
-		render::rect_filled( box.x - 5, y + h - fill, 2, fill, dormant ? Color( 255, 255, 255, alpha ) : g_cfg[ XOR( "esp_enemies_health_override" ) ].get<bool>( ) ?  g_cfg[ XOR( "esp_enemies_health_color" ) ].get_color( ).OverrideAlpha( alpha, true )
+		render::rect_filled( box.x - 5, y + h - fill, 1, fill, dormant ? Color( 255, 255, 255, alpha ) : g_cfg[ XOR( "esp_enemies_health_override" ) ].get<bool>( ) ?  g_cfg[ XOR( "esp_enemies_health_color" ) ].get_color( ).OverrideAlpha( alpha, true )
 			: Color( r, g, 0, alpha ) );
 
 		// if hp is below max, draw a string.
-		if ( hp < 100 )
-			render::pixel.string( box.x - 5, y + ( h - fill ) - 5, { 255, 255, 255, alpha }, std::to_string( hp ), render::ALIGN_CENTER );
+	//	if ( hp < 100 )
+	//		render::pixel.string( box.x - 5, y + ( h - fill ) - 5, { 255, 255, 255, alpha }, std::to_string( hp ), render::ALIGN_CENTER );
 	}
 
 	// draw flags.
@@ -1275,11 +1275,11 @@ void Visuals::DrawPlayer( Player* player ) {
 					bar = ( int )std::round( ( box.w ) * scale );
 
 					// draw.
-					render::rect_filled( box.x - 1, box.y + box.h + 2, box.w + 2, 4, { 10, 10, 10, low_alpha } );
+					render::rect_filled( box.x - 1, box.y + box.h + 2, box.w + 2, 3, { 10, 10, 10, low_alpha } );
 
 					Color clr = enemy ? g_cfg[ XOR( "esp_enemies_ammo_color" ) ].get_color( ) : g_cfg[ XOR( "esp_team_ammo_color" ) ].get_color( );
 					clr.a( ) = alpha;
-					render::rect_filled( box.x, box.y + box.h + 3, bar, 2, clr );
+					render::rect_filled( box.x, box.y + box.h + 3, bar, 1, clr );
 
 					// less then a 5th of the bullets left.
 					if ( current <= ( int )std::round( max / 5 ) && !reload )

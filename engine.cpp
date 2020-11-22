@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 bool Hooks::IsConnected( ) {
 	if ( !this || !g_csgo.m_engine )

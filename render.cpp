@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 #define strdup _strdup
 
@@ -13,7 +13,7 @@ namespace render {
 
 void render::init( ) {
 
-	D3DXCreateFont( g_csgo.m_device, 14, 0, 200, -1, false, DEFAULT_CHARSET, OUT_CHARACTER_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, XOR( "Segoe UI" ), &esp.m_handle );
+	D3DXCreateFont( g_csgo.m_device, 12, 0, 200, -1, false, DEFAULT_CHARSET, OUT_CHARACTER_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, XOR( "Josefin Sans" ), &esp.m_handle );
 	D3DXCreateFont( g_csgo.m_device, 9, 0, 200, 0, false, DEFAULT_CHARSET, OUT_CHARACTER_PRECIS, NONANTIALIASED_QUALITY, DEFAULT_PITCH, XOR( "Small Fonts" ), &pixel.m_handle );
 	D3DXCreateFont( g_csgo.m_device, 10, 0, 0, 0, false, DEFAULT_CHARSET, OUT_CHARACTER_PRECIS, NONANTIALIASED_QUALITY, DEFAULT_PITCH, XOR( "Lucida Console" ), &console.m_handle );
 	D3DXCreateFont( g_csgo.m_device, 12, 0, 0, 0, false, DEFAULT_CHARSET, OUT_CHARACTER_PRECIS, NONANTIALIASED_QUALITY, DEFAULT_PITCH, XOR( "Verdana" ), &hud.m_handle );

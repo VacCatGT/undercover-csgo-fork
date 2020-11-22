@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 void Aimbot::knife( ) {
 	struct KnifeTarget_t { bool stab; ang_t angle; LagComp::LagRecord_t* record; };

@@ -1,4 +1,4 @@
-#include "../tapped.h"
+#include "../undercover.h"
 
 MenuFramework g_frw{ };
 
@@ -29,29 +29,36 @@ void MenuFramework::DrawBackdrop( )
 {
 	ImVec2 p = ImGui::GetWindowPos( );
 
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x + 1, p.y + 1 ), ImVec2( p.x + ImGui::GetWindowWidth( ) - 1, p.y + ImGui::GetWindowHeight( ) - 1 ), ImColor( 25, 31, 36, 255 ) );
-	ImGui::GetWindowDrawList( )->AddImage( g_menu.tapped_background, ImVec2( p.x + 1, +p.y + 108 ), ImVec2( p.x + 1 + 798, +p.y + 108 + 541 ), ImVec2( 0, 0 ), ImVec2( 1, 1 ), ImColor( 255, 255, 255, 150 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x, p.y + 19 ), ImVec2( p.x + ImGui::GetWindowWidth( ), p.y + 19 + 53 ), ImColor( 47, 59, 73, 255 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x, p.y + 71 ), ImVec2( p.x + ImGui::GetWindowWidth( ), p.y + 19 + 53 + 35 ), ImColor( 21, 24, 25, 255 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x, p.y + 71 + 36 ), ImVec2( p.x + ImGui::GetWindowWidth( ), p.y + 19 + 53 + 36 ), ImColor( 79, 79, 79, 255 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x + 17, p.y + 126 ), ImVec2( p.x + ImGui::GetWindowWidth( ) - 16, p.y + ImGui::GetWindowHeight( ) - 16 ), ImColor( 62, 62, 62, 255 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x + 18, p.y + 127 ), ImVec2( p.x + ImGui::GetWindowWidth( ) - 17, p.y + ImGui::GetWindowHeight( ) - 17 ), ImColor( 34, 40, 47, 255 ) );
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x + 1, p.y + 1 ), ImVec2( p.x + ImGui::GetWindowWidth( ) - 1, p.y + ImGui::GetWindowHeight( ) - 1 ), ImColor( 27, 27, 27, 255 ) );
+	ImGui::GetWindowDrawList( )->AddImage( g_menu.undercover_background, ImVec2( p.x + 1, +p.y + 108 ), ImVec2( p.x + 1 + 798, +p.y + 108 + 541 ), ImVec2( 0, 0 ), ImVec2( 1, 1 ), ImColor(245, 255, 225, 150 ) );
+	
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x, p.y + 33 ), ImVec2( p.x + ImGui::GetWindowWidth( ), p.y + 19 + 20 ), ImColor( 28, 28, 28, 255 ) ); //top bg
+	ImGui::GetWindowDrawList()->AddImage(g_menu.undercover_top_left_line, ImVec2(p.x, p.y), ImVec2(p.x + 134, p.y + 37), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255));//funny line texture!!
+
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x, p.y + 71 ), ImVec2( p.x + ImGui::GetWindowWidth( ), p.y + 19 + 53 + 35 ), ImColor( 23, 23, 23, 255 ) );
+
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x, p.y + 71 + 36 ), ImVec2( p.x + ImGui::GetWindowWidth( ), p.y + 19 + 53 + 36 ), ImColor( 33, 33, 33, 255 ) );
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x + 17, p.y + 126 ), ImVec2( p.x + ImGui::GetWindowWidth( ) - 16, p.y + ImGui::GetWindowHeight( ) - 16 ), ImColor( 47, 47, 47, 255 ) ); //border
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( p.x + 18, p.y + 127 ), ImVec2( p.x + ImGui::GetWindowWidth( ) - 17, p.y + ImGui::GetWindowHeight( ) - 17 ), ImColor( 24, 24, 24, 255 ) );
 }
 
 int MenuFramework::RenderTabBar( int& page, const std::vector<const char*> tabs )
 {
 	ImColor c = ImColor( 0, 0, 0 ); ImVec2 p = ImGui::GetWindowPos( );
 	ImGui::PushStyleVar( ImGuiStyleVar_ItemSpacing, ImVec2( 0, 0 ) );
-	ImGui::Dummy( ImVec2( 0, 19 ) );
+	//ImGui::GetWindowDrawList()->AddImage(g_menu.undercover_top_left_line, ImVec2(p.x, p.y), ImVec2(p.x + 134 , p.y + 37), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255));
+	ImGui::Dummy( ImVec2( 0, 37 ) );
 	ImGui::PushFont( g_menu.agency );
 	ImGui::Dummy( ImVec2( ImGui::GetWindowWidth( ) / 2 - 196, 0 ) ); ImGui::SameLine( 0, 0 );
-	ImGui::BeginChild( XOR( "Tabs" ), ImVec2( 400, 53.f ), false, ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoScrollbar );
+	ImGui::BeginChild( XOR( "Tabs" ), ImVec2( 400, 36.f ), false, ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoScrollbar );
 	{
-		if ( ImGui::ButtonT_Filled( tabs.at( 0 ), ImVec2( 80.f, 52.f ), page, tabs::tab_one, c, false ) ) page = tabs::tab_one; ImGui::SameLine( 0, 0 );
-		if ( ImGui::ButtonT_Filled( tabs.at( 1 ), ImVec2( 80.f, 52.f ), page, tabs::tab_two, c, false ) ) page = tabs::tab_two; ImGui::SameLine( 0, 7 + 58 + 7 + 6 );
-		ImGui::GetWindowDrawList( )->AddImage( g_menu.tapped_logo, ImVec2( p.x + 371, p.y + 22 ), ImVec2( p.x + 371 + 58, p.y + 22 + 46 ), ImVec2( 0, 0 ), ImVec2( 1, 1 ), ImColor( 255, 255, 255, 255 ) );
-		if ( ImGui::ButtonT_Filled( tabs.at( 2 ), ImVec2( 80.f, 52.f ), page, tabs::tab_three, c, false ) ) page = tabs::tab_three; ImGui::SameLine( 0, 0 );
-		if ( ImGui::ButtonT_Filled( tabs.at( 3 ), ImVec2( 80.f, 52.f ), page, tabs::tab_four, c, false ) ) page = tabs::tab_four; ImGui::SameLine( 0, 0 );
+		if ( ImGui::ButtonT_Filled( tabs.at( 0 ), ImVec2( 80.f, 36.f), page, tabs::tab_one, c, false ) ) page = tabs::tab_one; ImGui::SameLine( 0, 0 );
+		if ( ImGui::ButtonT_Filled( tabs.at( 1 ), ImVec2( 80.f, 36.f), page, tabs::tab_two, c, false ) ) page = tabs::tab_two; ImGui::SameLine( 0, 7 + 58 + 7 + 6 );
+	
+		//ImGui::GetWindowDrawList( )->AddImage( g_menu.undercover_logo, ImVec2( p.x + 371, p.y + 22 ), ImVec2( p.x + 371 + 58, p.y + 22 + 46 ), ImVec2( 0, 0 ), ImVec2( 1, 1 ), ImColor( 255, 255, 255, 255 ) );
+	
+		if ( ImGui::ButtonT_Filled( tabs.at( 2 ), ImVec2( 80.f, 36.f), page, tabs::tab_three, c, false ) ) page = tabs::tab_three; ImGui::SameLine( 0, 0 );
+		if ( ImGui::ButtonT_Filled( tabs.at( 3 ), ImVec2( 80.f, 36.f), page, tabs::tab_four, c, false ) ) page = tabs::tab_four; ImGui::SameLine( 0, 0 );
 	}
 	ImGui::EndChild( );
 	ImGui::PopFont( );
@@ -63,8 +70,8 @@ int MenuFramework::RenderTabBar( int& page, const std::vector<const char*> tabs 
 void MenuFramework::StartWindow( )
 {
 	ImGui::SetNextWindowPos( ImVec2( 560, 215 ), ImGuiCond_::ImGuiCond_Once );
-	ImGui::SetNextWindowSize( ImVec2( 800, 650 ), ImGuiCond_Always );
-	ImGui::Begin( XOR( "Tapped.cc" ), &g_menu.m_opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize );
+	ImGui::SetNextWindowSize( ImVec2( 500, 500), ImGuiCond_Always );
+	ImGui::Begin( XOR( "undercover.host" ), &g_menu.m_opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize );
 }
 
 void MenuFramework::EndWindow( )
@@ -85,18 +92,20 @@ void MenuFramework::RenderModule( positions position, sizes size, std::string ti
 
 	switch ( position ) {
 	case left_top:
-		module_position = ImVec2( p.x + 38, p.y + 146 ); break;
+		module_position = ImVec2( p.x + 38 - 10, p.y + 146 ); break;
 	case left_bottom:
-		module_position = ImVec2( p.x + 38, p.y + 382 ); break;
+		module_position = ImVec2( p.x + 38 - 10, p.y + 382 ); break;
 	case center_top:
-		module_position = ImVec2( p.x + 289, p.y + 146 ); break;
+		module_position = ImVec2( p.x + 289 - 10, p.y + 146 ); break;
 	case center_bottom:
-		module_position = ImVec2( p.x + 289, p.y + 382 ); break;
+		module_position = ImVec2( p.x + 289 - 10, p.y + 382 ); break;
 	case right_top:
-		module_position = ImVec2( p.x + 540, p.y + 146 ); break;
+		module_position = ImVec2( p.x + (540 / 2) - 10, p.y + 146 ); break;
 	case right_bottom:
-		module_position = ImVec2( p.x + 540, p.y + 382 ); break;
-	default: module_position = ImVec2( p.x + 265, p.y + 147 ); break;
+		module_position = ImVec2( p.x + (540 / 2) - 10, p.y + 382 ); break;
+	case wide_nigga:
+		module_position = ImVec2(p.x + 38 - 10, p.y + 146);break;
+	default: module_position = ImVec2( p.x + 265 - 10, p.y + 147 ); break;
 	}
 	module_name = title;
 
@@ -108,17 +117,21 @@ void MenuFramework::RenderModule( positions position, sizes size, std::string ti
 	ImGui::Dummy( ImVec2( 0, 0 ) );
 
 	if ( position == positions::left_top || position == positions::left_bottom )
-		ImGui::SameLine( 35, 0 );
+		ImGui::SameLine( 17, 0 );
 	if ( position == positions::center_top || position == positions::center_bottom )
 		ImGui::SameLine( 14, 0 );
 	if ( position == positions::right_top || position == positions::right_bottom )
 		ImGui::SameLine( -2, 0 );
 
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( module_position.x - 1, module_position.y - 1 ), ImVec2( module_position.x + 221, module_position.y + ( 470 / size ) - subraction_due_to_spacing + 1 + countered_spacing_value ), ImColor( 56, 59, 62, 255 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( module_position, ImVec2( module_position.x + 220, module_position.y + ( 469 / size ) - subraction_due_to_spacing + 1 + countered_spacing_value ), ImColor( 31, 37, 43, 255 ) );
+	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( module_position.x - 1, module_position.y - 1 ), ImVec2( module_position.x + (position == wide_nigga ? 416 : 208), module_position.y + 322 - subraction_due_to_spacing + 1 + countered_spacing_value ), ImColor( 47, 47, 47, 255 ) );
+	ImGui::GetWindowDrawList( )->AddRectFilled( module_position, ImVec2( module_position.x + (position == wide_nigga ? 414 : 207), module_position.y + 321 - subraction_due_to_spacing + 1 + countered_spacing_value ), ImColor(24, 24, 24, 255 ) );
+	
+	//ImGui::GetWindowDrawList()->AddImage(g_menu.undercover_groupbox, ImVec2(module_position.x + 2, module_position.y), ImVec2(module_position.x + 213,module_position.y + 35), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255));//funny line texture!!
+
+	
 	ImGui::PushFont( g_menu.droid_sans );
 	ImGui::PushStyleVar( ImGuiStyleVar_WindowPadding, ImVec2( 16, 16 ) );
-	ImGui::BeginChild( title.c_str( ), ImVec2( 240, ( ( 468 / size ) - subraction_due_to_spacing + countered_spacing_value ) ), false, ImGuiWindowFlags_NoCollapse /*| ImGuiWindowFlags_NoScrollbar*/ | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize );
+	ImGui::BeginChild( title.c_str( ), ImVec2((position == wide_nigga ? 480 : 240), 316 - subraction_due_to_spacing + countered_spacing_value), false, ImGuiWindowFlags_NoCollapse /*| ImGuiWindowFlags_NoScrollbar*/ | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize );
 }
 
 void MenuFramework::EndModule( ) {
@@ -132,7 +145,7 @@ void MenuFramework::EndModule( ) {
 }
 
 void MenuFramework::BeginModuleHeader( ) {
-	ImGui::Columns( 3, NULL, false );
+	ImGui::Columns( 2, NULL, false );
 }
 
 void MenuFramework::ContinueModule( ) {

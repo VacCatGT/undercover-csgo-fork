@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 
 float penetration::scale( Player* player, float damage, float armor_ratio, int hitgroup ) {
 	bool  has_heavy_armor;

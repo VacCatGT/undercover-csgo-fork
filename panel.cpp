@@ -1,4 +1,4 @@
-#include "tapped.h"
+#include "undercover.h"
 #define PHYS_PYSHSCALE_NORMAL 1
 
 void Hooks::PaintTraverse( VPANEL panel, bool repaint, bool force ) {
