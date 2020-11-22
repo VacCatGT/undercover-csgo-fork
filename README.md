@@ -1,2 +1,7 @@
-# TAPPED.CC superior csgo software
-![preview](https://cdn.discordapp.com/attachments/713813324323618885/727898362149470259/unknown.png)
+<p align="center">
+  <a>UNDERCOVER.HOST CS:GO CHEAT</a>
+</p>
+
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/647545143368613888/779698105590874112/logo.png">
+</p>
