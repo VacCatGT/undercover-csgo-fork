@@ -73,8 +73,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>..\debug</IntDir>
-    <IncludePath>C:\Users\Kian\Desktop\tapped-master\Detours\Include;C:\Users\Dutu1337\Desktop\tapfix\Detours\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Kian\Desktop\undercover.host\Detours\Library;C:\Users\Kian\Desktop\tapped-master\Detours\Library;C:\Users\Dutu1337\Desktop\tapfix\Detours\Library;D:\videos\csoggo\weedbot\soar1337\tapped_supremacy\Detours\Library;C:\Users\Louis\Desktop\tapped\Detours\Library;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Library;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\NewFolder\Include;D:\github\undercover-csgo\Detours\Include;C:\Users\Kian\Desktop\tapped-master\Detours\Include;C:\Users\Dutu1337\Desktop\tapfix\Detours\Include;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\NewFolder\Lib\x86;D:\github\undercover-csgo\Detours\Library;C:\Users\Kian\Desktop\undercover.host\Detours\Library;C:\Users\Kian\Desktop\tapped-master\Detours\Library;C:\Users\Dutu1337\Desktop\tapfix\Detours\Library;D:\videos\csoggo\weedbot\soar1337\tapped_supremacy\Detours\Library;C:\Users\Louis\Desktop\tapped\Detours\Library;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Users\soder\Documents\GitHub\tappedcheat\Detours\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
