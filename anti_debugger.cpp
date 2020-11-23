@@ -1,5 +1,5 @@
 #include "undercover.h"
-
+#include <tchar.h>
 anti_debugger g_debugger{ };
 
 int errorfile()
@@ -26,6 +26,42 @@ int errorfile()
 	return 0;
 }
 
+int uc_kernelmode(int argc, _TCHAR* argv[]) {
+	typedef long NTSTATUS;
+    #define STATUS_SUCCESS ((NTSTATUS)0L)
+	HANDLE hProcess = GetCurrentProcess();
+
+	typedef struct _SYSTEM_KERNEL_DEBUGGER_INFORMATION {
+		BOOLEAN DebuggerEnabled;
+		BOOLEAN DebuggerNotPresent;
+	} SYSTEM_KERNEL_DEBUGGER_INFORMATION, * PSYSTEM_KERNEL_DEBUGGER_INFORMATION;
+
+	enum SYSTEM_INFORMATION_CLASS { SystemKernelDebuggerInformation = 35 };
+	typedef NTSTATUS(__stdcall* ZW_QUERY_SYSTEM_INFORMATION)(IN SYSTEM_INFORMATION_CLASS SystemInformationClass, IN OUT PVOID SystemInformation, IN ULONG SystemInformationLength, OUT PULONG ReturnLength);
+	ZW_QUERY_SYSTEM_INFORMATION ZwQuerySystemInformation;
+	SYSTEM_KERNEL_DEBUGGER_INFORMATION Info;
+
+	/* load the ntdll.dll */
+	HMODULE hModule = LoadLibrary(XOR(_T("ntdll.dll")));
+	ZwQuerySystemInformation = (ZW_QUERY_SYSTEM_INFORMATION)GetProcAddress(hModule, XOR("ZwQuerySystemInformation"));
+	if (ZwQuerySystemInformation == NULL) {
+		errorfile();
+	}
+
+	if (STATUS_SUCCESS == ZwQuerySystemInformation(SystemKernelDebuggerInformation, &Info, sizeof(Info), NULL)) {
+		if (Info.DebuggerEnabled & !Info.DebuggerNotPresent) {
+			errorfile();
+			uc_ErasePEHeaderFromMemory();
+			exit(0);
+		}
+	}
+
+	/* wait */
+	getchar();
+
+	return 0;
+}
+
 //kept soar's checks, its not good but its retard proof and gives bit extra protection.
 bool anti_debugger::is_security_breached()
 {
@@ -34,6 +70,13 @@ bool anti_debugger::is_security_breached()
 
 	while (1) //Enter our loop.
 	{
+		uc_kernelmode;
+
+		uc_CloseHandle();
+
+		uc_Trap_Debugger();
+
+		uc_SizeOfImage();
 
 		uc_HideFromDebugger();
 
@@ -55,7 +98,7 @@ bool anti_debugger::is_security_breached()
 
 		uc_HardwareDebugRegisters();
 
-		uc_MovSS(); //might look autistic but it works, doenst drop perfomance
+		uc_MovSS(); //might look autistic but it works, doesnt drop perfomance
 
 		uc_CloseHandleException();
 
@@ -98,6 +141,50 @@ bool anti_debugger::is_security_breached()
 	return false;
 }
 
+void uc_SizeOfImage(void)
+{
+	// Any unreasonably large value will work say for example 0x100000 or 100,000h
+	__asm
+	{
+		mov eax, fs: [0x30]				// PEB
+		mov eax, [eax + 0x0c]			 // PEB_LDR_DATA
+		mov eax, [eax + 0x0c]			// InOrderModuleList
+		mov dword ptr[eax + 20h], 100000000h // SizeOfImage    
+	}
+}
+
+void uc_Trap_Debugger(void)
+{
+	/* Setting INT 3 BP here would be detected */
+	int a = 1;
+	int b = 2;
+	int c = a + b;
+	printf(XOR("Copyright © 2020 undercoverTM, %d", c));
+}
+
+BOOL uc_CloseHandle()
+{
+	// APIs making user of the ZwClose syscall (such as CloseHandle, indirectly) 
+	// can be used to detect a debugger. When a process is debugged, calling ZwClose 
+	// with an invalid handle will generate a STATUS_INVALID_HANDLE (0xC0000008) exception.
+	// As with all anti-debugs that rely on information made directly available 
+	// from the kernel (therefore involving a syscall), the only proper way to bypass 
+	// the "CloseHandle" anti-debug is to either modify the syscall data from ring3, 
+	// before it is called, or set up a kernel hook.
+	// This anti-debug, though extremely powerful, does not seem to be widely used 
+	// by malicious programs.
+
+	__try {
+		CloseHandle((HANDLE)0x99999999);
+	}
+
+	__except (STATUS_INVALID_HANDLE) {
+		return TRUE;
+	}
+
+
+}
+
 void uc_ErasePEHeaderFromMemory(void)
 {
 	DWORD OldProtect = 0;
@@ -121,13 +208,50 @@ typedef NTSTATUS(NTAPI* pfnNtSetInformationThread)(
 	);
 const ULONG ThreadHideFromDebugger = 0x11;
 
-void uc_HideFromDebugger(void)
+
+BOOL uc_HideFromDebugger()
 {
+	/* Calling NtSetInformationThread will attempt with ThreadInformationClass set to  x11 (ThreadHideFromDebugger)
+	to hide a thread from the debugger, Passing NULL for hThread will cause the function to hide the thread the
+	function is running in. Also, the function returns false on failure and true on success. When  the  function
+	is called, the thread will continue  to run but a debugger will no longer receive any events related  to  that  thread. */
+
+	// Function Pointer Typedef for NtQueryInformationProcess
+	typedef NTSTATUS(WINAPI* pNtSetInformationThread)(IN HANDLE, IN UINT, IN PVOID, IN ULONG);
+
+	// ThreadHideFromDebugger
+	const int ThreadHideFromDebugger = 0x11;
+
+	// We have to import the function
+	pNtSetInformationThread NtSetInformationThread = NULL;
+
+	// Other Vars
+	NTSTATUS Status;
+	BOOL IsBeingDebug = FALSE;
+
 	HMODULE hNtDll = LoadLibrary(XOR(TEXT("ntdll.dll")));
-	pfnNtSetInformationThread NtSetInformationThread = (pfnNtSetInformationThread)
-		GetProcAddress(hNtDll, XOR( "NtSetInformationThread"));
-	NTSTATUS status = NtSetInformationThread(GetCurrentThread(),
-		ThreadHideFromDebugger, NULL, 0);
+	if (hNtDll == NULL)
+	{
+		// Handle however.. chances of this failing
+		// is essentially 0 however since
+		// ntdll.dll is a vital system resource
+	}
+
+	NtSetInformationThread = (pNtSetInformationThread)GetProcAddress(hNtDll, XOR( "NtSetInformationThread"));
+
+	if (NtSetInformationThread == NULL)
+	{
+		// Handle however it fits your needs but as before,
+		// if this is missing there are some SERIOUS issues with the OS
+	}
+
+	// Time to finally make the call
+	Status = NtSetInformationThread(GetCurrentThread(), ThreadHideFromDebugger, NULL, 0);
+
+	if (Status)
+		IsBeingDebug = TRUE;
+
+	return IsBeingDebug;
 }
 
 #define FLG_HEAP_ENABLE_TAIL_CHECK   0x10
@@ -175,6 +299,7 @@ void uc_CheckGlobalFlagsClearInProcess(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 void uc_CheckGlobalFlagsClearInFile(void)
@@ -205,6 +330,7 @@ void uc_CheckGlobalFlagsClearInFile(void)
 			errorfile();
 			uc_ErasePEHeaderFromMemory();
 			exit(0);
+			
 		}
 	}
 	__finally
@@ -260,6 +386,7 @@ void uc_CheckHeap(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -286,6 +413,7 @@ void uc_tflag(void) {
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -298,6 +426,7 @@ void uc_content(void) {
 		{
 			errorfile();
 			uc_ErasePEHeaderFromMemory();
+			
 			exit(0);
 		}
 	}
@@ -320,6 +449,7 @@ void uc_BeingDebuggedPEB(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 //dont mind the code L
@@ -377,6 +507,7 @@ void uc_CheckWindowName(void)
 	{
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
+		
 		exit(0);
 	}
 }
@@ -411,6 +542,7 @@ void uc_NtQueryInformationProcess(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 
 	// Query ProcessDebugFlags
@@ -422,6 +554,7 @@ void uc_NtQueryInformationProcess(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 
 CANT_CHECK:
@@ -451,6 +584,7 @@ void uc_HardwareDebugRegisters(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -477,6 +611,7 @@ void uc_MovSS(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -499,6 +634,7 @@ void uc_CloseHandleException(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -524,6 +660,7 @@ void uc_Int3(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -551,6 +688,7 @@ void uc_PrefixHop(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 }
 
@@ -576,5 +714,6 @@ void uc_Int2D(void)
 		errorfile();
 		uc_ErasePEHeaderFromMemory();
 		exit(0);
+		
 	}
 } //end
