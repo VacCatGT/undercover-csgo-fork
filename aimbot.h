@@ -77,6 +77,7 @@ public:
 	float	  m_last_resolve;
 	bool      m_extending;
 	int m_index;
+	int m_brute_mode;
 
 	float m_abs_angles;
 

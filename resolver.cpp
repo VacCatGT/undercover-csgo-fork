@@ -1,5 +1,6 @@
 #include "undercover.h"
-
+#include <random>
+#include <algorithm>
 Resolver g_resolver{ };;
 Player* m_pPlayer;
 /* fix stored data */
@@ -69,7 +70,7 @@ void Resolver::StoreMatrices( LagComp::LagRecord_t& record ) {
 	memcpy( record.center_matrix, m_pPlayer->m_BoneCache( ).m_pCachedBones->Base( ), sizeof( matrix3x4_t ) * m_pPlayer->GetBoneCount( ) );
 	memcpy( g_chams.m_stored_matrices[ m_pPlayer->index( ) - 1 ], record.center_matrix, sizeof( matrix3x4_t ) * m_pPlayer->GetBoneCount( ) );
 	m_pPlayer->GetAnimLayers( record.center_layers );
-	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 0 ] );//TESTING
+	//g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 0 ] );//TESTING
 
 	// restore.
 	g_resolver.RestoreData( &data );
@@ -87,7 +88,7 @@ void Resolver::StoreMatrices( LagComp::LagRecord_t& record ) {
 		m_pPlayer->SetupBones( nullptr, 128, BONE_USED_BY_ANYTHING, m_pPlayer->m_flSimulationTime( ) );
 		memcpy( record.right_matrix, m_pPlayer->m_BoneCache( ).m_pCachedBones->Base( ), sizeof( matrix3x4_t ) * m_pPlayer->GetBoneCount( ) );
 	}
-	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 1 ] );//TESTING
+//	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 1 ] );//TESTING
 
 		// restore.
 	g_resolver.RestoreData( &data );
@@ -106,7 +107,7 @@ void Resolver::StoreMatrices( LagComp::LagRecord_t& record ) {
 	}
 
 	// store data from rebuilt animations.
-   g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 2 ] ); //TESTING
+ //  g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 2 ] ); //TESTING
 
 	// restore.
 	g_resolver.RestoreData( &data );
@@ -292,7 +293,31 @@ void Resolver::check_low_delta_desync( AimPlayer* data, Player* player, LagComp:
 		} break;
 	}
 }
+float Bias(float x, float biasAmt)
+{
+	// WARNING: not thread safe
+	static float lastAmt = -1;
+	static float lastExponent = 0;
+	if (lastAmt != biasAmt)
+	{
+		lastExponent = log(biasAmt) * -1.4427f; // (-1.4427 = 1 / log(0.5))
+	}
+	return pow(x, lastExponent);
+}
+inline float AngleNormalizePositive(float angle)
+{
+	angle = fmodf(angle, 360.0f);
 
+	if (angle < 0.0f)
+	{
+		angle += 360.0f;
+	}
+
+	return angle;
+}
+
+static std::random_device rd;
+static std::mt19937 rng(rd());
 void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, LagComp::LagRecord_t* prev_record ) {
 	// get the players max rotation.
 	float max_rotation = record->m_pEntity->GetMaxBodyRotation( );
@@ -303,9 +328,67 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 	const auto info = g_anims.GetAnimationInfo( record->m_pEntity );
 	if ( !info )
 		return;
+	if (!g_cfg[("aimbot_resolver")].get< bool >())
+		return;
+	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
+	vec3_t absangles = { 0.0f, 0.0f, 0.0f };
+	auto animstate = record->m_pEntity->m_PlayerAnimState2();
+	float  original_eye_yaw;
+	original_eye_yaw = math::AngleNormalize(animstate->m_flEyeYaw);
+	float original_eye_yaw_positive = AngleNormalizePositive(original_eye_yaw);
+	float flDuckSpeedClamp, flRunningSpeedClamp, flLerped, flSpeed, flMaxYaw, flMinYaw, flLadderCycle;
+	float flBestDist = 65535.0f;
+	float flBestDist_General = 65535.0f;
+	bool bOnLadder;
 
-	//if (!g_cfg[("aimbot_resolver")].get< bool >())
-	//	return;
+	flDuckSpeedClamp = std::clamp(animstate->m_flDuckingSpeed, 0.0f, 1.0f);
+	flRunningSpeedClamp = std::clamp(animstate->m_flRunningSpeed, 0.0f, 1.0f);
+	flLerped = ((flDuckSpeedClamp - flRunningSpeedClamp) * animstate->m_fDuckAmount) + flRunningSpeedClamp;
+	flSpeed = animstate->m_flSpeed;
+	flMaxYaw = animstate->m_flMaxYaw;
+	flMinYaw = animstate->m_flMinYaw;
+	flLadderCycle = animstate->m_flLadderCycle;
+	bOnLadder = animstate->m_bOnLadder;
+
+	vec3_t& vVelocity = animstate->m_vVelocity;
+	float velAngle = (atan2(-vVelocity.y, -vVelocity.x) * 180.0f) * (1.0f / M_PI);
+	if (velAngle < 0.0f)
+		velAngle += 360.0f;
+
+	float flBiasMove = Bias(flLerped, 0.18f);
+	float m_flCurrentMoveDirGoalFeetDelta, m_flGoalMoveDirGoalFeetDelta, _m_flCurrentMoveDirGoalFeetDelta, _m_flGoalMoveDirGoalFeetDelta;
+	float layer7_weight = record->m_pEntity->m_AnimOverlay()[7].m_weight;
+	float maxdesyncdelta = record->m_pEntity->GetMaxBodyRotation();//fminf(tickrecord->m_flAbsMaxDesyncDelta + 2.0f, 58.0f);
+
+	const int nTimes = (maxdesyncdelta - -maxdesyncdelta) / 0.5f + 1;
+
+	for (int iter = 0; iter < nTimes; ++iter)
+	{
+		float i = -maxdesyncdelta + iter * 0.5f;
+		absangles.y = AngleNormalizePositive(original_eye_yaw + (float)i);
+
+		_m_flCurrentMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2()->m_flCurrentMoveDirGoalFeetDelta;
+		_m_flGoalMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2()->m_flGoalMoveDirGoalFeetDelta;
+
+		m_flCurrentMoveDirGoalFeetDelta = _m_flCurrentMoveDirGoalFeetDelta;
+		m_flGoalMoveDirGoalFeetDelta = _m_flGoalMoveDirGoalFeetDelta;
+
+		if (record->m_pEntity->m_vecVelocity().length_2d() > 0.1f)
+			m_flGoalMoveDirGoalFeetDelta = math::AngleNormalize(math::AngleDiff(velAngle, absangles.y));
+
+		float m_flFeetVelDirDelta = math::AngleNormalize(math::AngleDiff(m_flGoalMoveDirGoalFeetDelta, m_flCurrentMoveDirGoalFeetDelta));
+		m_flCurrentMoveDirGoalFeetDelta = layer7_weight >= 1.0f ? m_flGoalMoveDirGoalFeetDelta : math::AngleNormalize(((flBiasMove + 0.1f) * m_flFeetVelDirDelta) + m_flCurrentMoveDirGoalFeetDelta);
+		record->m_pEntity->m_flPoseParameter()[7] = m_flCurrentMoveDirGoalFeetDelta; //move_yaw
+
+		float new_body_yaw_pose;
+		float eye_goalfeet_delta = math::AngleDiff(original_eye_yaw, absangles.y);
+		if (eye_goalfeet_delta < 0.0f)
+			new_body_yaw_pose = (eye_goalfeet_delta / flMinYaw) * -58.0f;
+		else
+			new_body_yaw_pose = (eye_goalfeet_delta / flMaxYaw) * 58.0f;
+		record->m_pEntity->m_flPoseParameter()[11] = new_body_yaw_pose; //fix the body yaw pose parameter
+	}
+	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
 
 	float eye_yaw = record->m_pState->eye_angles_y;
 
@@ -317,31 +400,81 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		record->m_pState->goal_feet_yaw = eye_yaw + Resolver::ResolveShot( data, record );
 		return;
 	}
-	else {
-		/* ot movement fix  */
-		if ( record->m_pEntity->m_vecVelocity( ).length_2d( ) <= 0.1 ) {
-			float v60 = math::AngleDiff( eye_yaw, record->m_pState->goal_feet_yaw );
-			data->m_index = 2 * v60 <= 0.0f ? 1 : -1;
+	else { //breaking lby
+		if ( record->m_pEntity->m_vecVelocity( ).length_2d( ) <= 0.1 ) { 
+			float angle_difference = math::AngleDiff( eye_yaw, record->m_pState->goal_feet_yaw );
+			data->m_index = 2 * angle_difference <= 0.0f ? 1 : -1;
+			data->m_brute_mode = 1;
+		}
+		else if (!record->m_pEntity->m_MoveType() != MOVETYPE_LADDER && //micromovement
+			record->m_pEntity->m_vecVelocity().length_2d()  <= 3.25 && record->m_pEntity->m_vecVelocity().length_2d() >= 1.1) 
+		{
+			float angle_difference = math::AngleDiff(eye_yaw, record->m_pState->goal_feet_yaw);
+			data->m_index = 1 * angle_difference <= 0.0f ? 1 : -1;
+			data->m_brute_mode = 1;
+		}
+		else //moving resolver
+		{
+			// layer 12 = lean | layer 6 = movement
+			/*if (!(record->m_pLayers[12].m_weight * 1000.0) && int(record->m_pLayers[6].m_weight * 1000.0) == int(prev_record->m_pLayers[6].m_weight * 1000.0)) {// a3-> weight (6)
+			   // moving side detect.
+				unsigned int DeltaFirst = abs(record->m_pLayers[6].m_playback_rate - record->center_layers[6].m_playback_rate);
+				unsigned int DeltaSecond = abs(record->m_pLayers[6].m_playback_rate - record->left_layers[6].m_playback_rate);
+				unsigned int DeltaThird = abs(record->m_pLayers[6].m_playback_rate - record->right_layers[6].m_playback_rate);
+
+				if (DeltaFirst < DeltaSecond || DeltaThird <= DeltaSecond || (DeltaSecond * 1000.0)) {
+					if (DeltaFirst >= DeltaThird && DeltaSecond > DeltaThird && !(DeltaThird * 1000.0)) {
+						data->m_index = 1; // Left side.
+					}
+				}
+				else {
+					data->m_index = -1; // Right side.
+				}
+			}
+			data->m_brute_mode = 0;*/
 		}
 
 		/* bruting */
-		switch ( data->m_missed_shots % 3 ) {
+		switch (data->m_brute_mode)
+		{
 		case 0:
-			record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * data->m_index;
-			break;
-		case 1:
-			if ( data->m_index == -1 )
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * 1;
-			else
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * -1;
-			break;
-		case 2:
-			record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y;
-			break;
+		{
+			switch (data->m_missed_shots % 3) {
+			case 0: //default
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * data->m_index;
+				break;
+			case 1: // reverse
+				if (data->m_index == -1)
+					record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * 1;
+				else
+					record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * -1;
+				break;
+			case 2: //middle
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y;
+				break;
+			}
 		}
+		break;
+		case 1:
+		{
+			switch (data->m_missed_shots % 3) {
+			case 0: //default
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * data->m_index;
+				break;
+			case 1: //jitter
+					record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + std::uniform_int_distribution<int>(0, 1)(rng) ? -max_rotation : max_rotation;
+				break;
+			case 2: //middle
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y;
+				break;
+			}
+		}
+		break;
+	    }
+		
 	}
 
-	//wtf is this dogshit??
+	//wtf is this shit??
 	/*if ( g_cfg[ ( "aimbot_resolver" ) ].get< bool >( ) ) {
 		Resolver::check_low_delta_desync( data, m_pPlayer, record );
 	}*/

@@ -25,6 +25,7 @@ public:
 	void setup_detect( AimPlayer* data, Player* player, LagComp::LagRecord_t* record );
 	void detect_side( Player* player, int* side );
 	void check_low_delta_desync( AimPlayer* data, Player* player, LagComp::LagRecord_t* record );
+	void AntiFreestand();
 	void ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, LagComp::LagRecord_t* prev_record );
 	float ResolveShot( AimPlayer* data, LagComp::LagRecord_t* record );
 };

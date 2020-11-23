@@ -794,7 +794,113 @@ public:
 	float   m_min_pitch;        // 0x033C
 	PAD( 0x4 );					// 0x0340
 };*/ // size: 0x344
-
+class CCSGOPlayerAnimState2
+{
+public:
+	int* m_pAnimLayerOrder;
+	bool m_bIsReset;
+	char firstpad[3];
+	float m_flFlashedStartTime;
+	float m_flFlashedEndTime;
+	//	AimLayers m_AimLayers;
+	char pad0x001[1];
+	int m_nModelIndex;
+	Player* pBaseEntity;
+	Weapon* pActiveWeapon;
+	Weapon* pLastActiveWeapon;
+	float m_flLastClientSideAnimationUpdateTime;
+	int32_t m_iLastClientSideAnimationUpdateFramecount;
+	float m_flLastClientSideAnimationUpdateTimeDelta;
+	float m_flEyeYaw;
+	float m_flPitch;
+	float m_flGoalFeetYaw;
+	float m_flCurrentFeetYaw;
+	float m_flCurrentMoveDirGoalFeetDelta;
+	float m_flGoalMoveDirGoalFeetDelta;
+	float m_flFeetVelDirDelta;
+	float pad_0094;
+	float m_flFeetCycle;
+	float m_flFeetWeight;
+	float m_fUnknown2;
+	float m_fDuckAmount;
+	float m_flHitGroundCycle;
+	float m_fUnknown3;
+	vec3_t m_vOrigin;
+	vec3_t m_vLastOrigin;
+	vec3_t m_vVelocity;
+	vec3_t m_vVelocityNormalized;
+	vec3_t m_vecLastAcceleratingVelocity;
+	float m_flSpeed;
+	float m_flAbsVelocityZ;
+	float m_flSpeedNormalized;
+	float m_flRunningSpeed;
+	float m_flDuckingSpeed;
+	float m_flTimeSinceStartedMoving;
+	float m_flTimeSinceStoppedMoving;
+	bool m_bOnGround;
+	bool m_bJumping;
+	char pad_010A[2];
+	float m_flNextLowerBodyYawUpdateTime;
+	bool m_bInParachute;
+	bool m_bInHitGroundAnimation;
+	char PAD_FUCKER[2];
+	int m_iUnknownIntBlah;
+	float m_flTotalTimeInAir;
+	float m_flStartJumpZOrigin;
+	float m_flHitGroundWeight;
+	float m_flGroundFraction;
+	bool m_bJust_Landed;
+	bool m_bJust_LeftGround;
+	char pad_0120[2];
+	float m_flDuckRate;
+	bool m_bOnLadder;
+	char pad_0128[3];
+	float m_flLadderCycle;
+	float m_flLadderWeight;
+	bool m_bNotRunning;
+	bool m_bDefusing;
+	bool m_bPlantingBomb;
+	char pad_0135;
+	bool m_bInBalanceAdjust;
+	char pad_0141[3];
+	char pad_01829[1];
+	//	CUtlVector<CUtlSymbol> m_ActivityModifiers;
+	int gap148[1];
+	float m_flTimeOfLastInjury;
+	float m_flLastSetupLeanCurtime;
+	vec3_t m_vecLastSetupLeanVelocity;
+	vec3_t m_vecSetupLeanVelocityDelta;
+	vec3_t m_vecSetupLeanVelocityInterpolated;
+	float m_flLeanWeight;
+	int m_iUnknownIntArr2[2];
+	bool m_bFlashed;
+	char m_bFlashedPad[3];
+	float m_flStrafeWeight;
+	int m_iUnknownint3;
+	float m_flStrafeCycle;
+	int m_iStrafeSequence;
+	bool m_bStrafing;
+	char m_bStrafingPad[3];
+	float m_flTotalStrafeTime;
+	int m_iUnknownInt4;
+	bool m_bUnknownBool__;
+	bool m_bIsAccelerating;
+	char pad_01AE[2];
+	char pad_82ndf[1];
+	//animstate_pose_param_cache_t m_arrPoseParameters[20];
+	bool m_bDeploying;
+	char pad__[3];
+	DWORD m_iUnknownInt__;
+	float m_flGoalRunningSpeed;
+	int m_iMoveState;
+	float m_flMovePlaybackRate;
+	float m_flUnknownFL0;
+	float m_flMinYaw;
+	float m_flMaxYaw;
+	float m_flMinPitch;
+	float m_flMaxPitch;
+	int m_iAnimsetVersion;
+};
 class CCSGOPlayerAnimState {
 public:
 
@@ -1051,7 +1157,15 @@ public:
 		// .text:101E007C 674     8A 83 F8 35 00 00	   mov     al, [ ebx + 35F8h ]
 		return get< bool >( g_csgo.IsLocalPlayer );
 	}
-
+	__forceinline CCSGOPlayerAnimState2* m_PlayerAnimState2() {
+		// .text:1037A5B8 00C     E8 E3 40 E6 FF         call    C_BasePlayer__Spawn ; Call Procedure
+		// .text:1037A5BD 00C     80 BE E1 39 00 00 00   cmp     byte ptr[ esi + 39E1h ], 0; Compare Two Operands
+		// .text:1037A5C4 00C     74 48                  jz      short loc_1037A60E; Jump if Zero( ZF = 1 )
+		// .text:1037A5C6 00C     8B 8E 74 38 00 00      mov     ecx, [ esi + 3874h ]; this
+		// .text:1037A5CC 00C     85 C9                  test    ecx, ecx; Logical Compare
+		// .text:1037A5CE 00C     74 3E                  jz      short loc_1037A60E; Jump if Zero( ZF = 1 )
+		return get< CCSGOPlayerAnimState2* >(g_csgo.PlayerAnimState);
+	}
 	__forceinline CCSGOPlayerAnimState* m_PlayerAnimState( ) {
 		// .text:1037A5B8 00C     E8 E3 40 E6 FF         call    C_BasePlayer__Spawn ; Call Procedure
 		// .text:1037A5BD 00C     80 BE E1 39 00 00 00   cmp     byte ptr[ esi + 39E1h ], 0; Compare Two Operands
