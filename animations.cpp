@@ -142,7 +142,7 @@ void Animations::UpdateAnimations( Player* player, LagComp::LagRecord_t* record,
 
 	player->SetAbsOrigin( player->m_vecOrigin( ) );
 	int m_nChoked = record == nullptr ? 1 : record->m_iChoked;
-	math::clamp( m_nChoked, 1, 17 );
+	math::clamp( m_nChoked, 1, ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 ));
 
 	if ( !record || !record->m_pLayers || ( m_nChoked - 1 ) <= 1 ) {
 		player->m_PlayerAnimState( )->feet_yaw_rate = 0.f;

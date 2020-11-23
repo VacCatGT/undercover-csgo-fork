@@ -28,9 +28,9 @@ LagComp::LagRecord_t::LagRecord_t( Player* pEntity ) {
 	m_iEffects = pEntity->m_fEffects( );
 	m_iChoked = game::TIME_TO_TICKS( pEntity->m_flSimulationTime( ) - pEntity->m_flOldSimulationTime( ) );
 
-	m_iChoked = std::clamp( m_iChoked, 0, 17 );
+	m_iChoked = std::clamp( m_iChoked, 0, ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 ) );
 
-	m_bValid = m_iChoked >= 0 && m_iChoked <= 17;
+	m_bValid = m_iChoked >= 0 && m_iChoked <= ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 );
 
 	//	memcpy( left_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_left_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
 	//	memcpy( right_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_right_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
@@ -184,7 +184,7 @@ void LagComp::PostPlayerUpdate( ) {
 
 		LagComp::LagRecord_t* pPreviousRecord = nullptr;
 
-		if ( !pRecord.m_pRecords.empty( ) && !pRecord.m_pRecords.front( ).m_bDormant && game::TIME_TO_TICKS( pEntity->m_flSimulationTime( ) - pRecord.m_pRecords.front( ).m_flSimulationTime ) <= 17 ) {
+		if ( !pRecord.m_pRecords.empty( ) && !pRecord.m_pRecords.front( ).m_bDormant && game::TIME_TO_TICKS( pEntity->m_flSimulationTime( ) - pRecord.m_pRecords.front( ).m_flSimulationTime ) <= ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 ) ) {
 			pPreviousRecord = &pRecord.m_pRecords.front( );
 			pRecord.m_PreviousRecord = pRecord.m_pRecords.front( );
 		}
