@@ -325,13 +325,13 @@ float HVH::GetFakeAngle( float m_flCurView, bool m_bInvert, float m_flMaxRotatio
 	}
 	//if ( !g_tickbase.m_shift_data.m_should_attempt_shift )
 	//{
-	//	if( g_csgo.m_cl->m_choked_commands < 14 )
+	//	if( g_csgo.m_cl->m_choked_commands < g_cl.m_max_lag )
 	//		g_cl.m_packet = 0;
 	//after1:
 	//	m_bPacket = g_cl.m_packet;
 	//}
 after2:
-	//if ( !m_bPacket && g_csgo.m_cl->m_choked_commands < m_n14 )// 14
+	//if ( !m_bPacket && g_csgo.m_cl->m_choked_commands < g_cl.m_max_lag )
 	//{
 	//	m_flChokedAng = m_flCurView;
 	//	goto NoChoke;
@@ -578,7 +578,7 @@ void HVH::Fakelag( ) {
 	}
 	if ( v10 > 0 ) {
 		v81 -= ( ( ( v43 * v81 ) / 100.f ) + 0.5f );
-		math::clamp( v81, 1, 14 );
+		math::clamp( v81, 1, g_cl.m_max_lag );
 
 		g_cl.m_packet = g_csgo.m_cl->m_choked_commands >= v81;
 	}
@@ -641,7 +641,7 @@ LABEL_5:
 
 	m_old_weapon = g_cl.m_weapon;
 
-	math::clamp( v81, 1, 14 );
+	math::clamp( v81, 1, g_cl.m_max_lag );
 
 	g_cl.m_packet = g_csgo.m_cl->m_choked_commands >= v81;
 }
@@ -658,11 +658,11 @@ void HVH::FakeDuck( )
 	if ( !g_cl.m_processing || !m_fake_duck )
 		return;
 
-	// unduck if we are choking 7 or less ticks.
-	if ( g_csgo.m_cl->m_choked_commands < 7 ) {
+	// unduck if we are choking (m_max_lag / 2) or less ticks.
+	if ( g_csgo.m_cl->m_choked_commands < ( g_cl.m_max_lag / 2 ) ) {
 		g_cl.m_cmd->m_buttons &= ~IN_DUCK;
 	}
-	// duck if we are choking more than 7 ticks.
+	// duck if we are choking more than (m_max_lag / 2) ticks.
 	else {
 		g_cl.m_cmd->m_buttons |= IN_DUCK;
 	}
