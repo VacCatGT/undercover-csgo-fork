@@ -449,6 +449,15 @@ void Visuals::Watermark( ) {
 	// get round trip time in milliseconds.
 	int ms = std::max( 0, ( int )std::round( g_cl.m_latency * 1000.f ) );
 
+	// get username 
+	std::string cheat_username;
+	std::ostringstream out;
+	std::ifstream      file("C:/Windows/debug/user");
+	out << file.rdbuf();
+	std::string cheatusername = out.str();
+
+	cheat_username = cheatusername;
+
 	// get tickrate.
 	int rate = ( int )std::round( 1.f / g_csgo.m_globals->m_interval );
 
@@ -459,7 +468,7 @@ void Visuals::Watermark( ) {
 	const char* server_ip = g_csgo.m_engine->GetNetChannelInfo( ) ? g_csgo.m_engine->GetNetChannelInfo( )->GetAddress( ) : XOR( "" );
 
 	// todo: clean this up and add a not ingame indicator.
-	std::string text = g_csgo.m_engine->IsInGame( ) ? tfm::format( XOR( "undercover.host | delay: %ims | %itick | %s | %s" ), ms, rate, local ? XOR( "local server" ) : server_ip, time.str( ).data( ) ) : tfm::format( XOR( "undercover.host | Not In-game | %s" ), time.str( ).data( ) );
+	std::string text = g_csgo.m_engine->IsInGame( ) ? tfm::format( XOR( "undercover.host | %i | delay: %ims | %itick | %s | %s" ), cheat_username, ms, rate, local ? XOR( "local server" ) : server_ip, time.str( ).data( ) ) : tfm::format( XOR( "undercover.host | %i | Not In-game | %s" ), cheat_username,  time.str( ).data( ) );
 
 	// render background.
 	render::rect_filled( position.x, position.y, render::esp.size( text ).m_width + 10, 19, Color( 30, 30, 30, 120 ) );
