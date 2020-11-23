@@ -1,7 +1,5 @@
 #include "undercover.h"
 
-#define FAKELAG_CHOKE_LIMIT 16
-
 void Hooks::LevelInitPreEntity( const char* map ) {
 	float rate{ 1.f / g_csgo.m_globals->m_interval };
 

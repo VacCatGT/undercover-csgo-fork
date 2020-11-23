@@ -77,9 +77,13 @@ void Visuals::VisualInterpolation( ) {
 		auto interval_per_tick = g_csgo.m_globals->m_interval;// g_pGlobalVars->m_interval
 		auto v41 = interval_per_tick + interval_per_tick;
 
-		if ( g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) >= 0 )
-			v41 = g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) * interval_per_tick;
-
+		if ( g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) >= 0 ) {
+			if ( g_cfg[ XOR( "visuals_vis_interpolation_dead" ) ].get< bool >( ) && !g_cl.m_local->alive( ) || !g_cfg[ XOR( "visuals_vis_interpolation_dead" ) ].get< bool >( ) )
+				v41 = g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) * interval_per_tick;
+			else
+				v41 = 0;
+		}
+		
 		auto entity_index = 1;
 		auto visual_interp_amt = 0;
 		do

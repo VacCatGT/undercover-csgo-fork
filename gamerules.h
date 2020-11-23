@@ -127,9 +127,10 @@ private:
 public:
     __forceinline bool m_bFreezePeriod( ) {
         return get< bool >( 0x20 );
+    }
 
-        // note - dex; doesnt work for some reason
-        // return get< bool >( g_netvars.get( HASH( "DT_CSGameRules" ), HASH( "m_bFreezePeriod" ) ) );
+    __forceinline bool m_bIsValveDS( ) {
+        return get< bool >( 0x75 );
     }
 };
 

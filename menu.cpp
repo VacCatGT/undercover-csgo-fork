@@ -126,12 +126,12 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "ANTIAIM_LAG" ) ); {
 						g_frw.Checkbox( XOR( "Enable Fake-Lag" ), XOR( "aa_fakelag" ) );
-						g_frw.NumberPicker( XOR( "Limit" ), XOR( "aa_factor" ), 0, 16, XOR( "%0.f" ), 1 );
+						g_frw.NumberPicker( XOR( "Limit" ), XOR( "aa_factor" ), 0, 14, XOR( "%0.f" ), 1 );
 						g_frw.NumberPicker( XOR( "Jitter" ), XOR( "aa_fl_jitter" ), 0, 100, XOR( "%0.f" ), 1 );
 						g_frw.MultiCombo( XOR( "Triggers" ),
 							{ XOR( "aa_fl_in_air" ), XOR( "aa_fl_on_peek" ), XOR( "aa_fl_on_shot" ), XOR( "aa_fl_on_land" ), XOR( "aa_fl_while_reload" ), XOR( "aa_fl_on_wep_switch" ), XOR( "aa_fl_on_velocity_change" ), XOR( "aa_fl_break_lagcomp" ) },
 							{ XOR( "In Air" ), XOR( "On Peek" ), XOR( "On Shot" ), XOR( "On Land" ), XOR( "While Reloading" ), XOR( "On Weapon Switch" ), XOR( "On Velocity Change" ), XOR( "Break Lag Compensation" ) } );
-						g_frw.NumberPicker( XOR( "Trigger Limit" ), XOR( "aa_fl_triggers_amt" ), 0, 16, XOR( "%0.f" ), 1 );
+						g_frw.NumberPicker( XOR( "Trigger Limit" ), XOR( "aa_fl_triggers_amt" ), 0, 14, XOR( "%0.f" ), 1 );
 						g_frw.KeybindCheckbox( "Controlled walk" );
 						g_frw.GetKey( XOR( "Slowwalk" ), XOR( "misc_slowwalk_bind" ), XOR( "misc_slowwalk_bind_type" ) );
 						g_frw.ComboBox( XOR( "Walk Type" ), XOR( "aa_slowwalk_type" ), XOR( "Accurate\0Slide Fast\0Slide Slow" ), 4 );
@@ -183,6 +183,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
 
 						g_frw.NumberPicker( XOR( "Visual Interpolation" ), XOR( "visuals_vis_interpolation_amt" ), 0, 14, XOR( "%0.f" ), 1 );
+						g_frw.Checkbox( XOR( "Only Interpolate When Dead" ), XOR( "visuals_vis_interpolation_dead" ) );
 
 
 						//g_frw.Checkbox( XOR( "OOF arrows" ), XOR( "idk" ) );
