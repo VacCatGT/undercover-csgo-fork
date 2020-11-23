@@ -11,7 +11,7 @@ typedef NTSTATUS(__stdcall* _NtSetInformationThread)(_In_ HANDLE, _In_ THREAD_IN
 
 
 void uc_ErasePEHeaderFromMemory(void);
-void uc_HideFromDebugger(void);
+BOOL uc_HideFromDebugger();
 void uc_tflag(void);
 void uc_CheckGlobalFlagsClearInProcess(void);
 void uc_CheckGlobalFlagsClearInFile(void);
@@ -20,6 +20,9 @@ void uc_content(void);
 void uc_BeingDebuggedPEB(void);
 void uc_CheckWindowName(void);
 void uc_NtQueryInformationProcess(void);
+void uc_SizeOfImage(void);
+void uc_Trap_Debugger(void);
+BOOL uc_CloseHandle();
 
 void uc_HardwareDebugRegisters(void);
 void uc_MovSS(void);
