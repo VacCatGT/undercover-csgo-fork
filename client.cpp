@@ -368,8 +368,7 @@ void Client::StartMove( CUserCmd* cmd ) {
 		m_buttons & ( IN_JUMP ) );
 
 	// store max choke
-	// TODO; 6 -> m_bIsValveDS
-	m_max_lag = 14;
+	m_max_lag = g_csgo.m_gamerules->m_bIsValveDS( ) ? 6 : 14;
 	m_lag = g_csgo.m_cl->m_choked_commands;
 	m_lerp = game::GetClientInterpAmount( );
 
@@ -377,6 +376,7 @@ void Client::StartMove( CUserCmd* cmd ) {
 	if ( g_csgo.m_cl->m_net_channel ) {
 		m_latency = g_csgo.m_cl->m_net_channel->GetLatency( INetChannel::FLOW_OUTGOING );
 	}
+
 	math::clamp( m_latency, 0.f, 1.f );
 	m_latency_ticks = game::TIME_TO_TICKS( m_latency );
 //	m_server_tick = g_csgo.m_cl->clock_drift_mgr.m_server_tick;
