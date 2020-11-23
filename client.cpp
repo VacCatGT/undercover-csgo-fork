@@ -617,11 +617,6 @@ void Client::UpdateAnimData( ) {
 	m_speed = state->speed;
 	m_ground = state->on_ground;
 
-	if ( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) {
-		state->on_ground = true;
-		state->hit_in_ground_animation = false;
-	}
-
 	g_cl.m_local->SetAbsAngles( g_cl.m_rotation );
 
 }
