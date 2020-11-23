@@ -180,6 +180,8 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 						g_frw.Checkbox( XOR( "Hitsound" ), XOR( "misc_hitsound" ) );
 
+						g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
+
 						g_frw.NumberPicker( XOR( "Visual Interpolation" ), XOR( "visuals_vis_interpolation_amt" ), 0, 14, XOR( "%0.f" ), 1 );
 
 

@@ -269,6 +269,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "esp_enemy_glow_healthcolor" ), pre_defined },
 	{ XOR( "esp_enemy_glow_color" ), pre_defined },
 	{ XOR( "esp_enemies_dormant_time" ), pre_defined },
+	{ XOR("misc_animlayer"), pre_defined },
 	{ XOR( "misc_hitsound" ), pre_defined },
 	{ XOR( "esp_enemies_offscreen_color" ), pre_defined },
 	{ XOR( "esp_enemies_offscreen" ), pre_defined },

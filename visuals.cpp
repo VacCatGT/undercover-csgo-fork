@@ -1112,6 +1112,22 @@ void Visuals::DrawPlayer( Player* player ) {
 	if ( bone_esp )
 		DrawSkeleton( player, alpha );
 
+	if (g_cfg[XOR("misc_animlayer")].get< bool >() && enemy)
+	{
+		render::pixel.string(box.x + box.w , box.y + 40 + 30, { 255,255,255,255 }, "m_cycle", render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w, box.y + 60 + 30, { 255,255,255,255 }, "m_weight", render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w, box.y + 80 + 30, { 255,255,255,255 }, "m_weight_delta_rate", render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w, box.y + 100 + 30, { 255,255,255,255 }, "m_prev_cycle", render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w, box.y + 120 + 30, { 255,255,255,255 }, "m_playback_rate", render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w, box.y + 140 + 30, { 255,255,255,255 }, "m_sequence", render::ALIGN_CENTER);
+
+		render::pixel.string(box.x + box.w + 20, box.y + 40 + 30, {255,255,255,255}, std::to_string(player->m_AnimOverlay()[6].m_cycle), render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w + 20, box.y + 60 + 30, { 255,255,255,255 }, std::to_string(player->m_AnimOverlay()[6].m_weight), render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w + 40, box.y + 80 + 30, { 255,255,255,255 }, std::to_string(player->m_AnimOverlay()[6].m_weight_delta_rate), render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w + 30, box.y + 100 + 30, { 255,255,255,255 }, std::to_string(player->m_AnimOverlay()[6].m_prev_cycle), render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w + 30, box.y + 120 + 30, { 255,255,255,255 }, std::to_string(player->m_AnimOverlay()[6].m_playback_rate), render::ALIGN_CENTER);
+		render::pixel.string(box.x + box.w + 20, box.y + 140 + 30, { 255,255,255,255 }, std::to_string(player->m_AnimOverlay()[6].m_sequence), render::ALIGN_CENTER);
+	}
 	//if( g_aimbot.IsValidTarget( player ) )
 	//	DrawHistorySkeleton( player, alpha );
 

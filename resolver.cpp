@@ -317,38 +317,11 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		record->m_pState->goal_feet_yaw = eye_yaw + Resolver::ResolveShot( data, record );
 		return;
 	}
-	/* ot movement fix bruterly  */
 	else {
 		/* ot movement fix  */
 		if ( record->m_pEntity->m_vecVelocity( ).length_2d( ) <= 0.1 ) {
 			float v60 = math::AngleDiff( eye_yaw, record->m_pState->goal_feet_yaw );
 			data->m_index = 2 * v60 <= 0.0f ? 1 : -1;
-		}
-		else {
-			/* ot movement fix  */
-			if ( prev_record && !( ( int )record->m_pLayers[ 12 ].m_weight * 1000.f ) && record->m_pEntity->m_vecVelocity( ).length_2d( ) > 0.1 &&
-				( ( int )record->m_pLayers[ 6 ].m_weight * 1000.f ) == ( ( int )prev_record->m_pLayers[ 6 ].m_weight * 1000.f ) && data->m_missed_shots % 3 == 0 ) {
-
-				auto m_layer_delta1 = abs( record->m_pLayers[ 6 ].m_playback_rate - record->center_layers[ 6 ].m_playback_rate );
-				auto m_layer_delta2 = abs( record->m_pLayers[ 6 ].m_playback_rate - record->left_layers[ 6 ].m_playback_rate );
-				auto m_layer_delta3 = abs( record->m_pLayers[ 6 ].m_playback_rate - record->right_layers[ 6 ].m_playback_rate );
-
-				if ( m_layer_delta1 < m_layer_delta2
-					|| m_layer_delta3 <= m_layer_delta2
-					|| ( signed int )( float )( m_layer_delta2 * 1000.0 ) )
-				{
-					if ( m_layer_delta1 >= m_layer_delta3
-						&& m_layer_delta2 > m_layer_delta3
-						&& !( signed int )( float )( m_layer_delta3 * 1000.0 ) )
-					{
-						data->m_index = 1;
-					}
-				}
-				else
-				{
-					data->m_index = -1;
-				}
-			}
 		}
 
 		/* bruting */
