@@ -4,13 +4,11 @@ void Hooks::DoExtraBoneProcessing( int a2, int a3, int a4, int a5, int a6, int a
 	// cast thisptr to player ptr.
 	Player* player = ( Player* )this;
 
-	return;
-
 	if( !player )
 		return g_hooks.m_player.GetOldMethod<DoExtraBoneProcessing_t>( Player::DOEXTRABONEPROCESSING )( this, a2, a3, a4, a5, a6, a7 );
 
 	if( player && player->IsPlayer( ) && player->alive( ) ) {
-		int* pAnimLayersOwner = reinterpret_cast< int* >( *reinterpret_cast< uintptr_t* >( reinterpret_cast< uintptr_t >( player ) + 0x2990 ) + 0x30 );
+		int* pAnimLayersOwner = reinterpret_cast< int* >( *reinterpret_cast< uintptr_t* >( reinterpret_cast< uintptr_t >( player ) + g_csgo.AnimOverlay) + 0x30 );
 		for( int i = 13; i; --i ) {
 			if( reinterpret_cast< Player* >( pAnimLayersOwner ) != player ) {
 				*pAnimLayersOwner = reinterpret_cast< uintptr_t >( player );
