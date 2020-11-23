@@ -35,11 +35,21 @@ bool anti_debugger::is_security_breached()
 	while (1) //Enter our loop.
 	{
 
+		uc_HideFromDebugger();
+
+		uc_tflag();
+
 		uc_CheckWindowName();
 
 		uc_BeingDebuggedPEB();
 
-		uc_NtGlobalFlagPEB();
+		uc_CheckGlobalFlagsClearInProcess();
+
+		uc_CheckGlobalFlagsClearInFile();
+
+		uc_CheckHeap();
+
+		uc_content();
 
 		uc_NtQueryInformationProcess();
 
@@ -88,6 +98,211 @@ bool anti_debugger::is_security_breached()
 	return false;
 }
 
+void uc_ErasePEHeaderFromMemory(void)
+{
+	DWORD OldProtect = 0;
+
+	// module
+	char* pBaseAddr = (char*)GetModuleHandle(NULL);
+
+	//prot
+	VirtualProtect(pBaseAddr, 4096, // x86 page size
+		PAGE_READWRITE, &OldProtect);
+
+	//erase
+	SecureZeroMemory(pBaseAddr, 4096);
+}
+
+typedef NTSTATUS(NTAPI* pfnNtSetInformationThread)(
+	_In_ HANDLE ThreadHandle,
+	_In_ ULONG  ThreadInformationClass,
+	_In_ PVOID  ThreadInformation,
+	_In_ ULONG  ThreadInformationLength
+	);
+const ULONG ThreadHideFromDebugger = 0x11;
+
+void uc_HideFromDebugger(void)
+{
+	HMODULE hNtDll = LoadLibrary(XOR(TEXT("ntdll.dll")));
+	pfnNtSetInformationThread NtSetInformationThread = (pfnNtSetInformationThread)
+		GetProcAddress(hNtDll, XOR( "NtSetInformationThread"));
+	NTSTATUS status = NtSetInformationThread(GetCurrentThread(),
+		ThreadHideFromDebugger, NULL, 0);
+}
+
+#define FLG_HEAP_ENABLE_TAIL_CHECK   0x10
+#define FLG_HEAP_ENABLE_FREE_CHECK   0x20
+#define FLG_HEAP_VALIDATE_PARAMETERS 0x40
+#define NT_GLOBAL_FLAG_DEBUGGED (FLG_HEAP_ENABLE_TAIL_CHECK | FLG_HEAP_ENABLE_FREE_CHECK | FLG_HEAP_VALIDATE_PARAMETERS)
+
+PVOID GetPEB()
+{
+#ifdef _WIN64
+	return (PVOID)__readgsqword(0x0C * sizeof(PVOID));
+#else
+	return (PVOID)__readfsdword(0x0C * sizeof(PVOID));
+#endif
+}
+
+PIMAGE_NT_HEADERS GetImageNtHeaders(PBYTE pImageBase)
+{
+	PIMAGE_DOS_HEADER pImageDosHeader = (PIMAGE_DOS_HEADER)pImageBase;
+	return (PIMAGE_NT_HEADERS)(pImageBase + pImageDosHeader->e_lfanew);
+}
+PIMAGE_SECTION_HEADER FindRDataSection(PBYTE pImageBase)
+{
+	static const std::string rdata = XOR(".rdata");
+	PIMAGE_NT_HEADERS pImageNtHeaders = GetImageNtHeaders(pImageBase);
+	PIMAGE_SECTION_HEADER pImageSectionHeader = IMAGE_FIRST_SECTION(pImageNtHeaders);
+	int n = 0;
+	for (; n < pImageNtHeaders->FileHeader.NumberOfSections; ++n)
+	{
+		if (rdata == (char*)pImageSectionHeader[n].Name)
+		{
+			break;
+		}
+	}
+	return &pImageSectionHeader[n];
+}
+void uc_CheckGlobalFlagsClearInProcess(void)
+{
+	PBYTE pImageBase = (PBYTE)GetModuleHandle(NULL);
+	PIMAGE_NT_HEADERS pImageNtHeaders = GetImageNtHeaders(pImageBase);
+	PIMAGE_LOAD_CONFIG_DIRECTORY pImageLoadConfigDirectory = (PIMAGE_LOAD_CONFIG_DIRECTORY)(pImageBase
+		+ pImageNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG].VirtualAddress);
+	if (pImageLoadConfigDirectory->GlobalFlagsClear != 0)
+	{
+		errorfile();
+		uc_ErasePEHeaderFromMemory();
+		exit(0);
+	}
+}
+void uc_CheckGlobalFlagsClearInFile(void)
+{
+	HANDLE hExecutable = INVALID_HANDLE_VALUE;
+	HANDLE hExecutableMapping = NULL;
+	PBYTE pMappedImageBase = NULL;
+	__try
+	{
+		PBYTE pImageBase = (PBYTE)GetModuleHandle(NULL);
+		PIMAGE_SECTION_HEADER pImageSectionHeader = FindRDataSection(pImageBase);
+		TCHAR pszExecutablePath[MAX_PATH];
+		DWORD dwPathLength = GetModuleFileName(NULL, pszExecutablePath, MAX_PATH);
+		if (0 == dwPathLength) __leave;
+		hExecutable = CreateFile(pszExecutablePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+		if (INVALID_HANDLE_VALUE == hExecutable) __leave;
+		hExecutableMapping = CreateFileMapping(hExecutable, NULL, PAGE_READONLY, 0, 0, NULL);
+		if (NULL == hExecutableMapping) __leave;
+		pMappedImageBase = (PBYTE)MapViewOfFile(hExecutableMapping, FILE_MAP_READ, 0, 0,
+			pImageSectionHeader->PointerToRawData + pImageSectionHeader->SizeOfRawData);
+		if (NULL == pMappedImageBase) __leave;
+		PIMAGE_NT_HEADERS pImageNtHeaders = GetImageNtHeaders(pMappedImageBase);
+		PIMAGE_LOAD_CONFIG_DIRECTORY pImageLoadConfigDirectory = (PIMAGE_LOAD_CONFIG_DIRECTORY)(pMappedImageBase
+			+ (pImageSectionHeader->PointerToRawData
+				+ (pImageNtHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG].VirtualAddress - pImageSectionHeader->VirtualAddress)));
+		if (pImageLoadConfigDirectory->GlobalFlagsClear != 0)
+		{
+			errorfile();
+			uc_ErasePEHeaderFromMemory();
+			exit(0);
+		}
+	}
+	__finally
+	{
+		if (NULL != pMappedImageBase)
+			UnmapViewOfFile(pMappedImageBase);
+		if (NULL != hExecutableMapping)
+			CloseHandle(hExecutableMapping);
+		if (INVALID_HANDLE_VALUE != hExecutable)
+			CloseHandle(hExecutable);
+	}
+}
+
+WORD GetVersionWord()
+{
+	OSVERSIONINFO verInfo = { sizeof(OSVERSIONINFO) };
+	GetVersionEx(&verInfo);
+	return MAKEWORD(verInfo.dwMinorVersion, verInfo.dwMajorVersion);
+}
+BOOL IsWin8OrHigher() { return GetVersionWord() >= _WIN32_WINNT_WIN8; }
+BOOL IsVistaOrHigher() { return GetVersionWord() >= _WIN32_WINNT_VISTA; }
+
+int GetHeapFlagsOffset(bool x64)
+{
+	return x64 ?
+		IsVistaOrHigher() ? 0x70 : 0x14 : //x64 offsets
+		IsVistaOrHigher() ? 0x40 : 0x0C; //x86 offsets
+}
+int GetHeapForceFlagsOffset(bool x64)
+{
+	return x64 ?
+		IsVistaOrHigher() ? 0x74 : 0x18 : //x64 offsets
+		IsVistaOrHigher() ? 0x44 : 0x10; //x86 offsets
+}
+void uc_CheckHeap(void)
+{
+	PVOID pPeb = GetPEB();
+	PVOID heap = 0;
+	DWORD offsetProcessHeap = 0;
+	PDWORD heapFlagsPtr = 0, heapForceFlagsPtr = 0;
+	BOOL x64 = FALSE;
+#ifdef _WIN64
+	x64 = TRUE;
+	offsetProcessHeap = 0x30;
+#else
+	offsetProcessHeap = 0x18;
+#endif
+	heap = (PVOID) * (PDWORD_PTR)((PBYTE)pPeb + offsetProcessHeap);
+	heapFlagsPtr = (PDWORD)((PBYTE)heap + GetHeapFlagsOffset(x64));
+	heapForceFlagsPtr = (PDWORD)((PBYTE)heap + GetHeapForceFlagsOffset(x64));
+	if (*heapFlagsPtr & ~HEAP_GROWABLE || *heapForceFlagsPtr != 0)
+	{
+		errorfile();
+		uc_ErasePEHeaderFromMemory();
+		exit(0);
+	}
+}
+
+void uc_tflag(void) {
+
+	BOOL isDebugged = TRUE;
+	__try
+	{
+		__asm
+		{
+			pushfd
+			or dword ptr[esp], 0x100 // set the trap 
+			popfd                    
+			nop
+		}
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		
+		isDebugged = FALSE;
+	}
+	if (isDebugged)
+	{
+		errorfile();
+		uc_ErasePEHeaderFromMemory();
+		exit(0);
+	}
+}
+
+void uc_content(void) {
+	CONTEXT ctx = {};
+	ctx.ContextFlags = CONTEXT_DEBUG_REGISTERS;
+	if (GetThreadContext(GetCurrentThread(), &ctx))
+	{
+		if (ctx.Dr0 != 0 || ctx.Dr1 != 0 || ctx.Dr2 != 0 || ctx.Dr3 != 0)
+		{
+			errorfile();
+			uc_ErasePEHeaderFromMemory();
+			exit(0);
+		}
+	}
+}
+
 void uc_BeingDebuggedPEB(void)
 {
 	BOOL found = FALSE;
@@ -103,6 +318,7 @@ void uc_BeingDebuggedPEB(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -115,7 +331,6 @@ void uc_CheckWindowName(void)
 	LPCSTR WindowClassNameOlly = XOR("OLLYDBG");			// ollydbg
 	LPCSTR WindowClassNameImmunity = XOR("ID");			// immunity Debugger
 	LPCSTR WindowClassNameProcess = XOR("ProcessHacker"); // process hacker
-	LPCSTR WindowClassName32770 = XOR("#32770"); // debug info 
 	LPCSTR WindowClassNameWinDbg = XOR("WinDbgFrameClass"); //WinDbg
 	LPCSTR WindowClassNameCE = XOR("Window"); //cheat engine, if users experience issues with this classname we remove it.
 	//LPCSTR WindowClassNameSandBox = XOR("WindowsSandbox"); // Windows Sandbox, not sure if you can abuse it but its one area of concern. //unknown classid for now
@@ -146,12 +361,6 @@ void uc_CheckWindowName(void)
 		found = TRUE;
 	}
 
-	hWindow = FindWindow(WindowClassName32770, 0);
-	if (hWindow)
-	{
-		found = TRUE;
-	}
-
 	hWindow = FindWindow(WindowClassNameWinDbg, 0);
 	if (hWindow)
 	{
@@ -167,25 +376,7 @@ void uc_CheckWindowName(void)
 	if (found)
 	{
 		errorfile();
-		exit(0);
-	}
-}
-
-void uc_NtGlobalFlagPEB(void)
-{
-	BOOL found = FALSE;
-	_asm
-	{
-		xor eax, eax;			// clear eax
-		mov eax, fs: [0x30] ;
-		mov eax, [eax + 0x68];	// PEB+0x68
-		and eax, 0x00000070;	// check 
-		mov found, eax;
-	}
-
-	if (found)
-	{
-		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -218,6 +409,7 @@ void uc_NtQueryInformationProcess(void)
 	if (!status && found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 
@@ -228,6 +420,7 @@ void uc_NtQueryInformationProcess(void)
 	if (!status && !found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 
@@ -256,6 +449,7 @@ void uc_HardwareDebugRegisters(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -281,6 +475,7 @@ void uc_MovSS(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -302,6 +497,7 @@ void uc_CloseHandleException(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -326,6 +522,7 @@ void uc_Int3(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -352,6 +549,7 @@ void uc_PrefixHop(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 }
@@ -376,6 +574,7 @@ void uc_Int2D(void)
 	if (found)
 	{
 		errorfile();
+		uc_ErasePEHeaderFromMemory();
 		exit(0);
 	}
 } //end

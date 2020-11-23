@@ -9,9 +9,16 @@ extern anti_debugger g_debugger;
 typedef NTSTATUS(__stdcall* _NtQueryInformationProcess)(_In_ HANDLE, _In_  unsigned int, _Out_ PVOID, _In_ ULONG, _Out_ PULONG);
 typedef NTSTATUS(__stdcall* _NtSetInformationThread)(_In_ HANDLE, _In_ THREAD_INFORMATION_CLASS, _In_ PVOID, _In_ ULONG);
 
+
+void uc_ErasePEHeaderFromMemory(void);
+void uc_HideFromDebugger(void);
+void uc_tflag(void);
+void uc_CheckGlobalFlagsClearInProcess(void);
+void uc_CheckGlobalFlagsClearInFile(void);
+void uc_CheckHeap(void);
+void uc_content(void);
 void uc_BeingDebuggedPEB(void);
 void uc_CheckWindowName(void);
-void uc_NtGlobalFlagPEB(void);
 void uc_NtQueryInformationProcess(void);
 
 void uc_HardwareDebugRegisters(void);
