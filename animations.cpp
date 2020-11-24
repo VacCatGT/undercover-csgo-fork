@@ -330,9 +330,18 @@ void Animations::UpdateLocalAnimations( ) {
 		return;
 	}
 
+	C_AnimationLayer m_real_layers[ 13 ];
+	float            m_real_poses[ 24 ];
+	const float curtime = g_csgo.m_globals->m_curtime;
+	const float frametime = g_csgo.m_globals->m_frametime;
+	const float m_interpolation_amount = g_csgo.m_globals->m_interp_amt;
+	const float m_realtime = g_csgo.m_globals->m_realtime;
+	const float m_framecount = g_csgo.m_globals->m_frame;
+
+
 	// allow re-animating in the same frame.
-	if( state->last_client_side_animation_update_framecount >= g_csgo.m_globals->m_frame ) {
-		state->last_client_side_animation_update_framecount = g_csgo.m_globals->m_frame - 1;
+	if (state->last_client_side_animation_update_framecount >= g_csgo.m_globals->m_frametime) {
+		state->last_client_side_animation_update_framecount = g_csgo.m_globals->m_frametime - 1;
 	}
 
 	// fix feet.
@@ -344,13 +353,13 @@ void Animations::UpdateLocalAnimations( ) {
 	g_cl.m_update = true;
 
 	// update animations.
-	game::UpdateAnimationState( state, g_cl.m_cmd->m_view_angles );
+	game::UpdateAnimationState( state , g_cl.m_cmd->m_view_angles );
 	g_cl.m_local->UpdateClientSideAnimation( );
 
 	g_cl.m_update = false;
 
 	// save data when our choke cycle resets.
-	if( g_cl.m_packet ) {
+	if (g_cl.m_packet) {
 		g_cl.m_rotation.y = state->goal_feet_yaw;
 		g_cl.m_local->GetPoseParameters( g_cl.m_real_poses );
 	}
@@ -358,6 +367,13 @@ void Animations::UpdateLocalAnimations( ) {
 	// update our layers and poses with the saved ones.
 	g_cl.m_local->SetAnimLayers( g_cl.m_real_layers );
 	g_cl.m_local->SetPoseParameters( g_cl.m_real_poses );
+
+	// Restore values to not mess with the game.
+	g_csgo.m_globals->m_curtime = curtime;
+	g_csgo.m_globals->m_frametime = frametime;
+	g_csgo.m_globals->m_interp_amt = m_interpolation_amount;
+	g_csgo.m_globals->m_realtime = m_realtime;
+	g_csgo.m_globals->m_frame = m_framecount;
 
 	if ( g_cl.m_spawn_time != g_cl.m_local->m_flSpawnTime( ) ) {
 		g_cl.m_update_fake = false;

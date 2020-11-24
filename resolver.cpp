@@ -328,10 +328,11 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 	const auto info = g_anims.GetAnimationInfo( record->m_pEntity );
 	if ( !info )
 		return;
+
 	if (!g_cfg[("aimbot_resolver")].get< bool >())
 		return;
 	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
-/*	vec3_t absangles = { 0.0f, 0.0f, 0.0f };
+	vec3_t absangles = { 0.0f, 0.0f, 0.0f };
 	auto animstate = record->m_pEntity->m_PlayerAnimState2();
 	float  original_eye_yaw;
 	original_eye_yaw = math::AngleNormalize(animstate->m_flEyeYaw);
@@ -387,7 +388,7 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		else
 			new_body_yaw_pose = (eye_goalfeet_delta / flMaxYaw) * 58.0f;
 		record->m_pEntity->m_flPoseParameter()[11] = new_body_yaw_pose; //fix the body yaw pose parameter
-	}*/
+	}
 	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
 
 	float eye_yaw = record->m_pState->eye_angles_y;
@@ -413,25 +414,13 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 			data->m_index = 1 * angle_difference <= 0.0f ? 1 : -1;
 			data->m_brute_mode = 1;
 		}
-		else //moving resolver
+		else //moving resolver (non existant laff)
 		{
-			// layer 12 = lean | layer 6 = movement
-			if (!(record->m_pLayers[12].m_weight * 1000.0) && int(record->m_pLayers[6].m_weight * 1000.0) == int(prev_record->m_pLayers[6].m_weight * 1000.0)) {// a3-> weight (6)
-			   // moving side detect.
-				unsigned int DeltaFirst = abs(record->m_pLayers[6].m_playback_rate - record->center_layers[6].m_playback_rate);
-				unsigned int DeltaSecond = abs(record->m_pLayers[6].m_playback_rate - record->left_layers[6].m_playback_rate);
-				unsigned int DeltaThird = abs(record->m_pLayers[6].m_playback_rate - record->right_layers[6].m_playback_rate);
 
-				if (DeltaFirst < DeltaSecond || DeltaThird <= DeltaSecond || (DeltaSecond * 1000.0)) {
-					if (DeltaFirst >= DeltaThird && DeltaSecond > DeltaThird && !(DeltaThird * 1000.0)) {
-						data->m_index = 1; // Left side.
-					}
-				}
-				else {
-					data->m_index = -1; // Right side.
-				}
-			}
-			data->m_brute_mode = 0;
+
+
+
+			data->m_brute_mode = 1;
 		}
 
 		/* bruting */
