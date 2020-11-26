@@ -338,14 +338,17 @@ void Animations::UpdateLocalAnimations( ) {
 	const float m_realtime = g_csgo.m_globals->m_realtime;
 	const float m_framecount = g_csgo.m_globals->m_frame;
 
-
-	// allow re-animating in the same frame.
-	if (state->last_client_side_animation_update_framecount >= g_csgo.m_globals->m_frametime) {
-		state->last_client_side_animation_update_framecount = g_csgo.m_globals->m_frametime - 1;
-	}
+	// allow reanimation in the same frame
+	state->last_client_side_animation_update_framecount = 0;
 
 	// fix feet.
 	state->feet_yaw_rate = 0.0f;
+
+	// update anim update delta as server build.
+	state->anim_update_timer = std::max( 0.0f, g_csgo.m_globals->m_curtime - state->last_client_side_animation_update_time ); // negative values possible when clocks on client and server go out of sync..
+
+	// invalidate bone cache.
+	g_cl.m_local->InvalidateBoneCache( );
 
 	// get layers.
 	g_cl.m_local->GetAnimLayers( g_cl.m_real_layers );
@@ -353,13 +356,13 @@ void Animations::UpdateLocalAnimations( ) {
 	g_cl.m_update = true;
 
 	// update animations.
-	game::UpdateAnimationState( state , g_cl.m_cmd->m_view_angles );
+	game::UpdateAnimationState( state, g_cl.m_cmd->m_view_angles );
 	g_cl.m_local->UpdateClientSideAnimation( );
 
 	g_cl.m_update = false;
 
 	// save data when our choke cycle resets.
-	if (g_cl.m_packet) {
+	if ( g_cl.m_packet ) {
 		g_cl.m_rotation.y = state->goal_feet_yaw;
 		g_cl.m_local->GetPoseParameters( g_cl.m_real_poses );
 	}
@@ -388,7 +391,7 @@ void Animations::UpdateLocalAnimations( ) {
 			game::CreateAnimationState( g_cl.m_local, g_cl.m_fake_state );
 	}
 
-	if( !g_cl.m_fake_state )
+	if ( !g_cl.m_fake_state )
 		return;
 
 	if ( g_cl.m_packet ) {
