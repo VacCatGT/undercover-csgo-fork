@@ -268,7 +268,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Checkbox( XOR( "Damage indicator" ), XOR( "misc_damage_indicator" ) );
 						g_frw.Checkbox( XOR( "Autowall crosshair" ), XOR( "visuals_misc_penetration_crosshair" ) );
 
-						g_frw.MultiCombo( "Removals", { XOR( "misc_override_fov_scoped" ), XOR( "visuals_misc_remove_scope" ), XOR( "visuals_misc_remove_smoke" ), XOR( "visuals_misc_remove_flash" ), XOR( "visuals_misc_remove_visual_recoil" ), XOR( "visuals_misc_remove_fog" ), XOR( "visuals_misc_remove_magazines" ), XOR( "visuals_misc_remove_view_bob" ) }, { XOR( "Zoom" ), XOR( "Scope" ), XOR( "Smoke" ), XOR( "Flash" ), XOR( "Visual recoil" ), XOR( "Post-processing" ), XOR( "Magazines" ), XOR( "View Bob" ) } );
+						g_frw.MultiCombo( "Removals", { XOR( "misc_override_fov_scoped" ), XOR( "visuals_misc_remove_scope" ), XOR( "visuals_misc_remove_smoke" ), XOR( "visuals_misc_remove_flash" ), XOR( "visuals_misc_remove_visual_recoil" ), XOR( "visuals_misc_remove_fog" ), XOR( "visuals_misc_remove_magazines" ), XOR( "visuals_misc_remove_view_bob" ), XOR( "visuals_misc_remove_entity_shadows" ), XOR( "visuals_misc_remove_sleeves" ) }, { XOR( "Zoom" ), XOR( "Scope" ), XOR( "Smoke" ), XOR( "Flash" ), XOR( "Visual recoil" ), XOR( "Post-processing" ), XOR( "Magazines" ), XOR( "View Bob" ), XOR( "Entity Shadows" ), XOR( "Sleeves" ) } );
 						g_frw.Checkbox( XOR( "Force crosshair" ), XOR( "misc_force_crosshair" ) );
 						g_frw.MultiCombo( XOR( "Bullet Impacts" ), { XOR( "misc_bullet_impacts_client" ), XOR( "misc_bullet_impacts_server" ) }, { XOR( "Client" ), XOR( "Server" ) } );
 						g_frw.Checkbox( XOR( "Override client color" ), XOR( "misc_bullet_impacts_client_override" ) );

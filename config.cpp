@@ -350,6 +350,8 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "visuals_misc_remove_visual_recoil" ), pre_defined },
 	{ XOR( "visuals_misc_remove_fog" ), pre_defined },
 	{ XOR( "visuals_misc_remove_magazines" ), pre_defined },
+	{ XOR( "visuals_misc_remove_entity_shadows" ), pre_defined },
+	{ XOR( "visuals_misc_remove_sleeves" ), pre_defined },
 	{ XOR( "visuals_misc_remove_defuser_ropes" ), pre_defined },
 	{ XOR( "misc_force_crosshair" ), pre_defined },
 	{ XOR( "misc_bullet_impacts" ), pre_defined },
