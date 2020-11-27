@@ -69,48 +69,44 @@ void Visuals::ModulateWorld( ) {
 
 void Visuals::VisualInterpolation( ) {
 
-	if ( g_cl.m_stage ) {
-		auto v20 = g_cl.m_local;
-		bool v40 = false;
-		if ( !v20 )
-			v40 = 1;
+	if ( g_cl.m_stage) {
 		auto interval_per_tick = g_csgo.m_globals->m_interval;// g_pGlobalVars->m_interval
-		auto v41 = interval_per_tick + interval_per_tick;
+		auto visual_interp_amt_2 = interval_per_tick * 2;
 
 		if ( g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) >= 0 ) {
 			if ( g_cfg[ XOR( "visuals_vis_interpolation_dead" ) ].get< bool >( ) && !g_cl.m_local->alive( ) || !g_cfg[ XOR( "visuals_vis_interpolation_dead" ) ].get< bool >( ) )
-				v41 = g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) * interval_per_tick;
+				visual_interp_amt_2 = g_cfg[ XOR( "visuals_vis_interpolation_amt" ) ].get< int >( ) * interval_per_tick;
 			else
-				v41 = 0;
+				visual_interp_amt_2 = 0;
 		}
 		
 		auto entity_index = 1;
 		auto visual_interp_amt = 0;
 		do
 		{
-			auto v26 = ( DWORD )g_csgo.m_entlist->GetClientEntity( entity_index );
-			auto entity = v26;
-			if ( v26 && v26 != ( DWORD )g_cl.m_local )
+			auto entity = ( DWORD ) g_csgo.m_entlist->GetClientEntity( entity_index );
+			if ( entity && entity != ( DWORD )g_cl.m_local )
 			{
 				auto v27 = *( DWORD* )( entity + 0x24 );
-				auto v28 = v41;
 				*( short* )( v27 + 0xE ) = 0;
 				*( DWORD* )( *( DWORD* )( v27 + 0x14 ) + 0x24 ) = 0;
-				auto v29 = *( DWORD* )( v26 + 0x24 );
+				auto v29 = *( DWORD* )( entity + 0x24 );
 				*( short* )( v29 + 0x1A ) = 0;
 				*( DWORD* )( *( DWORD* )( v29 + 0x20 ) + 0x24 ) = 0;
-				auto v30 = *( DWORD* )( v26 + 0x24 );
+				auto v30 = *( DWORD* )( entity + 0x24 );
 				*( short* )( v30 + 0x26 ) = 0;
 				*( DWORD* )( *( DWORD* )( v30 + 0x2C ) + 0x24 ) = 0;
-				auto v31 = *( DWORD* )( v26 + 0x24 );
+				auto v31 = *( DWORD* )( entity + 0x24 );
 				*( short* )( v31 + 0x32 ) = 0;
 				*( DWORD* )( *( DWORD* )( v31 + 0x38 ) + 0x24 ) = 0;
-				if ( v40 )
-					visual_interp_amt = v28;
+
+				if ( g_cl.m_local )
+					visual_interp_amt = visual_interp_amt_2;
 				else
 					visual_interp_amt = 0.0;
-				*( float* )( *( DWORD* )( *( DWORD* )( v26 + 0x24 ) + 8 ) + 0x24 ) = visual_interp_amt;
-				*( float* )( *( DWORD* )( *( DWORD* )( v26 + 0x24 ) + 0x44 ) + 0x24 ) = v28;
+
+				*( float* )( *( DWORD* )( *( DWORD* )( entity + 0x24 ) + 8 ) + 0x24 ) = /*visual_interp_amt*/ visual_interp_amt_2;
+				*( float* )( *( DWORD* )( *( DWORD* )( entity + 0x24 ) + 0x44 ) + 0x24 ) = visual_interp_amt_2;
 			}
 			++entity_index;
 		} while ( entity_index < 65 );
