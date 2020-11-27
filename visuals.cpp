@@ -69,7 +69,7 @@ void Visuals::ModulateWorld( ) {
 
 void Visuals::VisualInterpolation( ) {
 
-	if ( g_cl.m_stage) {
+	if ( g_cl.m_stage && g_cl.m_local ) {
 		auto interval_per_tick = g_csgo.m_globals->m_interval;// g_pGlobalVars->m_interval
 		auto visual_interp_amt_2 = interval_per_tick * 2;
 
