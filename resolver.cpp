@@ -332,62 +332,64 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 	if (!g_cfg[("aimbot_resolver")].get< bool >())
 		return;
 	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
-	vec3_t absangles = { 0.0f, 0.0f, 0.0f };
-	auto animstate = record->m_pEntity->m_PlayerAnimState2();
-	float  original_eye_yaw;
-	original_eye_yaw = math::AngleNormalize(animstate->m_flEyeYaw);
-	float original_eye_yaw_positive = AngleNormalizePositive(original_eye_yaw);
-	float flDuckSpeedClamp, flRunningSpeedClamp, flLerped, flSpeed, flMaxYaw, flMinYaw, flLadderCycle;
-	float flBestDist = 65535.0f;
-	float flBestDist_General = 65535.0f;
-	bool bOnLadder;
+	if ( prev_record ) {
+		vec3_t absangles = { 0.0f, 0.0f, 0.0f };
+		auto animstate = record->m_pEntity->m_PlayerAnimState2( );
+		float  original_eye_yaw;
+		original_eye_yaw = math::AngleNormalize( animstate->m_flEyeYaw );
+		float original_eye_yaw_positive = AngleNormalizePositive( original_eye_yaw );
+		float flDuckSpeedClamp, flRunningSpeedClamp, flLerped, flSpeed, flMaxYaw, flMinYaw, flLadderCycle;
+		float flBestDist = 65535.0f;
+		float flBestDist_General = 65535.0f;
+		bool bOnLadder;
 
-	flDuckSpeedClamp = std::clamp(animstate->m_flDuckingSpeed, 0.0f, 1.0f);
-	flRunningSpeedClamp = std::clamp(animstate->m_flRunningSpeed, 0.0f, 1.0f);
-	flLerped = ((flDuckSpeedClamp - flRunningSpeedClamp) * animstate->m_fDuckAmount) + flRunningSpeedClamp;
-	flSpeed = animstate->m_flSpeed;
-	flMaxYaw = animstate->m_flMaxYaw;
-	flMinYaw = animstate->m_flMinYaw;
-	flLadderCycle = animstate->m_flLadderCycle;
-	bOnLadder = animstate->m_bOnLadder;
 
-	vec3_t& vVelocity = animstate->m_vVelocity;
-	float velAngle = (atan2(-vVelocity.y, -vVelocity.x) * 180.0f) * (1.0f / M_PI);
-	if (velAngle < 0.0f)
-		velAngle += 360.0f;
+		flDuckSpeedClamp = std::clamp( animstate->m_flDuckingSpeed, 0.0f, 1.0f );
+		flRunningSpeedClamp = std::clamp( animstate->m_flRunningSpeed, 0.0f, 1.0f );
+		flLerped = ( ( flDuckSpeedClamp - flRunningSpeedClamp ) * animstate->m_fDuckAmount ) + flRunningSpeedClamp;
+		flSpeed = animstate->m_flSpeed;
+		flMaxYaw = animstate->m_flMaxYaw;
+		flMinYaw = animstate->m_flMinYaw;
+		flLadderCycle = animstate->m_flLadderCycle;
+		bOnLadder = animstate->m_bOnLadder;
 
-	float flBiasMove = Bias(flLerped, 0.18f);
-	float m_flCurrentMoveDirGoalFeetDelta, m_flGoalMoveDirGoalFeetDelta, _m_flCurrentMoveDirGoalFeetDelta, _m_flGoalMoveDirGoalFeetDelta;
-	float layer7_weight = record->m_pEntity->m_AnimOverlay()[7].m_weight;
-	float maxdesyncdelta = record->m_pEntity->GetMaxBodyRotation();//fminf(tickrecord->m_flAbsMaxDesyncDelta + 2.0f, 58.0f);
+		vec3_t& vVelocity = animstate->m_vVelocity;
+		float velAngle = ( atan2( -vVelocity.y, -vVelocity.x ) * 180.0f ) * ( 1.0f / M_PI );
+		if ( velAngle < 0.0f )
+			velAngle += 360.0f;
 
-	const int nTimes = (maxdesyncdelta - -maxdesyncdelta) / 0.5f + 1;
+		float flBiasMove = Bias( flLerped, 0.18f );
+		float m_flCurrentMoveDirGoalFeetDelta, m_flGoalMoveDirGoalFeetDelta, _m_flCurrentMoveDirGoalFeetDelta, _m_flGoalMoveDirGoalFeetDelta;
+		float layer7_weight = record->m_pEntity->m_AnimOverlay( )[ 7 ].m_weight;
+		float maxdesyncdelta = record->m_pEntity->GetMaxBodyRotation( );//fminf(tickrecord->m_flAbsMaxDesyncDelta + 2.0f, 58.0f);
 
-	for (int iter = 0; iter < nTimes; ++iter)
-	{
-		float i = -maxdesyncdelta + iter * 0.5f;
-		absangles.y = AngleNormalizePositive(original_eye_yaw + (float)i);
+		const int nTimes = ( maxdesyncdelta - -maxdesyncdelta ) / 0.5f + 1;
+		for ( int iter = 0; iter < nTimes; ++iter )
+		{
+			float i = -maxdesyncdelta + iter * 0.5f;
+			absangles.y = AngleNormalizePositive( original_eye_yaw + ( float ) i );
 
-		_m_flCurrentMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2()->m_flCurrentMoveDirGoalFeetDelta;
-		_m_flGoalMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2()->m_flGoalMoveDirGoalFeetDelta;
+			_m_flCurrentMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2( )->m_flCurrentMoveDirGoalFeetDelta;
+			_m_flGoalMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2( )->m_flGoalMoveDirGoalFeetDelta;
 
-		m_flCurrentMoveDirGoalFeetDelta = _m_flCurrentMoveDirGoalFeetDelta;
-		m_flGoalMoveDirGoalFeetDelta = _m_flGoalMoveDirGoalFeetDelta;
+			m_flCurrentMoveDirGoalFeetDelta = _m_flCurrentMoveDirGoalFeetDelta;
+			m_flGoalMoveDirGoalFeetDelta = _m_flGoalMoveDirGoalFeetDelta;
 
-		if (record->m_pEntity->m_vecVelocity().length_2d() > 0.1f)
-			m_flGoalMoveDirGoalFeetDelta = math::AngleNormalize(math::AngleDiff(velAngle, absangles.y));
+			if ( record->m_pEntity->m_vecVelocity( ).length_2d( ) > 0.1f )
+				m_flGoalMoveDirGoalFeetDelta = math::AngleNormalize( math::AngleDiff( velAngle, absangles.y ) );
 
-		float m_flFeetVelDirDelta = math::AngleNormalize(math::AngleDiff(m_flGoalMoveDirGoalFeetDelta, m_flCurrentMoveDirGoalFeetDelta));
-		m_flCurrentMoveDirGoalFeetDelta = layer7_weight >= 1.0f ? m_flGoalMoveDirGoalFeetDelta : math::AngleNormalize(((flBiasMove + 0.1f) * m_flFeetVelDirDelta) + m_flCurrentMoveDirGoalFeetDelta);
-		record->m_pEntity->m_flPoseParameter()[7] = m_flCurrentMoveDirGoalFeetDelta; //move_yaw
+			float m_flFeetVelDirDelta = math::AngleNormalize( math::AngleDiff( m_flGoalMoveDirGoalFeetDelta, m_flCurrentMoveDirGoalFeetDelta ) );
+			m_flCurrentMoveDirGoalFeetDelta = layer7_weight >= 1.0f ? m_flGoalMoveDirGoalFeetDelta : math::AngleNormalize( ( ( flBiasMove + 0.1f ) * m_flFeetVelDirDelta ) + m_flCurrentMoveDirGoalFeetDelta );
+			record->m_pEntity->m_flPoseParameter( )[ 7 ] = m_flCurrentMoveDirGoalFeetDelta; //move_yaw
 
-		float new_body_yaw_pose;
-		float eye_goalfeet_delta = math::AngleDiff(original_eye_yaw, absangles.y);
-		if (eye_goalfeet_delta < 0.0f)
-			new_body_yaw_pose = (eye_goalfeet_delta / flMinYaw) * -58.0f;
-		else
-			new_body_yaw_pose = (eye_goalfeet_delta / flMaxYaw) * 58.0f;
-		record->m_pEntity->m_flPoseParameter()[11] = new_body_yaw_pose; //fix the body yaw pose parameter
+			float new_body_yaw_pose;
+			float eye_goalfeet_delta = math::AngleDiff( original_eye_yaw, absangles.y );
+			if ( eye_goalfeet_delta < 0.0f )
+				new_body_yaw_pose = ( eye_goalfeet_delta / flMinYaw ) * -58.0f;
+			else
+				new_body_yaw_pose = ( eye_goalfeet_delta / flMaxYaw ) * 58.0f;
+			record->m_pEntity->m_flPoseParameter( )[ 11 ] = new_body_yaw_pose; //fix the body yaw pose parameter
+		}
 	}
 	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
 
