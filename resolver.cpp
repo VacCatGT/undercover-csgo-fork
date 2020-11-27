@@ -121,7 +121,7 @@ void Resolver::ResolveAngles( Player* player, LagComp::LagRecord_t* record, LagC
 	Resolver::setup_detect( data, player, record );
 
 	/* resolve entity */
-	if ( record->m_bValid && record->m_iChoked > 2 && record->m_iChoked < 17 )
+	if ( record->m_bValid && record->m_iChoked > 1 && record->m_iChoked < ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 ) )
 		ResolveEntity( data, record, prev_record );
 
 	player->SetupBones( record->m_pMatrix, 128, BONE_USED_BY_ANYTHING, 0.0f );

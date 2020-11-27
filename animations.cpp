@@ -15,11 +15,13 @@ void Animations::AnimationInfo_t::UpdateAnimations( LagComp::LagRecord_t* pRecor
 	if ( !pPreviousRecord ) {
 		pRecord->m_vecVelocity = m_pEntity->m_vecVelocity( );
 
-		ParallelProcess( pRecord, 1, &Resolver::StoreMatrices );
+		//ParallelProcess( pRecord, 1, &Resolver::StoreMatrices );
 
 		g_resolver.ResolveAngles( m_pEntity, pRecord, pPreviousRecord );
 
 		pRecord->Apply( m_pEntity );
+
+		g_anims.UpdatePlayer( m_pEntity );
 
 		return;
 	}
@@ -84,9 +86,11 @@ void Animations::AnimationInfo_t::UpdateAnimations( LagComp::LagRecord_t* pRecor
 
 		m_pEntity->m_flSimulationTime( ) = flSimulationTime;
 
-		ParallelProcess( pRecord, 1, &Resolver::StoreMatrices );
+		//ParallelProcess( pRecord, 1, &Resolver::StoreMatrices );
 	  
 		g_resolver.ResolveAngles( m_pEntity, pRecord, pPreviousRecord );
+
+		g_anims.UpdatePlayer( m_pEntity );
 	  
 		m_pEntity->m_flSimulationTime( ) = flBackupSimtime;
 	}
@@ -103,8 +107,6 @@ void Animations::UpdatePlayer( Player* pEntity ) {
 	if ( !state ) {
 		return;
 	}
-
-	g_csgo.cl_extrapolate->SetValue( 0 ); 	// poggers
 
 	g_csgo.m_globals->m_frametime = g_csgo.m_globals->m_interval;
 	g_csgo.m_globals->m_curtime = pEntity->m_flSimulationTime( );
