@@ -112,7 +112,7 @@ void MenuFramework::RenderModule( positions position, sizes size, std::string ti
 	if ( is_top )
 		ImGui::Dummy( ImVec2( 0, 32 ) );
 	else
-		ImGui::Dummy( ImVec2( 0, 1 ) );
+		ImGui::Dummy( ImVec2( 0, 20 ) );
 
 	ImGui::Dummy( ImVec2( 0, 0 ) );
 
@@ -123,14 +123,13 @@ void MenuFramework::RenderModule( positions position, sizes size, std::string ti
 	if ( position == positions::right_top || position == positions::right_bottom )
 		ImGui::SameLine( -2, 0 );
 
-	ImGui::GetWindowDrawList( )->AddRectFilled( ImVec2( module_position.x - 1, module_position.y - 1 ), ImVec2( module_position.x + (position == wide_nigga ? 416 : 208), module_position.y + 322 - subraction_due_to_spacing + 1 + countered_spacing_value ), ImColor( 47, 47, 47, 255 ) );
-	ImGui::GetWindowDrawList( )->AddRectFilled( module_position, ImVec2( module_position.x + (position == wide_nigga ? 414 : 207), module_position.y + 321 - subraction_due_to_spacing + 1 + countered_spacing_value ), ImColor(24, 24, 24, 255 ) );
-	
-	//ImGui::GetWindowDrawList()->AddImage(g_menu.undercover_groupbox, ImVec2(module_position.x + 2, module_position.y), ImVec2(module_position.x + 213,module_position.y + 35), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255));//funny line texture!!
+
+	ImGui::GetWindowDrawList()->AddImage(g_menu.undercover_groupbox, ImVec2(module_position.x + 1, module_position.y), 
+		ImVec2(module_position.x + 212,module_position.y + 325), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255));//funny  texture!!
 
 	
 	ImGui::PushFont( g_menu.droid_sans );
-	ImGui::PushStyleVar( ImGuiStyleVar_WindowPadding, ImVec2( 16, 16 ) );
+	ImGui::PushStyleVar( ImGuiStyleVar_WindowPadding, ImVec2( 19, 38 ) );
 	ImGui::BeginChild( title.c_str( ), ImVec2((position == wide_nigga ? 480 : 240), 316 - subraction_due_to_spacing + countered_spacing_value), false, ImGuiWindowFlags_NoCollapse /*| ImGuiWindowFlags_NoScrollbar*/ | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize );
 }
 

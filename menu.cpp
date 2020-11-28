@@ -1,7 +1,21 @@
 #include "undercover.h"
+#include "niggahoe.h"
 
 Menu g_menu{ };
+void Menu::SetupTextures( IDirect3DDevice9* device ) {
 
+	if (undercover_top_left_line == nullptr)
+		D3DXCreateTextureFromFileInMemoryEx( device , bitchass , sizeof( bitchass ) , 239 , 33 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_top_left_line );
+
+	if (undercover_logo == nullptr)
+		D3DXCreateTextureFromFileInMemoryEx( device , undercover_raw_data , sizeof( undercover_raw_data ) , 58 , 46 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_logo );
+
+	if (undercover_groupbox == nullptr)
+		D3DXCreateTextureFromFileInMemoryEx( device , niggafuck , sizeof( niggafuck ) , 211 , 325 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_groupbox );
+
+	if (undercover_background == nullptr)
+		D3DXCreateTextureFromFileInMemoryEx( device , background_raw_data , sizeof( background_raw_data ) , 798 , 541 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_background );
+}
 void Menu::Think( IDirect3DDevice9* device ) {
 
 	if ( m_opened ) {
@@ -515,7 +529,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						ImGui::SetCursorPosX( ImGui::GetCursorPosX( ) + 3 );
 						ImGui::SetCursorPosY( ImGui::GetCursorPosY( ) + 5 );
 						if ( !g_skins.m_glove_kits.empty( ) ) {
-							g_frw.ListBox( XOR( "Glove skin" ), XOR( "skins_glove_kit" ), g_skins.m_glove_kits, 6 );
+							g_frw.ListBox( XOR( "Glove skin" ), XOR( "skins_glove_kit" ), g_skins.m_glove_kits, 3 );
 						}
 						ImGui::SetCursorPosX( ImGui::GetCursorPosX( ) + 3 );
 						g_frw.Button( XOR( "Refresh" ), &g_skins.m_update );
@@ -651,14 +665,11 @@ void Menu::Think( IDirect3DDevice9* device ) {
 				static int current_subtab;
 				g_frw.RenderSecondaryHeader( current_subtab, { XOR( "CONFIG" ) } );
 
-				g_frw.RenderModule( positions::wide_nigga, sizes::full, XOR( "CONFIGS" ) ); {
-					ImGui::Columns(2, NULL, false);
-
+				g_frw.RenderModule( positions::left_top, sizes::full, XOR( "CONFIGS" ) ); {
 					bool t1, t2, t3, t4, t5;
 					static char config_name[ 25 ];
 					g_frw.ListBox( XOR( "Configs" ), XOR( "cfg" ), g_config.configs, 8 );
 
-					ImGui::NextColumn();
 
 					g_frw.TextInput( XOR( "Name" ), config_name, true );
 					g_frw.Button( XOR( "Create new file" ), &t4 );
@@ -680,7 +691,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 					}
 					g_frw.Button( XOR( "Delete file" ), &t5 );
 
-					ImGui::Columns();
 
 				}g_frw.EndModule( );
 				break;

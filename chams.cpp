@@ -223,9 +223,6 @@ bool Chams::DrawModel( uintptr_t ctx, const DrawModelState_t& state, const Model
 		return true;
 	}
 
-	if( !g_cl.m_local )
-		return true;
-
 	if( !g_cl.m_weapon )
 		return true;
 

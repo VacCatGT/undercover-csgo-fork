@@ -256,12 +256,6 @@
     <ClCompile Include="undercover_gui\fonts\SegoeUI.cpp">
       <Filter>user_interface\fonts</Filter>
     </ClCompile>
-    <ClCompile Include="undercover_gui\images\background.c">
-      <Filter>user_interface\images</Filter>
-    </ClCompile>
-    <ClCompile Include="undercover_gui\images\logo.c">
-      <Filter>user_interface\images</Filter>
-    </ClCompile>
     <ClCompile Include="undercover_gui\imgui\dx9\imgui_impl_dx9.cpp">
       <Filter>user_interface\dear_imgui</Filter>
     </ClCompile>
@@ -735,6 +729,9 @@
     </ClInclude>
     <ClInclude Include="undercover_gui\wrapper.h">
       <Filter>user_interface\undercover_gui</Filter>
+    </ClInclude>
+    <ClInclude Include="niggahoe.h">
+      <Filter>user_interface\images</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5480,13 +5480,12 @@ bool ImGui::ButtonExT_Filled( const char* label, const ImVec2& size_arg, ImGuiBu
 	bool pressed = ButtonBehavior( bb, id, &hovered, &held, flags );
 
 	if ( page == in ) {
-		window->DrawList->AddRectFilled(ImVec2(bb.Min.x, bb.Min.y), ImVec2(bb.Max.x, bb.Max.y), ImColor(23, 23, 23));
 		PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1));
 		RenderTextClipped(bb.Min + style.FramePadding, bb.Max - style.FramePadding, label, NULL, &label_size, ImVec2(0.5, 0.5), &bb);
 		PopStyleColor( );
 	}
 	else {
-		PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1));
+		PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.8f, 0.8f , 1));
 		RenderTextClipped( bb.Min + style.FramePadding, bb.Max - style.FramePadding, label, NULL, &label_size, ImVec2( 0.5, 0.5 ), &bb );
 		PopStyleColor( );
 	}
@@ -5529,7 +5528,7 @@ bool ImGui::ButtonEx( const char* label, const ImVec2& size_arg, ImGuiButtonFlag
 	bool pressed = ButtonBehavior( bb, id, &hovered, &held, flags );
 
 	// Render // fortnite
-	const ImU32 col = ( ( hovered && held ) ? ImColor(255, 255, 255, 100) : hovered ? ImColor(205, 21, 21, 255) : ImColor(31, 37, 43) );
+	const ImU32 col = ( ( hovered && held ) ? ImColor(255, 255, 255, 100) : hovered ? ImColor(38, 38 , 38 , 255) : ImColor(31, 31, 31) );
 	RenderFrame(bb.Min - ImVec2(1, 1) , bb.Max + ImVec2(1, 1), ImColor(47, 47, 47, 255), false, style.FrameRounding);
 	RenderFrame( bb.Min, bb.Max, col, false, style.FrameRounding );
 	RenderTextClipped( bb.Min + style.FramePadding, bb.Max - style.FramePadding, label, NULL, &label_size, style.ButtonTextAlign, &bb );
@@ -6414,7 +6413,7 @@ bool ImGui::SliderBehavior( const ImRect& frame_bb, ImGuiID id, const char* disp
 	else
 		grab_bb = ImRect(ImVec2(frame_bb.Min.x + grab_padding, grab_pos - grab_sz * 0.5f), ImVec2(frame_bb.Max.x - grab_padding, grab_pos + grab_sz * 0.5f));
 
-	window->DrawList->AddRectFilled(frame_bb.Min, ImVec2(grab_bb.Max.x - (*v == 0.f ? 2.f : *v == 100 ? -2 : 0.f), grab_bb.Max.y + 2), ImColor(217, 0, 28, 255), style.FrameRounding); // Main gradient.
+	window->DrawList->AddRectFilled(frame_bb.Min, ImVec2(grab_bb.Max.x - (*v == 0.f ? 2.f : *v == 100 ? -2 : 0.f), grab_bb.Max.y + 2), ImColor(170, 0, 28, 255), style.FrameRounding); // Main gradient.
 
 	return value_changed;
 }
@@ -7137,7 +7136,7 @@ bool ImGui::Checkbox( const char* label, bool* v ) {
 
 	if ( *v ) {
 		window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), ImColor(47, 47, 47), style.FrameRounding); // Main gradient.
-		window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(217, 0, 28, 255), style.FrameRounding); // Main gradient.
+		window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(170, 0, 28, 255), style.FrameRounding); // Main gradient.
 	}
 
 	if ( g.LogEnabled )
@@ -8694,7 +8693,7 @@ bool ImGui::SelectableMeme( const char* label, bool selected, ImGuiSelectableFla
 	}
 
 	if ( flags & ImGuiSelectableFlags_Disabled ) PushStyleColor( ImGuiCol_Text, g.Style.Colors[ ImGuiCol_TextDisabled ] );
-	if (selected) PushStyleColor(ImGuiCol_Text, ImVec4(21 / 255.f, 119 / 255.f, 205 / 255.f, 255 / 255.f));
+	if (selected) PushStyleColor(ImGuiCol_Text, ImVec4( 205 / 255.f, 21 / 255.f, 21 / 255.f, 255 / 255.f));
 	RenderTextClipped( bb.Min + ImVec2( 9, 2 ), bb_with_spacing.Max, label, NULL, &label_size, ImVec2( 0.0f, 0.0f ) );
 	if (selected) PopStyleColor();
 	if ( flags & ImGuiSelectableFlags_Disabled ) PopStyleColor( );
@@ -8846,9 +8845,9 @@ bool ImGui::Selectable22( const char* label, bool selected, ImGuiSelectableFlags
 		bb_with_spacing.Max.x -= ( GetContentRegionMax( ).x - max_x );
 	}
 	if ( hovered )
-		ImGui::GetCurrentWindow( )->DrawList->AddRectFilled( bb.Min + ImVec2( 0, 4 ) - ImVec2( 13, 5 ), bb_with_spacing.Max + ImVec2( 91, 2 ), ImColor( 48, 141, 191, 30 ), 0 );
+		ImGui::GetCurrentWindow( )->DrawList->AddRectFilled( bb.Min + ImVec2( 9, 4 ) - ImVec2( 13, 5 ), bb_with_spacing.Max + ImVec2( 82, 2 ), ImColor( 191 , 48 , 48, 30 ), 0 );
 
-	if ( selected )PushStyleColor( ImGuiCol_Text, ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.f ) );
+	if ( selected )PushStyleColor( ImGuiCol_Text, ImVec4( 205 / 255.f, 21 / 255.f, 21 / 255.f, 1.f ) );
 	RenderTextClipped( bb.Min + ImVec2( 4, 4 ), bb_with_spacing.Max + ImVec2( 4, 4 ), label, NULL, &label_size, ImVec2( 0.0f, 0.0f ) );
 	if ( selected )PopStyleColor( );
 

@@ -1,5 +1,4 @@
 #pragma once
-
 class Menu {
 public:
 	bool m_opened;
@@ -51,13 +50,13 @@ public:
 		colors[ ImGuiCol_PopupBg ] = ImVec4( 0.08f, 0.08f, 0.08f, 0.94f );
 		colors[ ImGuiCol_Border ] = ImVec4( 0, 0, 0, 1 );
 		colors[ ImGuiCol_BorderShadow ] = ImVec4( 0.00f, 0.00f, 0.00f, 0.00f );
-		colors[ ImGuiCol_ChildWindowBg ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1 );
+		colors[ ImGuiCol_ChildWindowBg ] = ImVec4( 205/ 255.f, 21 / 255.f, 21 / 255.f, 1 );
 		colors[ ImGuiCol_FrameBg ] = ImVec4( 0.22f, 0.22f, 0.22f, 1.0f );
 		colors[ ImGuiCol_FrameBgHovered ] = ImVec4( 0.15f, 0.15f, 0.15f, 1.0f );
 		colors[ ImGuiCol_FrameBgActive ] = ImVec4( 0.08f, 0.08f, 0.08f, 1.00f );
-		colors[ ImGuiCol_TitleBgActive ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.0f );
-		colors[ ImGuiCol_TitleBg ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.0f );
-		colors[ ImGuiCol_TitleBgCollapsed ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.0f );
+		colors[ ImGuiCol_TitleBgActive ] = ImVec4( 205 / 255.f, 21 / 255.f, 21 / 255.f, 1.0f );
+		colors[ ImGuiCol_TitleBg ] = ImVec4( 205/ 255.f, 21 / 255.f, 21 / 255.f, 1.0f );
+		colors[ ImGuiCol_TitleBgCollapsed ] = ImVec4( 205/ 255.f, 21 / 255.f, 21 / 255.f, 1.0f );
 		colors[ ImGuiCol_MenuBarBg ] = ImVec4( 0.14f, 0.14f, 0.14f, 1.00f );
 		colors[ ImGuiCol_ScrollbarBg ] = ImVec4( 0.17f, 0.17f, 0.17f, 1.00f );
 		colors[ ImGuiCol_ScrollbarGrab ] = ImVec4( 0.25f, 0.25f, 0.25f, 1.00f );
@@ -66,9 +65,9 @@ public:
 		colors[ ImGuiCol_Button ] = ImVec4( 135 / 255.f, 135 / 255.f, 135 / 255.f, 1.0f );
 		colors[ ImGuiCol_ButtonHovered ] = ImVec4( 151 / 255.f, 151 / 255.f, 151 / 255.f, 1.0f );
 		colors[ ImGuiCol_ButtonActive ] = ImVec4( 135 / 255.f, 135 / 255.f, 135 / 255.f, 1.0f );
-		colors[ ImGuiCol_Header ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.0f );
-		colors[ ImGuiCol_HeaderHovered ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.0f );
-		colors[ ImGuiCol_HeaderActive ] = ImVec4( 21 / 255.f, 119 / 255.f, 205 / 255.f, 1.0f );
+		colors[ ImGuiCol_Header ] = ImVec4( 32 / 255.f, 32 / 255.f, 32 / 255.f, 1.0f );
+		colors[ ImGuiCol_HeaderHovered ] = ImVec4( 32 / 255.f, 32 / 255.f, 32 / 255.f, 1.0f );
+		colors[ ImGuiCol_HeaderActive ] = ImVec4( 32 / 255.f, 32 / 255.f, 32 / 255.f, 1.0f );
 		colors[ ImGuiCol_Separator ] = ImVec4( 0, 0, 0, 1 );
 		colors[ ImGuiCol_SeparatorHovered ] = ImVec4( 0, 0, 0, 1 );
 		colors[ ImGuiCol_SeparatorActive ] = ImVec4( 0, 0, 0, 1 );
@@ -102,21 +101,8 @@ public:
 		droid_sans_bold_small = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( Droid_Sans_Bold_compressed_data, Droid_Sans_Bold_compressed_size, 14 );
 		segue_ui = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( SegoeUI_compressed_data, SegoeUI_compressed_size, 15 );
 	}
-	void SetupTextures( IDirect3DDevice9* device ) {
 
-		
-		if (undercover_top_left_line == nullptr)
-			D3DXCreateTextureFromFileInMemoryEx(device, bitchass, sizeof(bitchass), 239, 33, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_top_left_line);
-		
-		if ( undercover_logo == nullptr )
-			D3DXCreateTextureFromFileInMemoryEx( device, undercover_raw_data, sizeof( undercover_raw_data ), 58, 46, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_logo );
-		
-		if (undercover_groupbox == nullptr)
-			D3DXCreateTextureFromFileInMemoryEx(device, niggafuck, sizeof(niggafuck), 212, 35, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_groupbox);
-
-		if ( undercover_background == nullptr )
-			D3DXCreateTextureFromFileInMemoryEx( device, background_raw_data, sizeof( background_raw_data ), 798, 541, D3DX_DEFAULT, D3DUSAGE_DYNAMIC, D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &undercover_background );
-	}
+	void SetupTextures( IDirect3DDevice9* device );
 
 	void __stdcall EndPresent( IDirect3DDevice9* device ) {
 		ImGui::Render( );

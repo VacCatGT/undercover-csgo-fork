@@ -64,8 +64,6 @@ using ulong_t = unsigned long;
 #include "undercover_gui/fonts/droid_sans_bold.cpp"
 #include "undercover_gui/fonts/agency_bold.cpp"
 #include "undercover_gui/fonts/SegoeUI.cpp"
-#include "undercover_gui/images/logo.c"
-#include "undercover_gui/images/background.c"
 #include "undercover_gui/imgui/imgui.h"
 #include "undercover_gui/imgui/dx9/imgui_impl_dx9.h"
 

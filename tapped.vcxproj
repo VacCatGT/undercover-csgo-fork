@@ -18,7 +18,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{099DE97A-54D6-47DE-A760-7CA4184D45DB}</ProjectGuid>
     <RootNamespace>supremacy_csgo</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>undercover.host</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -223,6 +223,7 @@
     <ClInclude Include="hooks.h" />
     <ClInclude Include="hud.h" />
     <ClInclude Include="hvh.h" />
+    <ClInclude Include="niggahoe.h" />
     <ClInclude Include="sequences.h" />
     <ClInclude Include="sound_data.h" />
     <ClInclude Include="undercover.h" />
@@ -395,8 +396,6 @@
     <ClCompile Include="undercover_gui\fonts\droid_sans.cpp" />
     <ClCompile Include="undercover_gui\fonts\droid_sans_bold.cpp" />
     <ClCompile Include="undercover_gui\fonts\SegoeUI.cpp" />
-    <ClCompile Include="undercover_gui\images\background.c" />
-    <ClCompile Include="undercover_gui\images\logo.c" />
     <ClCompile Include="undercover_gui\imgui\dx9\imgui_impl_dx9.cpp" />
     <ClCompile Include="undercover_gui\imgui\imgui.cpp" />
     <ClCompile Include="undercover_gui\imgui\imgui_draw.cpp" />
