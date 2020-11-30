@@ -6314,7 +6314,7 @@ bool ImGui::SliderBehavior( const ImRect& frame_bb, ImGuiID id, const char* disp
 	const ImGuiStyle& style = g.Style;
 
 	// Draw frame
-	RenderFrame(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), ImColor(47, 47, 47, 255), false, style.FrameRounding);
+	RenderFrame(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), ImColor( 47 , 47 , 47 , 255), false, style.FrameRounding);
 	RenderFrame(frame_bb.Min, frame_bb.Max, ImColor(31, 31, 31, 255), false, style.FrameRounding);
 
 	const bool is_non_linear = (power < 1.0f - 0.00001f) || (power > 1.0f + 0.00001f);
@@ -6414,7 +6414,10 @@ bool ImGui::SliderBehavior( const ImRect& frame_bb, ImGuiID id, const char* disp
 		grab_bb = ImRect(ImVec2(frame_bb.Min.x + grab_padding, grab_pos - grab_sz * 0.5f), ImVec2(frame_bb.Max.x - grab_padding, grab_pos + grab_sz * 0.5f));
 
 	window->DrawList->AddRectFilled(frame_bb.Min, ImVec2(grab_bb.Max.x - (*v == 0.f ? 2.f : *v == 100 ? -2 : 0.f), grab_bb.Max.y + 2), ImColor(170, 0, 28, 255), style.FrameRounding); // Main gradient.
-
+		// Display value using user-provided display format so user can add prefix/suffix/decorations to the value.
+	char value_buf[ 64 ];
+	const char* value_buf_end = value_buf + ImFormatString( value_buf , IM_ARRAYSIZE( value_buf ) , display_format , *v );
+	RenderText( ImVec2( grab_bb.Max.x - ( *v == 0.f ? 2.f : *v == 100 ? -2 : 0.f ) , frame_bb.Min.y ) , value_buf , value_buf_end );
 	return value_changed;
 }
 
@@ -6473,10 +6476,7 @@ bool ImGui::SliderFloat( const char* label, float* v, float v_min, float v_max, 
 	// Actual slider behavior + render grab
 	const bool value_changed = SliderBehavior( frame_bb, id, display_format, v, v_min, v_max, power, decimal_precision );
 
-	// Display value using user-provided display format so user can add prefix/suffix/decorations to the value.
-	char value_buf[ 64 ];
-	const char* value_buf_end = value_buf + ImFormatString( value_buf, IM_ARRAYSIZE( value_buf ), display_format, *v );
-	RenderText( ImVec2( frame_bb.Max.x - ImGui::CalcTextSize( value_buf ).x, frame_bb.Min.y - 17 ), value_buf, value_buf_end );
+
 	// RenderTextClipped( frame_bb.Min - ImVec2( 0, 17 ), frame_bb.Max - ImVec2( 0, 14 ), value_buf, value_buf_end, NULL, ImVec2( 1.f, 1.f ) );
 
 	if ( label_size.x > 0.0f )
@@ -7131,12 +7131,12 @@ bool ImGui::Checkbox( const char* label, bool* v ) {
 	if ( pressed )
 		*v = !( *v );
 
-	window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), hovered ? held ? ImColor(140, 145, 140, 255) : ImColor(110, 105, 100, 255) : ImColor(62, 59, 56, 255), style.FrameRounding);
-	window->DrawList->AddRectFilled( check_bb.Min, check_bb.Max, ImColor(31, 31, 31, 255), style.FrameRounding );
+	window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1 + 4, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1 , check_bb.Max.y - 3), hovered ? held ? ImColor(140, 145, 140, 255) : ImColor(110, 105, 100, 255) : ImColor(62, 59, 56, 255), style.FrameRounding);
+	window->DrawList->AddRectFilled( check_bb.Min + ImVec2( 4 , 0 ) , check_bb.Max - ImVec2( 0 , 4 ) , ImColor(31, 31, 31, 255), style.FrameRounding );
 
 	if ( *v ) {
-		window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1, check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y + 1), ImColor(47, 47, 47), style.FrameRounding); // Main gradient.
-		window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImColor(170, 0, 28, 255), style.FrameRounding); // Main gradient.
+		window->DrawList->AddRectFilled(ImVec2(check_bb.Min.x - 1 + 4 , check_bb.Min.y - 1), ImVec2(check_bb.Max.x + 1, check_bb.Max.y - 3), ImColor( 110 , 105 , 100 ), style.FrameRounding); // Main gradient.
+		window->DrawList->AddRectFilled(check_bb.Min + ImVec2( 4 , 0 ) , check_bb.Max - ImVec2(0,4), ImColor(170, 0, 28, 255), style.FrameRounding); // Main gradient.
 	}
 
 	if ( g.LogEnabled )
@@ -8300,7 +8300,7 @@ bool ImGui::Hotkey( const char* label, int* k, const ImVec2& size_arg, int* type
 		// Render
 		// Select which buffer we are going to display. When ImGuiInputTextFlags_NoLiveEdit is Set 'buf' might still be the old value. We Set buf to NULL to prevent accidental usage from now on.
 
-	char buf_display[64] = "NONE";
+	char buf_display[64] = "-";
 
 	//RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
 	//window->DrawList->AddRectFilled(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), GetColorU32(ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f)), style.FrameRounding);
@@ -8334,7 +8334,7 @@ bool ImGui::Hotkey( const char* label, int* k, const ImVec2& size_arg, int* type
 	if ( selector_open ) {
 
 		SetNextWindowSize(ImVec2(80, 100), ImGuiCond_Always);
-		SetNextWindowPos(ImVec2(frame_bb.Min.x, frame_bb.Min.y - 10), ImGuiCond_Always);
+		SetNextWindowPos(ImVec2(frame_bb.Min.x + 20, frame_bb.Min.y - 10), ImGuiCond_Always);
 
 		PushStyleVar( ImGuiStyleVar_FramePadding, { 3, 3} );
 		PushStyleVar( ImGuiStyleVar_WindowPadding, { 3, 3} );
