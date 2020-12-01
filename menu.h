@@ -26,23 +26,23 @@ public:
 		style.WindowTitleAlign = ImVec2( 0.0f, 0.5f );
 		style.ChildWindowRounding = 0.0f;
 		style.FramePadding = ImVec2( 2, 1 );
-		style.FrameRounding = 0.0f;
-		style.ItemSpacing = ImVec2( 8, 8 );
+		style.FrameRounding = 5.0f;
+		style.ItemSpacing = ImVec2( 4, 4 );
 		style.ItemInnerSpacing = ImVec2( 8, 8 );
 		style.TouchExtraPadding = ImVec2( 0, 0 );
 		style.IndentSpacing = 21.0f;
 		style.ColumnsMinSpacing = 0.0f;
 		style.ScrollbarSize = 6.0f;
-		style.ScrollbarRounding = 0.0f;
+		style.ScrollbarRounding = 2.0f;
 		style.GrabMinSize = 5.0f;
-		style.GrabRounding = 0.0f;
+		style.GrabRounding = 2.0f;
 		style.ButtonTextAlign = ImVec2( 0.5f, 0.5f );
 		style.DisplayWindowPadding = ImVec2( 22, 22 );
 		style.DisplaySafeAreaPadding = ImVec2( 4, 4 );
 		style.AntiAliasedLines = true;
 		style.AntiAliasedShapes = false;
 		style.CurveTessellationTol = 1.f;
-
+	
 		ImVec4* colors = ImGui::GetStyle(  ).Colors;
 		colors[ ImGuiCol_Text ] = ImVec4( 1.00f, 1.00f, 1.00f, 1.00f );
 		colors[ ImGuiCol_TextDisabled ] = ImVec4( 0.50f, 0.50f, 0.50f, 1.00f );
