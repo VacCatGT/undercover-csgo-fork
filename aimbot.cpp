@@ -346,7 +346,7 @@ void Aimbot::find( test_parallel_t& data ) {
 		const auto ideal = g_lagcompensation.GetLatestRecord( t->m_player );
 		if ( !ideal.has_value( ) || ideal.value( )->m_bDormant || ( ideal.value( )->m_pEntity && ideal.value( )->m_pEntity->m_bGunGameImmunity( ) ) )
 			continue;
-
+		
 		t->SetupHitboxes( ideal.value( ), false );
 		if ( t->m_hitboxes.empty( ) )
 			continue;
@@ -363,10 +363,6 @@ void Aimbot::find( test_parallel_t& data ) {
 				best.target = t;
 			}
 		}
-
-		// we found a target we can shoot at and deal damage? fuck yeah. (THIS IS TEMPORARY TILL WE REPLACE THE TARGET SELECTION)
-		if ( best.damage > 0.f && best.player && best.record )
-			break;
 
 		const auto last = g_lagcompensation.GetOldestRecord( t->m_player );
 		if ( !last.has_value( ) || last.value( ) == ideal.value( ) || last.value( )->m_bDormant || ( last.value( )->m_pEntity && last.value( )->m_pEntity->m_bGunGameImmunity( ) ) )

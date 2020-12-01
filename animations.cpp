@@ -349,29 +349,35 @@ void Animations::UpdateLocalAnimations( ) {
 	// update anim update delta as server build.
 	state->anim_update_timer = std::max( 0.0f, g_csgo.m_globals->m_curtime - state->last_client_side_animation_update_time ); // negative values possible when clocks on client and server go out of sync..
 
-	// invalidate bone cache.
-	g_cl.m_local->InvalidateBoneCache( );
+	static int m_tick_count = 0;
 
-	// get layers.
-	g_cl.m_local->GetAnimLayers( g_cl.m_real_layers );
+	if ( m_tick_count != g_csgo.m_globals->m_tick_count )
+	{
+		m_tick_count = g_csgo.m_globals->m_tick_count;
+		// invalidate bone cache.
+		g_cl.m_local->InvalidateBoneCache( );
 
-	g_cl.m_update = true;
+		// get layers.
+		g_cl.m_local->GetAnimLayers( g_cl.m_real_layers );
 
-	// update animations.
-	game::UpdateAnimationState( state, g_cl.m_cmd->m_view_angles );
-	g_cl.m_local->UpdateClientSideAnimation( );
+		g_cl.m_update = true;
 
-	g_cl.m_update = false;
+		// update animations.
+		game::UpdateAnimationState( state, g_cl.m_cmd->m_view_angles );
+		g_cl.m_local->UpdateClientSideAnimation( );
 
-	// save data when our choke cycle resets.
-	if ( g_cl.m_packet ) {
-		g_cl.m_rotation.y = state->goal_feet_yaw;
-		g_cl.m_local->GetPoseParameters( g_cl.m_real_poses );
+		g_cl.m_update = false;
+
+		// save data when our choke cycle resets.
+		if ( g_cl.m_packet ) {
+			g_cl.m_rotation.y = state->goal_feet_yaw;
+			g_cl.m_local->GetPoseParameters( g_cl.m_real_poses );
+		}
+
+		// update our layers and poses with the saved ones.
+		g_cl.m_local->SetAnimLayers( g_cl.m_real_layers );
+		g_cl.m_local->SetPoseParameters( g_cl.m_real_poses );
 	}
-
-	// update our layers and poses with the saved ones.
-	g_cl.m_local->SetAnimLayers( g_cl.m_real_layers );
-	g_cl.m_local->SetPoseParameters( g_cl.m_real_poses );
 
 	// Restore values to not mess with the game.
 	g_csgo.m_globals->m_curtime = curtime;

@@ -261,10 +261,8 @@ bool __fastcall Detours::SetupBones( void* ecx, void* edx, matrix3x4_t* bone_to_
 		g_cl.m_local->m_AnimOverlay( )[ 12 ].m_weight = 0.0f;
 
 		// remove model balance adjust animation (eye candy).
-		if ( vec2_t( g_cl.m_local->m_PlayerAnimState( )->velocity_x, g_cl.m_local->m_PlayerAnimState( )->velocity_y ).length( ) <= 1.0 && g_cl.m_local->m_PlayerAnimState( )->on_ground && !g_cl.m_local->m_PlayerAnimState( )->hit_in_ground_animation && g_cl.m_local->m_PlayerAnimState( )->eye_angles_x > 0.0 ) {
-			g_cl.m_local->m_AnimOverlay( )[ 3 ].m_cycle = 0.f;
-			g_cl.m_local->m_AnimOverlay( )[ 3 ].m_weight = 0.f;
-		}
+		g_cl.m_local->m_AnimOverlay( )[ 3 ].m_cycle = 0.f;
+		g_cl.m_local->m_AnimOverlay( )[ 3 ].m_weight = 0.f;
 
 		*( int* )( ( DWORD )pEnt + 0x2698 ) = 0;
 		bone_mask |= 0x200;
