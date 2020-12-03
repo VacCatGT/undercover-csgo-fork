@@ -90,7 +90,7 @@ bool Hooks::CreateMove( float time, CUserCmd* cmd ) {
 			
 	// let's wait till we successfully charged if we want to, hide shots.
 	if ( g_tickbase.m_shift_data.m_should_attempt_shift && !g_tickbase.m_shift_data.m_should_disable ) {
-		if ( g_cl.m_goal_shift == 7 && ( g_tickbase.m_shift_data.m_prepare_recharge || g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready ) ) {
+		if ( g_cl.m_goal_shift == ( g_cl.m_max_lag / 2 ) && ( g_tickbase.m_shift_data.m_prepare_recharge || g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready ) ) {
 			// are we IN_ATTACK?
 			if ( cmd->m_buttons & IN_ATTACK ) {
 				// remove the flag :D! 
