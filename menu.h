@@ -27,7 +27,7 @@ public:
 		style.ChildWindowRounding = 0.0f;
 		style.FramePadding = ImVec2( 2, 1 );
 		style.FrameRounding = 5.0f;
-		style.ItemSpacing = ImVec2( 4, 4 );
+		style.ItemSpacing = ImVec2( 6, 6 );
 		style.ItemInnerSpacing = ImVec2( 8, 8 );
 		style.TouchExtraPadding = ImVec2( 0, 0 );
 		style.IndentSpacing = 21.0f;
@@ -78,7 +78,7 @@ public:
 		colors[ ImGuiCol_PlotLinesHovered ] = ImVec4( 1.00f, 0.43f, 0.35f, 1.00f );
 		colors[ ImGuiCol_PlotHistogram ] = ImVec4( 0.90f, 0.70f, 0.00f, 1.00f );
 		colors[ ImGuiCol_PlotHistogramHovered ] = ImVec4( 1.00f, 0.60f, 0.00f, 1.00f );
-		colors[ ImGuiCol_TextSelectedBg ] = ImVec4( 0.26f, 0.59f, 0.98f, 0.35f );
+		colors[ ImGuiCol_TextSelectedBg ] = ImVec4(0.98f,0.26f, 0.26f, 0.35f );
 		colors[ ImGuiCol_CloseButton ] = ImVec4( 0, 0, 0, 0 );
 		colors[ ImGuiCol_CloseButtonHovered ] = ImVec4( 0, 0, 0, 0 );
 		colors[ ImGuiCol_CheckMark ] = ImVec4( 255 / 255.f, 255 / 255.f, 255 / 255.f, 1.f );
@@ -87,8 +87,8 @@ public:
 		colors[ ImGuiCol_Button ] = ImVec4( 0.f, 0.f, 0.f, 0.f );
 		colors[ ImGuiCol_ButtonActive ] = ImVec4( 0.f, 0.f, 1.f, 1.f );
 		colors[ ImGuiCol_ChildWindowBg ] = ImVec4( 255 / 255.f, 255 / 255.f, 255 / 255.f, 0.f );
-		colors[ ImGuiCol_BorderShadow ] = ImVec4( 36 / 255.f, 41 / 255.f, 45 / 255.f, 1.f );
-		colors[ ImGuiCol_WindowBg ] = ImVec4( 36 / 255.f, 41 / 255.f, 45 / 255.f, 1.f );
+		colors[ ImGuiCol_BorderShadow ] = ImVec4(41 / 255.f, 41 / 255.f,41 / 255.f, 1.f );
+		colors[ ImGuiCol_WindowBg ] = ImVec4(41 / 255.f, 41 / 255.f,41 / 255.f, 1.f );
 
 		CreateObjects( device );
 	}

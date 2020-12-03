@@ -14,7 +14,7 @@ void Menu::SetupTextures( IDirect3DDevice9* device ) {
 		D3DXCreateTextureFromFileInMemoryEx( device , niggafuck , sizeof( niggafuck ) , 211 , 325 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_groupbox );
 
 	if (undercover_background == nullptr)
-		D3DXCreateTextureFromFileInMemoryEx( device , background_raw_data , sizeof( background_raw_data ) , 798 , 541 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_background );
+		D3DXCreateTextureFromFileInMemoryEx( device , background_raw_data , sizeof( background_raw_data ) , 500 , 500 , D3DX_DEFAULT , D3DUSAGE_DYNAMIC , D3DFMT_UNKNOWN , D3DPOOL_DEFAULT , D3DX_DEFAULT , D3DX_DEFAULT , 0 , NULL , NULL , &undercover_background );
 }
 void Menu::Think( IDirect3DDevice9* device ) {
 
@@ -23,7 +23,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 			g_frw.DrawBackdrop( );
 
-			switch ( g_frw.RenderTabBar( m_curtab, { XOR( "COMBAT" ), XOR( "VISUALS" ), XOR( "GAMEPLAY" ), XOR( "SETTINGS" ) } ) )
+			switch ( g_frw.RenderTabBar( m_curtab, { XOR( "RAGEBOT" ), XOR( "VISUALS" ), XOR( "MISC" ), XOR( "CONFIG" ) } ) )
 			{
 
 			case tabs::tab_one: {
