@@ -272,7 +272,7 @@ bool Aimbot::AdjustVelocity(  ) { // temporary
 	if( !m_target )
 		return false;
 
-	if( ( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && m_in_air )
+	if( !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && !m_in_air )
 		return false;
 
 	//if( !m_stop )
