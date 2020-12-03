@@ -128,6 +128,9 @@ void AimPlayer::SetupHitboxes( LagComp::LagRecord_t* record, bool history ) {
 	if ( g_aimbot.m_body_in_air && !( record->m_fFlags & FL_ONGROUND ) && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
 		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
 
+	if ( g_aimbot.m_body_on_crouch && record->m_flDuck == 1 && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
+		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
+
 	if ( g_aimbot.m_body_lethal && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
 		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::LETHAL, false } );
 
@@ -1124,6 +1127,7 @@ GENERAL:
 	m_priority_hitbox = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "priority_hitbox" ) ) ) ].get<int>( );
 
 	m_body_in_air = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "body_in_air" ) ) ) ].get<bool>( );
+	m_body_on_crouch = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "body_on_crouch" ) ) ) ].get<bool>( );
 	m_body_lethal = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "body_lethal" ) ) ) ].get<bool>( );
 	m_body_lethal2 = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "body_lethal2" ) ) ) ].get<bool>( );
 

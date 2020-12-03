@@ -191,6 +191,7 @@ public:
 	bool m_in_air;
 
 	bool m_body_in_air;
+	bool m_body_on_crouch;
 	bool m_body_lethal;
 	bool m_body_lethal2;
 

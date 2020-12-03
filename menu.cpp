@@ -111,6 +111,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 							{ XOR( "Head" ), XOR( "Neck" ), XOR( "Body" ), XOR( "Stomach" ), XOR( "Legs" ), XOR( "Feet" ) } );
 
 						g_frw.Checkbox( XOR( "Body Aim In Air" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_in_air" ) ) );
+						g_frw.Checkbox( XOR( "Body Aim On Crouch" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_on_crouch" ) ) );
 						g_frw.Checkbox( XOR( "Body Aim If Lethal" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_lethal" ) ) );
 						g_frw.Checkbox( XOR( "Body Aim If Lethal x2" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_lethal2" ) ) );
 
