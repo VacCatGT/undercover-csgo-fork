@@ -787,6 +787,11 @@ bool AimPlayer::GetBestAimPosition( vec3_t& aim, float& damage, int& hitbox, Lag
 
 			penetration::PenetrationOutput_t out;
 
+			bool safe = g_aimbot.CanHit( g_cl.m_shoot_pos, point, record, it.m_index, true, record->m_pMatrix );
+
+			if ( !safe && g_aimbot.m_force_safepoint )
+				continue;
+
 			// we can hit p!
 			if ( penetration::run( &in, &out ) ) {
 

@@ -45,14 +45,14 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );
 						g_frw.KeybindCheckbox( XOR( "Override Hitboxes" ) );
 						g_frw.GetKey( XOR( "override_hitbox" ), XOR( "hitbox_override_key" ), XOR( "hitbox_override_key_type" ) );
-						g_frw.KeybindCheckbox( XOR( "Force Fallback" ) );
+						g_frw.KeybindCheckbox( XOR( "Force Safepoint" ) );
 						g_frw.GetKey( XOR( "safepoint" ), XOR( "safepoint_key" ), XOR( "safepoint_key_type" ) );
 						g_frw.KeybindCheckbox( XOR( "Override Damage" ) );
 						g_frw.GetKey( XOR( "override_min_dmg" ), XOR( "override_min_dmg_key" ), XOR( "override_min_dmg_type" ) );
-						g_frw.Checkbox(XOR("Enable Exploits (Unsafe)"), XOR("aimbot_exploits_enable"));
-						g_frw.Checkbox(XOR("Instant Peek"), XOR("aimbot_exploits_teleport"));
+						g_frw.Checkbox(XOR("Enable Exploits"), XOR("aimbot_exploits_enable"));
+						g_frw.Checkbox(XOR("Doubletap"), XOR("aimbot_exploits_teleport"));
 						//g_frw.NumberPicker( XOR( "Rapid fire hitchance" ), XOR( "rapid_hc" ), 0, 100, XOR( "%0.f" ), 1 );
-						g_frw.Checkbox(XOR("Hide Shot Angle"), XOR("aimbot_hide_shots"));
+						g_frw.Checkbox(XOR("Hide Shots"), XOR("aimbot_hide_shots"));
 						g_frw.KeybindCheckbox(XOR("Silence Exploits"));
 						g_frw.GetKey(XOR("exploit_disable"), XOR("aimbot_disable_exploits_key"), XOR("aimbot_disable_exploits_key_type"));
 						//g_frw.MultiCombo( XOR( "Performance" ), { XOR( "aimbot_performance_bt" ) }, { XOR( "Limited Backtracking" ) } );
