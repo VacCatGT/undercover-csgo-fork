@@ -424,6 +424,8 @@ LABEL_43:
 		if ( dword_3F32CD78 == 1 && !g_csgo.m_cl->m_choked_commands )
 			m_bLastInvert = m_bLastInvert == 0;
 	}
+	else
+		m_bStaticInvert1 = g_hvh.m_invert; //fix, probs wrong reverse
 	
 		
 LABEL_98:
