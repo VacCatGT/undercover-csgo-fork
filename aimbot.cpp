@@ -125,45 +125,77 @@ void AimPlayer::SetupHitboxes( LagComp::LagRecord_t* record, bool history ) {
 
 	bool override_hitbox = g_aimbot.m_override_hitboxes;
 
-	if ( g_aimbot.m_body_in_air && !( record->m_fFlags & FL_ONGROUND ) && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
+	if ( override_hitbox ) {
+		if ( g_aimbot.m_overriden_hitboxes.head )
+			m_hitboxes.push_back( { HITBOX_HEAD, g_aimbot.m_priority_hitbox == 0 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 
-	if ( g_aimbot.m_body_on_crouch && record->m_flDuck == 1 && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
+		if ( g_aimbot.m_overriden_hitboxes.neck )
+			m_hitboxes.push_back( { HITBOX_NECK, g_aimbot.m_priority_hitbox == 1 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 
-	if ( g_aimbot.m_body_lethal && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::LETHAL, false } );
+		if ( g_aimbot.m_overriden_hitboxes.body ) {
+			m_hitboxes.push_back( { HITBOX_THORAX, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_UPPER_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
 
-	if ( g_aimbot.m_body_lethal2 && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::LETHAL2, false } );
+		if ( g_aimbot.m_overriden_hitboxes.stomach ) {
+			m_hitboxes.push_back( { HITBOX_PELVIS, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_BODY, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
 
-	if ( g_aimbot.m_normal_hitboxes.head )
-		m_hitboxes.push_back( { HITBOX_HEAD, g_aimbot.m_priority_hitbox == 0 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		if ( g_aimbot.m_overriden_hitboxes.legs ) {
+			m_hitboxes.push_back( { HITBOX_L_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_R_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_L_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_R_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
 
-	if ( g_aimbot.m_normal_hitboxes.neck )
-		m_hitboxes.push_back( { HITBOX_NECK, g_aimbot.m_priority_hitbox == 1 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-
-	if ( g_aimbot.m_normal_hitboxes.body ) {
-		m_hitboxes.push_back( { HITBOX_THORAX, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_UPPER_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		if ( g_aimbot.m_overriden_hitboxes.feet ) {
+			m_hitboxes.push_back( { HITBOX_L_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_R_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
 	}
+	else {
+		if ( g_aimbot.m_body_in_air && !( record->m_fFlags & FL_ONGROUND ) && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
+			m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
 
-	if ( g_aimbot.m_normal_hitboxes.stomach ) {
-		m_hitboxes.push_back( { HITBOX_PELVIS, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_BODY, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-	}
+		if ( g_aimbot.m_body_on_crouch && record->m_flDuck == 1 && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
+			m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
 
-	if ( g_aimbot.m_normal_hitboxes.legs ) {
-		m_hitboxes.push_back( { HITBOX_L_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_R_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_L_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_R_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-	}
+		if ( g_aimbot.m_body_lethal && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
+			m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::LETHAL, false } );
 
-	if ( g_aimbot.m_normal_hitboxes.feet ) {
-		m_hitboxes.push_back( { HITBOX_L_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_R_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		if ( g_aimbot.m_body_lethal2 && ( g_aimbot.m_normal_hitboxes.body || g_aimbot.m_normal_hitboxes.stomach ) )
+			m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::LETHAL2, false } );
+
+		if ( g_aimbot.m_normal_hitboxes.head )
+			m_hitboxes.push_back( { HITBOX_HEAD, g_aimbot.m_priority_hitbox == 0 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+
+		if ( g_aimbot.m_normal_hitboxes.neck )
+			m_hitboxes.push_back( { HITBOX_NECK, g_aimbot.m_priority_hitbox == 1 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+
+		if ( g_aimbot.m_normal_hitboxes.body ) {
+			m_hitboxes.push_back( { HITBOX_THORAX, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_UPPER_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
+
+		if ( g_aimbot.m_normal_hitboxes.stomach ) {
+			m_hitboxes.push_back( { HITBOX_PELVIS, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_BODY, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
+
+		if ( g_aimbot.m_normal_hitboxes.legs ) {
+			m_hitboxes.push_back( { HITBOX_L_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_R_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_L_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_R_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
+
+		if ( g_aimbot.m_normal_hitboxes.feet ) {
+			m_hitboxes.push_back( { HITBOX_L_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+			m_hitboxes.push_back( { HITBOX_R_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		}
 	}
 }
 
