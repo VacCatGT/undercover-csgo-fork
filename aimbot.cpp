@@ -470,7 +470,7 @@ void Aimbot::find( test_parallel_t& data ) {
 		if ( hit || !on ) {
 
 			// these conditions are so cancer
-			if ( !g_tickbase.m_shift_data.m_should_attempt_shift || ( ( ( g_cl.m_goal_shift == 14 ) || g_tickbase.m_shift_data.m_should_disable ) && g_tickbase.m_shift_data.m_should_attempt_shift ) || ( g_cl.m_goal_shift == 7 && g_tickbase.m_shift_data.m_should_attempt_shift && !( g_tickbase.m_shift_data.m_prepare_recharge || g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready ) ) ) {
+			if ( !g_tickbase.m_shift_data.m_should_attempt_shift || ( ( ( g_cl.m_goal_shift == ( g_cl.m_max_lag - 1 ) ) || g_tickbase.m_shift_data.m_should_disable ) && g_tickbase.m_shift_data.m_should_attempt_shift ) || ( g_cl.m_goal_shift == (g_cl.m_max_lag / 2) && g_tickbase.m_shift_data.m_should_attempt_shift && !( g_tickbase.m_shift_data.m_prepare_recharge || g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready ) ) ) {
 				if ( g_cfg[ XOR( "aimbot_autofire" ) ].get< bool >( ) ) {
 
 					// left click attack.
