@@ -190,6 +190,10 @@ public:
 	bool m_force_accuracy;
 	bool m_in_air;
 
+	bool m_body_in_air;
+	bool m_body_lethal;
+	bool m_body_lethal2;
+
 	int m_priority_hitbox;
 
 	HitboxConfig_t m_normal_hitboxes;

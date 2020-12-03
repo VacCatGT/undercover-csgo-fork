@@ -110,6 +110,10 @@ void Menu::Think( IDirect3DDevice9* device ) {
 							std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_overriden_hitbox_legs" ) ), std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_overriden_hitbox_feet" ) ) },
 							{ XOR( "Head" ), XOR( "Neck" ), XOR( "Body" ), XOR( "Stomach" ), XOR( "Legs" ), XOR( "Feet" ) } );
 
+						g_frw.Checkbox( XOR( "Body Aim In Air" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_in_air" ) ) );
+						g_frw.Checkbox( XOR( "Body Aim If Lethal" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_lethal" ) ) );
+						g_frw.Checkbox( XOR( "Body Aim If Lethal x2" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_lethal2" ) ) );
+
 					} g_frw.EndModule( );
 
 
