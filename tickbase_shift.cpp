@@ -220,7 +220,6 @@ void TickbaseSystem::PassiveRecharge( ) {
 }
 
 void TickbaseSystem::Teleport( float AccumulatedExtraSamples, bool FinalTick ) {
-
 	// sanity.
 	if ( !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) || !g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || ( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) ) ) )
 		return g_detours.oCL_Move( AccumulatedExtraSamples, FinalTick );

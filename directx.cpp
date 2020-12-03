@@ -107,7 +107,7 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 		g_cl.m_goal_shift = ( g_cfg[ XOR( "aimbot_hide_shots" ) ].get< bool >( ) && !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) ) ? ( g_cl.m_max_lag / 2 ) : ( g_cl.m_max_lag - 1);
 
 		// (!) Temporary - replace with checkbox & hotkey later. 
-		if ( old_tickbase != g_tickbase.m_shift_data.m_should_attempt_shift ) {
+		/*if ( old_tickbase != g_tickbase.m_shift_data.m_should_attempt_shift ) {
 
 			if ( g_tickbase.m_shift_data.m_should_attempt_shift )
 				g_tickbase.m_shift_data.m_needs_recharge = g_cl.m_goal_shift;
@@ -115,7 +115,7 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 				g_tickbase.m_shift_data.m_needs_recharge = 0;
 
 			g_tickbase.m_shift_data.m_did_shift_before = false;
-		}
+		}*/
 
 	}
 

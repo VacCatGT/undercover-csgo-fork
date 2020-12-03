@@ -250,7 +250,6 @@ bool CSGO::init( ) {
 	g_detours.init( );
 	g_skins.init( );
 	g_visuals.GetViewModel( );
-	game::RemoveChokeLimit( );
 
 	// if we injected and we're ingame, run map load func.
 	if( m_engine->IsInGame( ) ) {
