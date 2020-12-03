@@ -190,6 +190,8 @@ public:
 	bool m_force_accuracy;
 	bool m_in_air;
 
+	int m_priority_hitbox;
+
 	HitboxConfig_t m_normal_hitboxes;
 	HitboxConfig_t m_multipoint_hitboxes;
 	HitboxConfig_t m_overriden_hitboxes;

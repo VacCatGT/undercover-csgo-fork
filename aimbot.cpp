@@ -126,33 +126,33 @@ void AimPlayer::SetupHitboxes( LagComp::LagRecord_t* record, bool history ) {
 	bool override_hitbox = g_aimbot.m_override_hitboxes;
 
 	if ( g_aimbot.m_normal_hitboxes.head ) {
-		m_hitboxes.push_back( { HITBOX_HEAD, HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_HEAD, g_aimbot.m_priority_hitbox == 0 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 	}
 
 	if ( g_aimbot.m_normal_hitboxes.neck ) {
-		m_hitboxes.push_back( { HITBOX_NECK, HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_NECK, g_aimbot.m_priority_hitbox == 1 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 	}
 
 	if ( g_aimbot.m_normal_hitboxes.body ) {
-		m_hitboxes.push_back( { HITBOX_THORAX, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_CHEST, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_UPPER_CHEST, HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_THORAX, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_UPPER_CHEST, g_aimbot.m_priority_hitbox == 2 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 	}
 	if ( g_aimbot.m_normal_hitboxes.stomach ) {
-		m_hitboxes.push_back( { HITBOX_PELVIS, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_PELVIS, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_BODY, g_aimbot.m_priority_hitbox == 3 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 	}
 
 	if ( g_aimbot.m_normal_hitboxes.legs ) {
-		m_hitboxes.push_back( { HITBOX_L_THIGH, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_R_THIGH, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_L_CALF, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_R_CALF, HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_L_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_R_THIGH, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_L_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_R_CALF, g_aimbot.m_priority_hitbox == 4 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 	}
 
 	if ( g_aimbot.m_normal_hitboxes.feet ) {
-		m_hitboxes.push_back( { HITBOX_L_FOOT, HitscanMode::NORMAL, false } );
-		m_hitboxes.push_back( { HITBOX_R_FOOT, HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_L_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
+		m_hitboxes.push_back( { HITBOX_R_FOOT, g_aimbot.m_priority_hitbox == 5 ? HitscanMode::PREFER : HitscanMode::NORMAL, false } );
 	}
 }
 
@@ -1112,6 +1112,8 @@ GENERAL:
 	m_multipoint_hitboxes.stomach = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "mutlipoint_hitbox_stomach" ) ) ) ].get<bool>( );
 	m_multipoint_hitboxes.feet = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "mutlipoint_hitbox_legs" ) ) ) ].get<bool>( );
 	m_multipoint_hitboxes.legs = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "mutlipoint_hitbox_feet" ) ) ) ].get<bool>( );
+
+	m_priority_hitbox = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "priority_hitbox" ) ) ) ].get<int>( );
 
 	m_overriden_hitboxes.head = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_head" ) ) ) ].get<bool>( );
 	m_overriden_hitboxes.neck = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_upper_body" ) ) ) ].get<bool>( );
