@@ -74,7 +74,7 @@ void TickbaseSystem::PreMovement( ) {
 
 void TickbaseSystem::PostMovement( ) {
 	// Perform sanity checks to make sure we're able to shift
-	if( !g_cl.m_processing || !g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) ) {
+	if( !g_cl.m_processing || !g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) ) {
 		return;
 	}
 
@@ -89,7 +89,7 @@ void TickbaseSystem::PostMovement( ) {
 		g_tickbase.m_shift_data.m_switched_weapon_passive = 128;
 	}
 
-	if ( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) ) || g_hvh.m_fake_duck || g_tickbase.m_shift_data.m_round_start ) {
+	if ( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) ) || g_tickbase.m_shift_data.m_round_start ) {
 
 		g_tickbase.m_shift_data.m_wait_for_charge = true;
 		g_tickbase.m_shift_data.m_round_start = false;
@@ -172,7 +172,7 @@ void TickbaseSystem::PostMovement( ) {
 					g_tickbase.m_prediction.m_shifted_ticks = abs( g_tickbase.m_shift_data.m_current_shift );
 
 					// Run teleport code.
-					if ( g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) )
+					if ( !( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) )) && g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) && g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) )
 						m_client_move.m_ready_to_process = true;
 
 					// Store original tickbase
@@ -222,7 +222,7 @@ void TickbaseSystem::PassiveRecharge( ) {
 void TickbaseSystem::Teleport( float AccumulatedExtraSamples, bool FinalTick ) {
 
 	// sanity.
-	if( !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) )
+	if ( !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) || !g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || ( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) ) ) )
 		return g_detours.oCL_Move( AccumulatedExtraSamples, FinalTick );
 
 	if ( g_tickbase.m_shift_data.m_should_attempt_shift && g_tickbase.m_shift_data.m_needs_recharge && g_tickbase.m_shift_data.m_shift_time + game::TIME_TO_TICKS( 1.1 ) <= g_csgo.m_globals->m_tick_count ) {
