@@ -74,7 +74,7 @@ void TickbaseSystem::PreMovement( ) {
 
 void TickbaseSystem::PostMovement( ) {
 	// Perform sanity checks to make sure we're able to shift
-	if( !g_cl.m_processing || !g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) ) {
+	if( !g_cl.m_processing || !g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || !( g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) || g_cfg[ XOR( "aimbot_hide_shots" ) ].get< bool >( ) ) ) {
 		return;
 	}
 
@@ -82,8 +82,8 @@ void TickbaseSystem::PostMovement( ) {
 		return;
 	}
 
-	// passive recharges.
-	//PassiveRecharge( );
+	if ( g_cfg[ XOR( "aimbot_hide_shots" ) ].get< bool >( ) && !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) )
+		PassiveRecharge( );
 
 	if( g_cl.m_weapon_type == WEAPONTYPE_KNIFE ) {
 		g_tickbase.m_shift_data.m_switched_weapon_passive = 128;
@@ -172,7 +172,7 @@ void TickbaseSystem::PostMovement( ) {
 					g_tickbase.m_prediction.m_shifted_ticks = abs( g_tickbase.m_shift_data.m_current_shift );
 
 					// Run teleport code.
-					if ( !( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) )) && g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) && g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) )
+					if ( !( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) )) && ( g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) || g_cfg[ XOR( "aimbot_hide_shots" ) ].get< bool >( ) ) && g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) )
 						m_client_move.m_ready_to_process = true;
 
 					// Store original tickbase
@@ -211,7 +211,7 @@ void TickbaseSystem::PostMovement( ) {
 // recharge without the notorious "lag", useful for hideshots and non-instant doubletap.
 void TickbaseSystem::PassiveRecharge( ) {
 
-	if ( g_cl.m_processing && g_tickbase.m_shift_data.m_should_attempt_shift && g_tickbase.m_shift_data.m_needs_recharge && g_tickbase.m_shift_data.m_shift_time + 3 <= g_csgo.m_globals->m_tick_count && !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) ) {
+	if ( g_cl.m_processing && g_tickbase.m_shift_data.m_should_attempt_shift && g_tickbase.m_shift_data.m_needs_recharge && g_tickbase.m_shift_data.m_shift_time + 3 <= g_csgo.m_globals->m_tick_count ) {
 		g_cl.m_cmd->m_tick = INT_MAX;
 		g_tickbase.m_shift_data.m_needs_recharge = 0;
 		g_tickbase.m_shift_data.m_shift_time = 0;
