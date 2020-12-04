@@ -244,6 +244,9 @@ bool Chams::DrawModel( uintptr_t ctx, const DrawModelState_t& state, const Model
 	// not sure if this is right.
 	Player* player = reinterpret_cast< Player* >( g_csgo.m_entlist->GetClientEntity( info.m_index ) );
 
+	if ( !player )
+		return true;
+
 
 	if ( strstr( name, XOR( "models/player" ) ) && !player->dormant( ) ) {
 
