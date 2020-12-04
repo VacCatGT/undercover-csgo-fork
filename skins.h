@@ -196,6 +196,8 @@ public:
 		HANDWRAP,
 		MOTO,
 		SPECIALIST,
+		HYDRA,
+		BROKENFANG,
 		GLOVE_MAX
 	};
 

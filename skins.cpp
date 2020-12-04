@@ -128,6 +128,14 @@ void Skins::load( ) {
 		XOR( "models/weapons/v_models/arms/glove_specialist/v_glove_specialist.mdl" ),
 		XOR( "models/weapons/w_models/arms/glove_specialist/w_glove_specialist.mdl" ) );
 
+	m_glove_data[ gloves_t::HYDRA ].setup( 5035,
+		XOR( "models/weapons/v_models/arms/glove_specialist/v_glove_hydra.mdl" ),
+		XOR( "models/weapons/w_models/arms/glove_specialist/w_glove_hydra.mdl" ) );
+
+	m_glove_data[ gloves_t::BROKENFANG ].setup( 4725,
+		XOR( "models/weapons/v_models/arms/glove_specialist/v_glove_brokenfang.mdl" ),
+		XOR( "models/weapons/w_models/arms/glove_specialist/w_glove_brokenfang.mdl" ) );
+
 	m_update_time = 0.f;
 }
 

@@ -531,7 +531,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 					//	g_frw.KeybindCheckbox( XOR( "Enable Rare Animations" ) );
 						g_frw.MultiCombo( XOR( "Force Rare Animations" ), { XOR( "skins_rare_deagle" ), XOR( "skins_rare_r8" ), XOR( "skins_rare_falcheon" ) }, { XOR( "Deagle" ), XOR( "Revolver" ), XOR( "Falcheon Knife" ) } );
 						//g_frw.KeybindCheckbox( XOR( "Enable Glove Changer" ) );
-						g_frw.ComboBox( XOR( "Glove model" ), XOR( "skins_gloves" ), XOR( "Disabled\0Bloodhound\0Sport\0Driver\0Handwraps\0Motorcycle\0Specialist" ), 6 );
+						g_frw.ComboBox( XOR( "Glove model" ), XOR( "skins_gloves" ), XOR( "Disabled\0Bloodhound\0Sport\0Driver\0Handwraps\0Motorcycle\0Specialist\0Hydra\0Broken Fang" ), 8 );
 					//	g_frw.KeybindCheckbox( XOR( "Enable Glove Skin" ) );
 						ImGui::SetCursorPosX( ImGui::GetCursorPosX( ) + 3 );
 						ImGui::SetCursorPosY( ImGui::GetCursorPosY( ) + 5 );
