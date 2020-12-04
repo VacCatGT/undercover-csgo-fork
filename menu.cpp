@@ -697,7 +697,10 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_skins.m_update = true;
 					}
 					g_frw.Button( XOR( "Delete file" ), &t5 );
-
+					if (t5)
+					{
+						
+					}
 
 				}g_frw.EndModule( );
 				break;

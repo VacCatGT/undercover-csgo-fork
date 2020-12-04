@@ -1264,8 +1264,6 @@ void Visuals::DrawPlayer( Player* player ) {
 		}
 	}
 
-	// draw weapon.
-	if ( ( enemy && g_cfg[ XOR( "esp_enemies_weapon" ) ].get<bool>( ) ) || ( !enemy && g_cfg[ XOR( "esp_team_weapon" ) ].get<bool>( ) ) ) {
 		Weapon* weapon = player->GetActiveWeapon( );
 		if ( weapon ) {
 			WeaponInfo* data = weapon->GetWpnData( );
@@ -1310,6 +1308,8 @@ void Visuals::DrawPlayer( Player* player ) {
 					if ( current <= ( int )std::round( max / 5 ) && !reload )
 						render::pixel.string( box.x + bar, box.y + box.h, { 255, 255, 255, alpha }, std::to_string( current ), render::ALIGN_CENTER );
 				}
+				// draw weapon.
+		if ((enemy && g_cfg[XOR("esp_enemies_weapon")].get<bool>()) || (!enemy && g_cfg[XOR("esp_team_weapon")].get<bool>())) {
 
 				Color weapon_clr = enemy ? g_cfg[ XOR( "esp_enemies_weapon_color" ) ].get_color( ) : g_cfg[ XOR( "esp_team_weapon_color" ) ].get_color( );
 				bool weaponText = ( enemy && g_cfg[ XOR( "esp_enemies_weapon_type" ) ].get<int>( ) == 0 ) || ( !enemy && g_cfg[ XOR( "esp_team_weapon_type" ) ].get<int>( ) == 0 );

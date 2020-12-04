@@ -223,8 +223,9 @@ bool Chams::DrawModel( uintptr_t ctx, const DrawModelState_t& state, const Model
 		return true;
 	}
 
-	if( !g_cl.m_weapon )
-		return true;
+	//local weapon
+	//if( !g_cl.m_weapon )
+		//return true;
 
 	if( g_cl.m_processing )
 		m_running = true;

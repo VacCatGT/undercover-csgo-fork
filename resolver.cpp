@@ -331,8 +331,11 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 
 	if (!g_cfg[("aimbot_resolver")].get< bool >())
 		return;
+
 	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
-	if ( prev_record ) {
+	if (!prev_record)
+		return;
+
 		vec3_t absangles = { 0.0f, 0.0f, 0.0f };
 		auto animstate = record->m_pEntity->m_PlayerAnimState2( );
 		float  original_eye_yaw;
@@ -364,33 +367,33 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		float maxdesyncdelta = record->m_pEntity->GetMaxBodyRotation( );//fminf(tickrecord->m_flAbsMaxDesyncDelta + 2.0f, 58.0f);
 
 		const int nTimes = ( maxdesyncdelta - -maxdesyncdelta ) / 0.5f + 1;
-		for ( int iter = 0; iter < nTimes; ++iter )
+		for (int iter = 0; iter < nTimes; ++iter)
 		{
 			float i = -maxdesyncdelta + iter * 0.5f;
-			absangles.y = AngleNormalizePositive( original_eye_yaw + ( float ) i );
+			absangles.y = AngleNormalizePositive(original_eye_yaw + (float) i);
 
-			_m_flCurrentMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2( )->m_flCurrentMoveDirGoalFeetDelta;
-			_m_flGoalMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2( )->m_flGoalMoveDirGoalFeetDelta;
+			_m_flCurrentMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2()->m_flCurrentMoveDirGoalFeetDelta;
+			_m_flGoalMoveDirGoalFeetDelta = prev_record->m_pEntity->m_PlayerAnimState2()->m_flGoalMoveDirGoalFeetDelta;
 
 			m_flCurrentMoveDirGoalFeetDelta = _m_flCurrentMoveDirGoalFeetDelta;
 			m_flGoalMoveDirGoalFeetDelta = _m_flGoalMoveDirGoalFeetDelta;
 
-			if ( record->m_pEntity->m_vecVelocity( ).length_2d( ) > 0.1f )
-				m_flGoalMoveDirGoalFeetDelta = math::AngleNormalize( math::AngleDiff( velAngle, absangles.y ) );
+			if (record->m_pEntity->m_vecVelocity().length_2d() > 0.1f)
+				m_flGoalMoveDirGoalFeetDelta = math::AngleNormalize(math::AngleDiff(velAngle,absangles.y));
 
-			float m_flFeetVelDirDelta = math::AngleNormalize( math::AngleDiff( m_flGoalMoveDirGoalFeetDelta, m_flCurrentMoveDirGoalFeetDelta ) );
-			m_flCurrentMoveDirGoalFeetDelta = layer7_weight >= 1.0f ? m_flGoalMoveDirGoalFeetDelta : math::AngleNormalize( ( ( flBiasMove + 0.1f ) * m_flFeetVelDirDelta ) + m_flCurrentMoveDirGoalFeetDelta );
-			record->m_pEntity->m_flPoseParameter( )[ 7 ] = m_flCurrentMoveDirGoalFeetDelta; //move_yaw
+			float m_flFeetVelDirDelta = math::AngleNormalize(math::AngleDiff(m_flGoalMoveDirGoalFeetDelta,m_flCurrentMoveDirGoalFeetDelta));
+			m_flCurrentMoveDirGoalFeetDelta = layer7_weight >= 1.0f ? m_flGoalMoveDirGoalFeetDelta : math::AngleNormalize(((flBiasMove + 0.1f) * m_flFeetVelDirDelta) + m_flCurrentMoveDirGoalFeetDelta);
+			record->m_pEntity->m_flPoseParameter()[7] = m_flCurrentMoveDirGoalFeetDelta; //move_yaw
 
 			float new_body_yaw_pose;
-			float eye_goalfeet_delta = math::AngleDiff( original_eye_yaw, absangles.y );
-			if ( eye_goalfeet_delta < 0.0f )
-				new_body_yaw_pose = ( eye_goalfeet_delta / flMinYaw ) * -58.0f;
+			float eye_goalfeet_delta = math::AngleDiff(original_eye_yaw,absangles.y);
+			if (eye_goalfeet_delta < 0.0f)
+				new_body_yaw_pose = (eye_goalfeet_delta / flMinYaw) * -58.0f;
 			else
-				new_body_yaw_pose = ( eye_goalfeet_delta / flMaxYaw ) * 58.0f;
-			record->m_pEntity->m_flPoseParameter( )[ 11 ] = new_body_yaw_pose; //fix the body yaw pose parameter
+				new_body_yaw_pose = (eye_goalfeet_delta / flMaxYaw) * 58.0f;
+			record->m_pEntity->m_flPoseParameter()[11] = new_body_yaw_pose; //fix the body yaw pose parameter
 		}
-	}
+	
 	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/	/*monolith*/
 
 	float eye_yaw = record->m_pState->eye_angles_y;
@@ -416,15 +419,12 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 			data->m_index = 1 * angle_difference <= 0.0f ? 1 : -1;
 			data->m_brute_mode = 1;
 		}
-		else //moving resolver (non existant laff)
+		else
 		{
-
-
-
-
 			data->m_brute_mode = 1;
 		}
 
+		float eye_goalfeet_delta = math::AngleDiff(original_eye_yaw,absangles.y);
 		/* bruting */
 		switch (data->m_brute_mode)
 		{
@@ -432,13 +432,16 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		{
 			switch (data->m_missed_shots % 3) {
 			case 0: //default
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * data->m_index;
+			if (eye_goalfeet_delta < 0.0f)
+				record->m_pState->goal_feet_yaw = (eye_goalfeet_delta / flMinYaw) * -58.0f;
+			else
+				record->m_pState->goal_feet_yaw = (eye_goalfeet_delta / flMaxYaw) * 58.0f;
 				break;
 			case 1: // reverse
-				if (data->m_index == -1)
-					record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * 1;
-				else
-					record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * -1;
+			if (eye_goalfeet_delta < 0.0f)
+				record->m_pState->goal_feet_yaw = (eye_goalfeet_delta / flMinYaw) * 58.0f;
+			else
+				record->m_pState->goal_feet_yaw = (eye_goalfeet_delta / flMaxYaw) * -58.0f;
 				break;
 			case 2: //middle
 				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y;
