@@ -45,7 +45,7 @@ void HVH::AntiAim( ) {
 	if ( !CanAntiAim( ) ) // C_AntiAim::ShouldRun( )
 		return;
 
-	if( ( g_cl.m_cmd->m_buttons & IN_ATTACK ) && g_cl.CanFireWeapon( g_csgo.m_globals->m_curtime ) ) {
+	if( ( g_cl.m_cmd->m_buttons & IN_ATTACK ) && g_cl.CanFireWeapon( game::TICKS_TO_TIME( g_cl.m_local->m_nTickBase( ) ) ) ) {
 
 		if ( g_cfg[ XOR( "aa_desync_on_shot" ) ].get< bool >( ) ) {
 		
@@ -609,7 +609,7 @@ LABEL_5:
 
 	if ( g_cfg[ XOR( "aa_fl_on_shot" ) ].get<bool>( ) ) {
 		if ( g_cl.m_weapon ) {
-			if ( g_cl.CanFireWeapon( g_cl.m_local->m_nTickBase( ) * g_csgo.m_globals->m_interval ) && g_cl.m_cmd->m_buttons & IN_ATTACK )
+			if ( g_cl.CanFireWeapon( game::TICKS_TO_TIME( g_cl.m_local->m_nTickBase( ) ) ) && g_cl.m_cmd->m_buttons & IN_ATTACK )
 				v81 = v9;
 		}
 	}
@@ -707,7 +707,7 @@ void HVH::AutoPeek( ) {
 			}
 		}
 		if ( g_cl.m_cmd->m_buttons & IN_ATTACK ) {
-			if ( g_cl.CanFireWeapon( g_csgo.m_globals->m_curtime ) )
+			if ( g_cl.CanFireWeapon( game::TICKS_TO_TIME( g_cl.m_local->m_nTickBase( ) ) ) )
 				m_data->m_should_retrack = true;
 		}
 		m_data->m_autopeeking = true;
