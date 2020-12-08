@@ -22,7 +22,7 @@ float penetration::scale( Player* player, float damage, float armor_ratio, int h
 	};
 
 	// check if the player has heavy armor, this is only really used in operation stuff.
-	has_heavy_armor = player->m_bHasHeavyArmor( );
+	has_heavy_armor = player->m_bHasHeavyArmor( ); //crash
 
 	// scale damage based on hitgroup.
 	switch( hitgroup ) {

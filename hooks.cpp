@@ -310,8 +310,9 @@ void Hooks::init( ) {
 	m_engine_sound.Init( );
 	m_engine_sound.add( 5, util::force_cast( &Hooks::EmitSound ) );
 
+	//HAHAAAAAAAAAAAAAA fucjk yu
 	// set netvar proxies.
-	g_netvars.SetProxy( HASH( "DT_CSRagdoll" ), HASH( "m_vecForce" ), Force_proxy, m_Force_original );
+	//g_netvars.SetProxy( HASH( "DT_CSRagdoll" ), HASH( "m_vecForce" ), Force_proxy, m_Force_original );
 	g_netvars.SetProxy( HASH( "DT_PredictedViewModel" ), HASH( "m_nSequence" ), Sequence_proxy, m_Sequence_original );
 
 }

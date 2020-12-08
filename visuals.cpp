@@ -583,8 +583,8 @@ void Visuals::Spectators() {
 	render::rect_filled(position.x,position.y,1,19,Color(255,0,0,180));
 
 	//bourdeer raightht
-	render::rect_filled(position.x + (g_menu.m_opened ? 120 : 80) - 11,position.y + 18,20,1,Color(255,0,0,180));
-	render::rect_filled(position.x + (g_menu.m_opened ? 120 : 80) + 9,position.y,1,19,Color(255,0,0,180));
+	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160) - 20,position.y + 18,20,1,Color(255,0,0,180));
+	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160),position.y,1,19,Color(255,0,0,180));
 
 	// render text.
 	render::esp.string(position.x + (g_menu.m_opened ? 120 : 80),position.y + 3,{255,255,255,255},XOR("Spectators"),render::ALIGN_CENTER);
@@ -687,8 +687,8 @@ void Visuals::Keybinds() {
 	render::rect_filled(position.x,position.y,1,19,Color(255,0,0,180));
 
 	//bourdeer raightht
-	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160) - 11,position.y + 18,20,1,Color(255,0,0,180));
-	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160) + 9,position.y,1,19,Color(255,0,0,180));
+	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160) - 20,position.y + 18,20,1,Color(255,0,0,180));
+	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160),position.y,1,19,Color(255,0,0,180));
 
 	// render text.
 	render::esp.string(position.x + (g_menu.m_opened ? 120 : 80),position.y + 3,{255,255,255,255},XOR("Keybinds"),render::ALIGN_CENTER);

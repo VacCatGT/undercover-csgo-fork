@@ -122,7 +122,7 @@ void Resolver::ResolveAngles( Player* player, LagComp::LagRecord_t* record, LagC
 
 	/* resolve entity */
 	if ( record->m_bValid && record->m_iChoked > 1 && record->m_iChoked < ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 ) )
-		ResolveEntity( data, record, prev_record );
+		ResolveEntity( player, data, record, prev_record );
 
 	player->SetupBones( record->m_pMatrix, 128, BONE_USED_BY_ANYTHING, 0.0f );
 }
@@ -318,7 +318,7 @@ inline float AngleNormalizePositive(float angle)
 
 static std::random_device rd;
 static std::mt19937 rng(rd());
-void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, LagComp::LagRecord_t* prev_record ) {
+void Resolver::ResolveEntity(Player* player, AimPlayer* data, LagComp::LagRecord_t* record, LagComp::LagRecord_t* prev_record ) {
 	// get the players max rotation.
 	float max_rotation = record->m_pEntity->GetMaxBodyRotation( );
 
@@ -400,6 +400,7 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 
 	// detect if player is using maximum desync.
 	data->m_extending = record->m_pLayers[ 3 ].m_cycle == 0.f && record->m_pLayers[ 3 ].m_weight == 0.f;
+	float moving_brute = 0.f;
 
 	// resolve shooting players separately.
 	if ( record->m_bDidShot ) {
@@ -421,6 +422,46 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		}
 		else
 		{
+
+			if (player->m_AnimOverlay()[7].m_order == record->m_pEntity->m_AnimOverlay()[7].m_order) // slowwalking
+			{
+				if (player->m_AnimOverlay()[7].m_cycle > 0.5f)
+				{
+					moving_brute = math::NormalizedAngle(record->m_pEntity->m_flLowerBodyYawTarget() + player->GetMaxBodyRotation());
+					return;
+				}
+				else //airplane 500km/h
+				{
+
+				}
+			}
+			else //the fuck this nigga doing if he aint slowwalking? probably being retarded idfk nigga he prolly moving so fast we can resolve him :clap::clap::clap::clap::clap:
+			{
+				if (prev_record && !((int) record->m_pLayers[12].m_weight * 1000.f) && record->m_pEntity->m_vecVelocity().length_2d() > 0.1 &&
+					((int) record->m_pLayers[6].m_weight * 1000.f) == ((int) prev_record->m_pLayers[6].m_weight * 1000.f) && data->m_missed_shots % 3 == 0) {
+
+					auto m_layer_delta1 = abs(record->m_pLayers[6].m_playback_rate - record->center_layers[6].m_playback_rate);
+					auto m_layer_delta2 = abs(record->m_pLayers[6].m_playback_rate - record->left_layers[6].m_playback_rate);
+					auto m_layer_delta3 = abs(record->m_pLayers[6].m_playback_rate - record->right_layers[6].m_playback_rate);
+
+					if (m_layer_delta1 < m_layer_delta2
+						|| m_layer_delta3 <= m_layer_delta2
+						|| (signed int) (float) (m_layer_delta2 * 1000.0))
+					{
+						if (m_layer_delta1 >= m_layer_delta3
+							&& m_layer_delta2 > m_layer_delta3
+							&& !(signed int) (float) (m_layer_delta3 * 1000.0))
+						{
+							data->m_index = 1;
+						}
+					}
+					else
+					{
+						data->m_index = -1;
+					}
+				}
+			}
+
 			data->m_brute_mode = 1;
 		}
 
@@ -453,7 +494,14 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 		{
 			switch (data->m_missed_shots % 3) {
 			case 0: //default
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * data->m_index;
+
+			if (data->m_index == -1)
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * 1;
+			else if (data->m_index == 1)
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation * -1;
+			else
+				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + moving_brute;
+
 				break;
 			case 1: //jitter
 					record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + std::uniform_int_distribution<int>(0, 1)(rng) ? -max_rotation : max_rotation;
@@ -467,7 +515,7 @@ void Resolver::ResolveEntity( AimPlayer* data, LagComp::LagRecord_t* record, Lag
 	    }
 		
 	}
-
+	data->m_index == 0; //reset
 	//wtf is this shit??
 	/*if ( g_cfg[ ( "aimbot_resolver" ) ].get< bool >( ) ) {
 		Resolver::check_low_delta_desync( data, m_pPlayer, record );
