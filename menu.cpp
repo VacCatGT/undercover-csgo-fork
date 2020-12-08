@@ -43,18 +43,23 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Checkbox( XOR( "Pitch Resolver" ), XOR( "aimbot_pitch_resolver" ) );
 						//g_frw.Checkbox( XOR( "Taser Bot" ), XOR( "aimbot_zeusbot" ) );
 						//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );
-						g_frw.KeybindCheckbox( XOR( "Override Hitboxes" ) );
-						g_frw.GetKey( XOR( "override_hitbox" ), XOR( "hitbox_override_key" ), XOR( "hitbox_override_key_type" ) );
-						g_frw.KeybindCheckbox( XOR( "Force Safepoint" ) );
-						g_frw.GetKey( XOR( "safepoint" ), XOR( "safepoint_key" ), XOR( "safepoint_key_type" ) );
-						g_frw.KeybindCheckbox( XOR( "Override Damage" ) );
-						g_frw.GetKey( XOR( "override_min_dmg" ), XOR( "override_min_dmg_key" ), XOR( "override_min_dmg_type" ) );
 						g_frw.Checkbox(XOR("Enable Exploits"), XOR("aimbot_exploits_enable"));
 						g_frw.Checkbox(XOR("Doubletap"), XOR("aimbot_exploits_teleport"));
 						//g_frw.NumberPicker( XOR( "Rapid fire hitchance" ), XOR( "rapid_hc" ), 0, 100, XOR( "%0.f" ), 1 );
 						g_frw.Checkbox(XOR("Hide Shots"), XOR("aimbot_hide_shots"));
+
+			
+						g_frw.KeybindCheckbox(XOR("Override Hitboxes"));
+						g_frw.GetKey(XOR("override_hitbox"),XOR("hitbox_override_key"),XOR("hitbox_override_key_type"));
+						g_frw.KeybindCheckbox(XOR("Force Safepoint"));
+						g_frw.GetKey(XOR("safepoint"),XOR("safepoint_key"),XOR("safepoint_key_type"));
+						g_frw.KeybindCheckbox(XOR("Override Damage"));
+						g_frw.GetKey(XOR("override_min_dmg"),XOR("override_min_dmg_key"),XOR("override_min_dmg_type"));
 						g_frw.KeybindCheckbox(XOR("Silence Exploits"));
-						g_frw.GetKey(XOR("exploit_disable"), XOR("aimbot_disable_exploits_key"), XOR("aimbot_disable_exploits_key_type"));
+						g_frw.GetKey(XOR("exploit_disable"),XOR("aimbot_disable_exploits_key"),XOR("aimbot_disable_exploits_key_type"));
+
+	
+						
 						//g_frw.MultiCombo( XOR( "Performance" ), { XOR( "aimbot_performance_bt" ) }, { XOR( "Limited Backtracking" ) } );
 					} g_frw.EndModule( );
 
@@ -130,15 +135,11 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Checkbox( XOR( "At Targets" ), XOR( "aa_at_targets" ) );
 						g_frw.Checkbox( XOR( "Auto Direction" ), XOR( "aa_freestand" ) );
 						g_frw.NumberPicker( XOR( "Yaw Offset" ), XOR( "aa_yaw_offset" ), -180, 180, XOR( "%0.f" ), 1 );
-						g_frw.KeybindCheckbox( XOR( "Jitter" ) );
-						g_frw.GetKey( XOR( "jitterkey" ), XOR( "aa_jitter_key" ), XOR( "aa_jitter_key_type" ) );
 						g_frw.NumberPicker( XOR( "Jitter Offset" ), XOR( "aa_jitter_offset" ), -180, 180, XOR( "%0.f" ), 1 );
 						g_frw.Checkbox(XOR("Fake Enable"), XOR("aa_fake"));
 						g_frw.ComboBox(XOR("Air mode"), XOR("aa_air_mode"), XOR("Normal\0Spin"), 2);
 						g_frw.ComboBox(XOR("LBY mode"), XOR("aa_lby_mode"), XOR("Normal\0Opposite\0Sway"), 3);
 						g_frw.Checkbox(XOR("Fake Desync"), XOR("aa_fake_desync"));
-						g_frw.KeybindCheckbox(XOR("Inverter"));
-						g_frw.GetKey(XOR("interterkey"), XOR("aa_inverter_key"), XOR("aa_inverter_key_type"));
 						g_frw.MultiCombo(XOR("Inverter Flip"), { XOR("invertflip_walking"), XOR("invertflip_moving"), XOR("invertflip_air") }, { XOR("Walk"), XOR("Run"), XOR("In Air") });
 					}g_frw.EndModule( );
 
@@ -153,11 +154,18 @@ void Menu::Think( IDirect3DDevice9* device ) {
 							{ XOR( "aa_fl_in_air" ), XOR( "aa_fl_on_peek" ), XOR( "aa_fl_on_shot" ), XOR( "aa_fl_on_land" ), XOR( "aa_fl_while_reload" ), XOR( "aa_fl_on_wep_switch" ), XOR( "aa_fl_on_velocity_change" ), XOR( "aa_fl_break_lagcomp" ) },
 							{ XOR( "In Air" ), XOR( "On Peek" ), XOR( "On Shot" ), XOR( "On Land" ), XOR( "While Reloading" ), XOR( "On Weapon Switch" ), XOR( "On Velocity Change" ), XOR( "Break Lag Compensation" ) } );
 						g_frw.NumberPicker( XOR( "Trigger Limit" ), XOR( "aa_fl_triggers_amt" ), 0, 14, XOR( "%0.f" ), 1 );
-						g_frw.KeybindCheckbox( "Controlled walk" );
-						g_frw.GetKey( XOR( "Slowwalk" ), XOR( "misc_slowwalk_bind" ), XOR( "misc_slowwalk_bind_type" ) );
 						g_frw.ComboBox( XOR( "Walk Type" ), XOR( "aa_slowwalk_type" ), XOR( "Accurate\0Slide Fast\0Slide Slow" ), 4 );
-						g_frw.KeybindCheckbox( XOR( "Duck exploit" ) );
-						g_frw.GetKey( XOR( "Duck Exploit_Bind" ), XOR( "misc_fakeduck_key" ), XOR( "misc_fakeduck_key_type" ) );
+
+						g_frw.KeybindCheckbox(XOR("Jitter"));
+						g_frw.GetKey(XOR("jitterkey"),XOR("aa_jitter_key"),XOR("aa_jitter_key_type"));
+						g_frw.KeybindCheckbox(XOR("Inverter"));
+						g_frw.GetKey(XOR("interterkey"),XOR("aa_inverter_key"),XOR("aa_inverter_key_type"));
+						g_frw.KeybindCheckbox("Controlled walk");
+						g_frw.GetKey(XOR("Slowwalk"),XOR("misc_slowwalk_bind"),XOR("misc_slowwalk_bind_type"));
+						g_frw.KeybindCheckbox(XOR("Fake Duck"));
+					    g_frw.GetKey(XOR("Duck Exploit_Bind"),XOR("misc_fakeduck_key"),XOR("misc_fakeduck_key_type"));
+
+						
 
 					}g_frw.EndModule( );
 
@@ -187,9 +195,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.Checkbox( XOR( "Ammo bar##Enemy" ), XOR( "esp_enemies_ammo" ) );
 						g_frw.ColorPicker( XOR( "Ammo color##Enemy" ), XOR( "esp_enemies_ammo_color" ) );
 
-						g_frw.Checkbox( XOR( "Bones##Enemy" ), XOR( "esp_enemies_skeleton" ) );
-						g_frw.ColorPicker( XOR( "Bone color##Enemy" ), XOR( "esp_enemies_skeleton_color" ) );
-
 						g_frw.Checkbox( XOR( "Glow##Enemy" ), XOR( "esp_enemy_glow" ) );
 						if ( !g_cfg[ XOR( "esp_enemy_glow_healthcolor" ) ].get<bool>( ) ) {
 							g_frw.ColorPicker( XOR( "Glow color##Enemy" ), XOR( "esp_enemy_glow_color" ) );
@@ -199,9 +204,8 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 						//g_frw.NumberPicker( XOR( "Fade time" ), XOR( "esp_enemies_dormant_time" ), 0, 100, XOR( "%0.f" ), 1 );
 
-						g_frw.Checkbox( XOR( "Hitsound" ), XOR( "misc_hitsound" ) );
-
-						g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
+					
+					//	g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
 
 						g_frw.NumberPicker( XOR( "Visual Interpolation" ), XOR( "visuals_vis_interpolation_amt" ), 0, 14, XOR( "%0.f" ), 1 );
 						g_frw.Checkbox( XOR( "Only Interpolate When Dead" ), XOR( "visuals_vis_interpolation_dead" ) );
@@ -263,7 +267,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.ColorPicker( XOR( "Fire proximity color" ), XOR( "misc_world_fire_proximity_color" ) );
 						g_frw.Checkbox( XOR( "Smoke proximity" ), XOR( "misc_world_smoke_proximity" ) );
 						g_frw.ColorPicker( XOR( "Smoke proximity color" ), XOR( "misc_world_smoke_proximity_color" ) );
-						g_frw.Checkbox( XOR( "Force Low Violence Mode" ), XOR( "misc_low_violence" ) );
 
 
 					} g_frw.EndModule( );
@@ -282,10 +285,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.KeybindCheckbox( XOR( "Force thirdperson" ) );
 						g_frw.GetKey( XOR( "misc_thirdperson_enable" ), XOR( "misc_thirdperson_key" ), XOR( "misc_thirdperson_key_type" ) );
 						g_frw.NumberPicker( XOR( "Thirdperson distance" ), XOR( "misc_thirdperson_distance" ), 80, 150, XOR( "%0.f" ), 1 );
-						g_frw.Checkbox( XOR( "Preserve killfeed" ), XOR( "misc_preserve_killfeed" ) );
-						g_frw.Checkbox( XOR( "Show spectators" ), XOR( "misc_spectators" ) );
-						g_frw.Checkbox( XOR( "Show Active Keybinds" ), XOR( "misc_keybinds" ) );
-						g_frw.Checkbox( XOR( "Draw watermark" ), XOR( "misc_watermark" ) );
 						g_frw.Checkbox( XOR( "Damage indicator" ), XOR( "misc_damage_indicator" ) );
 						g_frw.Checkbox( XOR( "Autowall crosshair" ), XOR( "visuals_misc_penetration_crosshair" ) );
 
@@ -296,7 +295,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.ColorPicker( XOR( "Client Color" ), XOR( "misc_bullet_impacts_client_color" ) );
 						g_frw.Checkbox( XOR( "Override server color" ), XOR( "misc_bullet_impacts_server_override" ) );
 						g_frw.ColorPicker( XOR( "Server Color" ), XOR( "misc_bullet_impacts_server_color" ) );
-						g_frw.Checkbox( XOR( "Bullet beams" ), XOR( "visuals_misc_bullet_beam" ) );
+						g_frw.Checkbox( XOR( "Bullet lines" ), XOR( "visuals_misc_bullet_beam" ) );
 						g_frw.ColorPicker( XOR( "Bullet beam color" ), XOR( "visuals_misc_bullet_beam_color" ) );
 
 					} g_frw.EndModule( );
@@ -593,6 +592,9 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_frw.KeybindCheckbox( XOR( "Edge Jump" ) );
 						g_frw.GetKey( XOR( "Edge jump bind" ), XOR( "movement_edgejump" ), XOR( "movement_edgejump_type" ) );
 						g_frw.Checkbox( XOR( "Fast Stop" ), XOR( "misc_faststop" ) );
+						g_frw.Checkbox(XOR("Hitsound"),XOR("misc_hitsound"));
+						g_frw.Checkbox(XOR("Force Low Violence Mode"),XOR("misc_low_violence"));
+						g_frw.Checkbox(XOR("Preserve killfeed"),XOR("misc_preserve_killfeed"));
 
 					}g_frw.EndModule( );
 
@@ -696,13 +698,19 @@ void Menu::Think( IDirect3DDevice9* device ) {
 						g_config.load( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
 						g_skins.m_update = true;
 					}
-					g_frw.Button( XOR( "Delete file" ), &t5 );
-					if (t5)
-					{
-						
-					}
+					//g_frw.Button( XOR( "Delete file" ), &t5 );
+					//if (t5)
+					//{
+				//		std::string  pAtH = std::string(XOR("C:\\Users\Kian\\AppData\\Roaming\\undercover.host\\")) + config_name + std::string(XOR(".ini"));
+					//	remove(pAtH.c_str());
+					//}
 
 				}g_frw.EndModule( );
+				g_frw.RenderModule(positions::right_top,sizes::full,XOR("OTHER")); {
+				g_frw.Checkbox(XOR("Show spectators"),XOR("misc_spectators"));
+				g_frw.Checkbox(XOR("Show Active Keybinds"),XOR("misc_keybinds"));
+				g_frw.Checkbox(XOR("Show watermark"),XOR("misc_watermark"));
+				}g_frw.EndModule();
 				break;
 
 			};
