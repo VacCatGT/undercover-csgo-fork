@@ -428,7 +428,6 @@ void Resolver::ResolveEntity(Player* player, AimPlayer* data, LagComp::LagRecord
 				if (player->m_AnimOverlay()[7].m_cycle > 0.5f)
 				{
 					moving_brute = math::NormalizedAngle(record->m_pEntity->m_flLowerBodyYawTarget() + player->GetMaxBodyRotation());
-					return;
 				}
 				else //airplane 500km/h
 				{

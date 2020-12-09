@@ -23,9 +23,50 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 			g_frw.DrawBackdrop( );
 
-			switch ( g_frw.RenderTabBar( m_curtab, { XOR( "RAGEBOT" ), XOR( "VISUALS" ), XOR( "MISC" ), XOR( "CONFIG" ) } ) )
+			switch ( g_frw.RenderTabBar( m_curtab, { XOR( "LEGITBOT" ), XOR( "RAGEBOT" ), XOR( "VISUALS" ), XOR( "MISC" ) } ) )
 			{
+				case tabs::tab_cock: {
+					static int current_subtab;
 
+					switch (g_frw.RenderSecondaryHeader(current_subtab,{XOR("AIMBOT"),XOR("TRIGGER")}))
+					{
+
+						case 0: {
+							g_frw.BeginModuleHeader();
+
+							g_frw.RenderModule(positions::left_top,sizes::full,XOR("AIMBOT_MAIN2")); {
+
+							} g_frw.EndModule();
+
+							g_frw.ContinueModule();
+
+							g_frw.RenderModule(positions::right_top,sizes::full,XOR("AIMBOT_CONFIG2")); {
+
+							} g_frw.EndModule();
+
+
+
+							g_frw.ConcludeModuleHeader();
+						} break;
+						case 1: {
+							g_frw.BeginModuleHeader();
+
+							g_frw.RenderModule(positions::left_top,sizes::full,XOR("AIMBOT_MAIN22")); {
+
+							} g_frw.EndModule();
+
+							g_frw.ContinueModule();
+
+							g_frw.RenderModule(positions::right_top,sizes::full,XOR("AIMBOT_CONFIG22")); {
+
+							} g_frw.EndModule();
+
+
+
+							g_frw.ConcludeModuleHeader();
+						} break;
+					}
+				}break;
 			case tabs::tab_one: {
 				static int current_subtab;
 
@@ -575,143 +616,147 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 			case tabs::tab_three: {
 				static int current_subtab;
-				g_frw.RenderSecondaryHeader( current_subtab, { XOR( "MISC" ) } ); {
-					g_frw.BeginModuleHeader( );
-
-					g_frw.RenderModule( positions::left_top, sizes::full, XOR( "MOVEMENT" ) ); {
-						g_frw.Checkbox( XOR( "Autohop" ), XOR( "misc_bhop" ) );
-						g_frw.Checkbox( XOR( "Unlimited duck stamina" ), XOR( "misc_duck_stamina" ) );
-						g_frw.ComboBox( XOR( "Auto strafer" ), XOR( "misc_autostrafer_mode" ), XOR( "Disabled\0View\0Movement Input" ), 4 );
-						if ( g_cfg[ XOR( "misc_autostrafer_mode" ) ].get<int>( ) )
-							g_frw.NumberPicker( XOR( "Strafe speed" ), XOR( "strafe_speed" ), 0, 100, XOR( "%0.f" ), 1 );
-						g_frw.Checkbox( XOR( "Supress leg movement" ), XOR( "misc_slide" ) );
-						g_frw.KeybindCheckbox( XOR( "Trollbot" ) );
-						g_frw.GetKey( XOR( "Trollbot_Bind" ), XOR( "misc_blockbot_bind" ), XOR( "misc_blockbot_bind_type" ) );
-						g_frw.KeybindCheckbox( XOR( "Quickpeek" ) );
-						g_frw.GetKey( XOR( "Quickpeek_Bind" ), XOR( "misc_auto_peek" ), XOR( "misc_auto_peek_type" ) );
-						g_frw.KeybindCheckbox( XOR( "Edge Jump" ) );
-						g_frw.GetKey( XOR( "Edge jump bind" ), XOR( "movement_edgejump" ), XOR( "movement_edgejump_type" ) );
-						g_frw.Checkbox( XOR( "Fast Stop" ), XOR( "misc_faststop" ) );
-						g_frw.Checkbox(XOR("Hitsound"),XOR("misc_hitsound"));
-						g_frw.Checkbox(XOR("Force Low Violence Mode"),XOR("misc_low_violence"));
-						g_frw.Checkbox(XOR("Preserve killfeed"),XOR("misc_preserve_killfeed"));
-
-					}g_frw.EndModule( );
-
-					g_frw.ContinueModule( );
-
-					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "UTILITIES" ) ); {
-						g_frw.Checkbox( XOR( "Enable automatic purchases" ), XOR( "misc_buybot_enable" ) );
-						g_frw.ComboBox( XOR( "Loadout" ), XOR( "misc_buybot_loadout" ), XOR( "Loadout One\0Loadout Two\0Loadout Three\0Loadout Four" ), 4 );
-						switch ( g_cfg[ XOR( "misc_buybot_loadout" ) ].get<int>( ) ) {
+				g_frw.RenderSecondaryHeader( current_subtab, { XOR( "MISC" ),XOR( "CONFIG") } ); {
+					switch (current_subtab)
+					{
 						case 0:
-							g_frw.ComboBox( XOR( "Primary weapon" ), XOR( "misc_buybot_loadout1_primary" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Primary weapon (Fallback)" ), XOR( "misc_buybot_loadout1_primary_fallback" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Secondary weapon" ), XOR( "misc_buybot_loadout1_pistol" ), XOR( "Revolver/Deagle\0Duals\0Five-7/Tec-9\0P250" ), 4 );
-							g_frw.Checkbox( XOR( "Defuse kit" ), XOR( "misc_buybot_loadout1_defuse" ) );
-							g_frw.Checkbox( XOR( "Armor" ), XOR( "misc_load1_buybot_loadout1_armor" ) );
-							g_frw.Checkbox( XOR( "Taser" ), XOR( "misc_buybot_loadout1_taser" ) );
-							g_frw.Checkbox( XOR( "Nades" ), XOR( "misc_buybot_loadout1_nades" ) );
-							break;
+						g_frw.BeginModuleHeader();
+
+						g_frw.RenderModule(positions::left_top,sizes::full,XOR("MAIN")); {
+							g_frw.Checkbox(XOR("Autohop"),XOR("misc_bhop"));
+							g_frw.Checkbox(XOR("Unlimited duck stamina"),XOR("misc_duck_stamina"));
+							g_frw.ComboBox(XOR("Auto strafer"),XOR("misc_autostrafer_mode"),XOR("Disabled\0View\0Movement Input"),4);
+							if (g_cfg[XOR("misc_autostrafer_mode")].get<int>())
+								g_frw.NumberPicker(XOR("Strafe speed"),XOR("strafe_speed"),0,100,XOR("%0.f"),1);
+							g_frw.Checkbox(XOR("Supress leg movement"),XOR("misc_slide"));
+							g_frw.KeybindCheckbox(XOR("Trollbot"));
+							g_frw.GetKey(XOR("Trollbot_Bind"),XOR("misc_blockbot_bind"),XOR("misc_blockbot_bind_type"));
+							g_frw.KeybindCheckbox(XOR("Quickpeek"));
+							g_frw.GetKey(XOR("Quickpeek_Bind"),XOR("misc_auto_peek"),XOR("misc_auto_peek_type"));
+							g_frw.KeybindCheckbox(XOR("Edge Jump"));
+							g_frw.GetKey(XOR("Edge jump bind"),XOR("movement_edgejump"),XOR("movement_edgejump_type"));
+							g_frw.Checkbox(XOR("Fast Stop"),XOR("misc_faststop"));
+							g_frw.Checkbox(XOR("Hitsound"),XOR("misc_hitsound"));
+							g_frw.Checkbox(XOR("Force Low Violence Mode"),XOR("misc_low_violence"));
+							g_frw.Checkbox(XOR("Preserve killfeed"),XOR("misc_preserve_killfeed"));
+							g_frw.Checkbox(XOR("Unlock all convars"),XOR("misc_unlock_cvars"));
+							if (g_cfg[XOR("misc_unlock_cvars")].get<bool>())
+								g_cl.UnlockHiddenConvars();
+
+							g_frw.ComboBox(XOR("Clantag type"),XOR("misc_clantag_type"),XOR("None\0undercover\0Custom"),4);
+							g_frw.ComboBox(XOR("Clantag mode"),XOR("misc_clantag_mode"),XOR("Static\0Rotating "),4);
+
+							if (g_cfg[XOR("misc_clantag_type")].get<int>() == 2) {
+
+								ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 22);
+								ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 9);
+								g_frw.TextInput(XOR("Custom Team"),g_cl.clantag_lable,false);
+							}
+
+						}g_frw.EndModule();
+
+						g_frw.ContinueModule();
+
+						g_frw.RenderModule(positions::right_top,sizes::full,XOR("UTILITIES")); {
+							g_frw.Checkbox(XOR("Enable automatic purchases"),XOR("misc_buybot_enable"));
+							g_frw.ComboBox(XOR("Loadout"),XOR("misc_buybot_loadout"),XOR("Loadout One\0Loadout Two\0Loadout Three\0Loadout Four"),4);
+							switch (g_cfg[XOR("misc_buybot_loadout")].get<int>()) {
+								case 0:
+								g_frw.ComboBox(XOR("Primary weapon"),XOR("misc_buybot_loadout1_primary"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Primary weapon (Fallback)"),XOR("misc_buybot_loadout1_primary_fallback"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Secondary weapon"),XOR("misc_buybot_loadout1_pistol"),XOR("Revolver/Deagle\0Duals\0Five-7/Tec-9\0P250"),4);
+								g_frw.Checkbox(XOR("Defuse kit"),XOR("misc_buybot_loadout1_defuse"));
+								g_frw.Checkbox(XOR("Armor"),XOR("misc_load1_buybot_loadout1_armor"));
+								g_frw.Checkbox(XOR("Taser"),XOR("misc_buybot_loadout1_taser"));
+								g_frw.Checkbox(XOR("Nades"),XOR("misc_buybot_loadout1_nades"));
+								break;
+								case 1:
+								g_frw.ComboBox(XOR("Primary weapon"),XOR("misc_buybot_loadout2_primary"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Primary weapon (Fallback)"),XOR("misc_buybot_loadout2_primary_fallback"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Secondary weapon"),XOR("misc_buybot_loadout2_pistol"),XOR("Revolver/Deagle\0Duals\0Five-Seven\0P250"),4);
+								g_frw.Checkbox(XOR("Defuse kit"),XOR("misc_buybot_loadout2_defuse"));
+								g_frw.Checkbox(XOR("Armor"),XOR("misc_load2_buybot_loadout2_armor"));
+								g_frw.Checkbox(XOR("Taser"),XOR("misc_buybot_loadout2_taser"));
+								g_frw.Checkbox(XOR("Nades"),XOR("misc_buybot_loadout2_nades"));
+								break;
+								case 2:
+								g_frw.ComboBox(XOR("Primary weapon"),XOR("misc_buybot_loadout3_primary"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Primary weapon (Fallback)"),XOR("misc_buybot_loadout3_primary_fallback"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Secondary Weapon"),XOR("misc_buybot_loadout3_pistol"),XOR("Revolver/Deagle\0Duals\0Five-Seven\0P350"),4);
+								g_frw.Checkbox(XOR("Defuse Kit"),XOR("misc_buybot_loadout3_defuse"));
+								g_frw.Checkbox(XOR("Armor"),XOR("misc_load1_buybot_loadout3_armor"));
+								g_frw.Checkbox(XOR("Taser"),XOR("misc_buybot_loadout3_taser"));
+								g_frw.Checkbox(XOR("Nades"),XOR("misc_buybot_loadout3_nades"));
+								break;
+
+								case 3:
+								g_frw.ComboBox(XOR("Primary weapon"),XOR("misc_buybot_loadout4_primary"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Primary weapon (Fallback)"),XOR("misc_buybot_loadout4_primary_fallback"),XOR("Autosniper\0AWP\0SSG-08\0SG08"),4);
+								g_frw.ComboBox(XOR("Secondary weapon"),XOR("misc_buybot_loadout4_pistol"),XOR("Revolver/Deagle\0Duals\0Five-Seven\0P450"),4);
+								g_frw.Checkbox(XOR("Defuse kit"),XOR("misc_buybot_loadout4_defuse"));
+								g_frw.Checkbox(XOR("Armor"),XOR("misc_load1_buybot_loadout4_armor"));
+								g_frw.Checkbox(XOR("Taser"),XOR("misc_buybot_loadout4_taser"));
+								g_frw.Checkbox(XOR("Nades"),XOR("misc_buybot_loadout4_nades"));
+								break;
+							}
+							g_frw.Checkbox(XOR("Show spectators"),XOR("misc_spectators"));
+							g_frw.Checkbox(XOR("Show Active Keybinds"),XOR("misc_keybinds"));
+							g_frw.Checkbox(XOR("Show watermark"),XOR("misc_watermark"));
+						}g_frw.EndModule();
+
+						g_frw.ConcludeModuleHeader();
+						break;
 						case 1:
-							g_frw.ComboBox( XOR( "Primary weapon" ), XOR( "misc_buybot_loadout2_primary" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Primary weapon (Fallback)" ), XOR( "misc_buybot_loadout2_primary_fallback" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Secondary weapon" ), XOR( "misc_buybot_loadout2_pistol" ), XOR( "Revolver/Deagle\0Duals\0Five-Seven\0P250" ), 4 );
-							g_frw.Checkbox( XOR( "Defuse kit" ), XOR( "misc_buybot_loadout2_defuse" ) );
-							g_frw.Checkbox( XOR( "Armor" ), XOR( "misc_load2_buybot_loadout2_armor" ) );
-							g_frw.Checkbox( XOR( "Taser" ), XOR( "misc_buybot_loadout2_taser" ) );
-							g_frw.Checkbox( XOR( "Nades" ), XOR( "misc_buybot_loadout2_nades" ) );
-							break;
-						case 2:
-							g_frw.ComboBox( XOR( "Primary weapon" ), XOR( "misc_buybot_loadout3_primary" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Primary weapon (Fallback)" ), XOR( "misc_buybot_loadout3_primary_fallback" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Secondary Weapon" ), XOR( "misc_buybot_loadout3_pistol" ), XOR( "Revolver/Deagle\0Duals\0Five-Seven\0P350" ), 4 );
-							g_frw.Checkbox( XOR( "Defuse Kit" ), XOR( "misc_buybot_loadout3_defuse" ) );
-							g_frw.Checkbox( XOR( "Armor" ), XOR( "misc_load1_buybot_loadout3_armor" ) );
-							g_frw.Checkbox( XOR( "Taser" ), XOR( "misc_buybot_loadout3_taser" ) );
-							g_frw.Checkbox( XOR( "Nades" ), XOR( "misc_buybot_loadout3_nades" ) );
-							break;
+						{
+							bool t1,t2,t3,t4,t5;
+							static char config_name[25];
+							g_frw.BeginModuleHeader();
 
-						case 3:
-							g_frw.ComboBox( XOR( "Primary weapon" ), XOR( "misc_buybot_loadout4_primary" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Primary weapon (Fallback)" ), XOR( "misc_buybot_loadout4_primary_fallback" ), XOR( "Autosniper\0AWP\0SSG-08\0SG08" ), 4 );
-							g_frw.ComboBox( XOR( "Secondary weapon" ), XOR( "misc_buybot_loadout4_pistol" ), XOR( "Revolver/Deagle\0Duals\0Five-Seven\0P450" ), 4 );
-							g_frw.Checkbox( XOR( "Defuse kit" ), XOR( "misc_buybot_loadout4_defuse" ) );
-							g_frw.Checkbox( XOR( "Armor" ), XOR( "misc_load1_buybot_loadout4_armor" ) );
-							g_frw.Checkbox( XOR( "Taser" ), XOR( "misc_buybot_loadout4_taser" ) );
-							g_frw.Checkbox( XOR( "Nades" ), XOR( "misc_buybot_loadout4_nades" ) );
-							break;
+							g_frw.RenderModule(positions::left_top,sizes::full,XOR("CONFIG")); {
+								g_frw.ListBox(XOR("Configs"),XOR("cfg"),g_config.configs,8);
+
+
+								g_frw.TextInput(XOR("Name"),config_name,true);
+								g_frw.Button(XOR("Create new file"),&t4);
+								if (t4) {
+									g_config.save(config_name + std::string(XOR(".ini")));
+								}
+								g_frw.Button(XOR("Refresh list"),&t1);
+								if (t1) {
+									g_config.refresh();
+								}
+								g_frw.Button(XOR("Save to file"),&t2);
+								if (t2) {
+									g_config.save(g_config.configs.at(g_cfg[XOR("cfg")].get< int >()));
+								}
+								g_frw.Button(XOR("Load"),&t3);
+								if (t3) {
+									g_config.load(g_config.configs.at(g_cfg[XOR("cfg")].get< int >()));
+									g_skins.m_update = true;
+								}
+
+							}g_frw.EndModule();
+
+							g_frw.ConcludeModuleHeader();
 						}
+					
+		
+						
+						//g_frw.Button( XOR( "Delete file" ), &t5 );
+						//if (t5)
+						//{
+					//		std::string  pAtH = std::string(XOR("C:\\Users\Kian\\AppData\\Roaming\\undercover.host\\")) + config_name + std::string(XOR(".ini"));
+						//	remove(pAtH.c_str());
+						//}
 
-					}g_frw.EndModule( );
+						break;
 
-					g_frw.ContinueModule( );
-
-					g_frw.RenderModule( positions::right_top, sizes::full, XOR( "OTHER" ) ); {
-
-						g_frw.Checkbox( XOR( "Unlock all convars" ), XOR( "misc_unlock_cvars" ) );
-						if ( g_cfg[ XOR( "misc_unlock_cvars" ) ].get<bool>( ) )
-							g_cl.UnlockHiddenConvars( );
-
-						g_frw.ComboBox( XOR( "Clantag type" ), XOR( "misc_clantag_type" ), XOR( "None\0undercover\0Custom" ), 4 );
-						g_frw.ComboBox( XOR( "Clantag mode" ), XOR( "misc_clantag_mode" ), XOR( "Static\0Rotating " ), 4 );
-
-						if ( g_cfg[ XOR( "misc_clantag_type" ) ].get<int>( ) == 2 ) {
-
-							ImGui::SetCursorPosX( ImGui::GetCursorPosX( ) + 22 );
-							ImGui::SetCursorPosY( ImGui::GetCursorPosY( ) - 9 );
-							g_frw.TextInput( XOR( "Custom Team" ), g_cl.clantag_lable, false );
-						}
-
-
-					} g_frw.EndModule( );
-
-					g_frw.ConcludeModuleHeader( );
+					}
+				
 				}
 			}break;
 
-			case tabs::tab_four:
-				static int current_subtab;
-				g_frw.RenderSecondaryHeader( current_subtab, { XOR( "CONFIG" ) } );
-
-				g_frw.RenderModule( positions::left_top, sizes::full, XOR( "CONFIGS" ) ); {
-					bool t1, t2, t3, t4, t5;
-					static char config_name[ 25 ];
-					g_frw.ListBox( XOR( "Configs" ), XOR( "cfg" ), g_config.configs, 8 );
-
-
-					g_frw.TextInput( XOR( "Name" ), config_name, true );
-					g_frw.Button( XOR( "Create new file" ), &t4 );
-					if ( t4 ) {
-						g_config.save( config_name + std::string( XOR( ".ini" ) ) );
-					}
-					g_frw.Button( XOR( "Refresh list" ), &t1 );
-					if ( t1 ) {
-						g_config.refresh( );
-					}
-					g_frw.Button( XOR( "Save to file" ), &t2 );
-					if ( t2 ) {
-						g_config.save( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
-					}
-					g_frw.Button( XOR( "Load" ), &t3 );
-					if ( t3 ) {
-						g_config.load( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
-						g_skins.m_update = true;
-					}
-					//g_frw.Button( XOR( "Delete file" ), &t5 );
-					//if (t5)
-					//{
-				//		std::string  pAtH = std::string(XOR("C:\\Users\Kian\\AppData\\Roaming\\undercover.host\\")) + config_name + std::string(XOR(".ini"));
-					//	remove(pAtH.c_str());
-					//}
-
-				}g_frw.EndModule( );
-				g_frw.RenderModule(positions::right_top,sizes::full,XOR("OTHER")); {
-				g_frw.Checkbox(XOR("Show spectators"),XOR("misc_spectators"));
-				g_frw.Checkbox(XOR("Show Active Keybinds"),XOR("misc_keybinds"));
-				g_frw.Checkbox(XOR("Show watermark"),XOR("misc_watermark"));
-				}g_frw.EndModule();
-				break;
+			
 
 			};
 		}

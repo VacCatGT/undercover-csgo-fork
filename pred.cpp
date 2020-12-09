@@ -48,6 +48,9 @@ void EnginePrediction::UpdatePrediction( ) {
 void EnginePrediction::Predict( ) {
 	static CMoveData data{ };
 
+	if (!g_cl.m_cmd && !g_cl.m_local)
+		return;
+
 	// store unpredicted variables.
 	PredictionData.m_flUnpredictedFlags = g_cl.m_local->m_fFlags( );
 	PredictionData.m_vecUnpredictedVelocity = g_cl.m_local->m_vecVelocity( );

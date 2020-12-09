@@ -1,6 +1,7 @@
 #pragma once
 
 enum tabs {
+	tab_cock,
 	tab_one,
 	tab_two,
 	tab_three,
