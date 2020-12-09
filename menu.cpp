@@ -23,7 +23,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 			g_frw.DrawBackdrop( );
 
-			switch ( g_frw.RenderTabBar( m_curtab, { XOR( "LEGITBOT" ), XOR( "RAGEBOT" ), XOR( "VISUALS" ), XOR( "MISC" ) } ) )
+			switch ( g_frw.RenderTabBar( m_curtab, { XOR( "LEGIT" ), XOR( "RAGE     " ), XOR( "     VISUALS" ), XOR( "MISC" ) } ) )
 			{
 				case tabs::tab_cock: {
 					static int current_subtab;

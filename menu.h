@@ -95,11 +95,11 @@ public:
 
 	void ApplyFonts( ) {
 		ImGui::CreateContext( );
-		agency = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF(AgencyFB_compressed_data, AgencyFB_compressed_size, 21);
-		droid_sans = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( Droid_Sans_compressed_data, Droid_Sans_compressed_size, 14);
-		droid_sans_bold = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( Droid_Sans_Bold_compressed_data, Droid_Sans_Bold_compressed_size, 17 );
-		droid_sans_bold_small = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( Droid_Sans_Bold_compressed_data, Droid_Sans_Bold_compressed_size, 14 );
-		segue_ui = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( SegoeUI_compressed_data, SegoeUI_compressed_size, 15 );
+		agency = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF(josefinSans_compressed_data, josefinSans_compressed_size, 15);
+		droid_sans = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( josefinSans_compressed_data, josefinSans_compressed_size, 13);
+		droid_sans_bold = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( josefinSans_compressed_data, josefinSans_compressed_size, 13 );
+		droid_sans_bold_small = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( josefinSans_compressed_data, josefinSans_compressed_size, 10 );
+		segue_ui = ImGui::GetIO( ).Fonts->AddFontFromMemoryCompressedTTF( josefinSans_compressed_data, josefinSans_compressed_size, 14 );
 	}
 
 	void SetupTextures( IDirect3DDevice9* device );
