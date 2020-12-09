@@ -434,9 +434,6 @@ void Visuals::think() {
 void Visuals::Watermark() {
 	static vec2_t                     position;
 
-	if (!g_cfg[XOR("misc_watermark")].get< bool >())
-		return;
-
 	// get time.
 	time_t t = std::time(nullptr);
 	std::ostringstream time;
@@ -464,7 +461,7 @@ void Visuals::Watermark() {
 	const char* server_ip = g_csgo.m_engine->GetNetChannelInfo() ? g_csgo.m_engine->GetNetChannelInfo()->GetAddress() : XOR("");
 
 	// todo: clean this up and add a not ingame indicator.
-	std::string text = g_csgo.m_engine->IsInGame() ? tfm::format(XOR("undercover.host | %i | delay: %ims | %itick | %s | %s"),cheat_username,ms,rate,local ? XOR("local server") : server_ip,time.str().data()) : tfm::format(XOR("undercover.host | %i | Not In-game | %s"),cheat_username,time.str().data());
+	std::string text = g_csgo.m_engine->IsInGame() ? tfm::format(XOR("undercover.host | %i | delay: %ims | %itick | %s | %s"),cheat_username,ms,rate,local ? XOR("local server") : server_ip,time.str().data()) : tfm::format(XOR("undercover.host | %i | in menu | %s"),cheat_username,time.str().data());
 
 	// render background.
 	render::rect_filled(position.x,position.y,render::esp.size(text).m_width + 10,19,Color(30,30,30,120));
