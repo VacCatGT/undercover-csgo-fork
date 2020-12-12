@@ -607,11 +607,16 @@ void Visuals::Keybinds() {
 	// dont do if dead.
 	if (g_cl.m_processing) {
 
+		if ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) && !g_hvh.m_fake_duck) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Doubletap" );
+			indicators.push_back( ind );
+		}
 
-		if (g_config.get_hotkey(XOR("aimbot_disable_exploits_key"))) {
-			Indicator_t ind {};
-			ind.text = XOR("Silence Exploits");
-			indicators.push_back(ind);
+		if ( g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) && !g_hvh.m_fake_duck ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Hide Shots" );
+			indicators.push_back( ind );
 		}
 
 		if (g_movement.m_started_peeking) {
@@ -640,7 +645,7 @@ void Visuals::Keybinds() {
 
 		if (g_aimbot.m_force_safepoint) {
 			Indicator_t ind {};
-			ind.text = XOR("Force Fallback");
+			ind.text = XOR("Force Safepoint");
 			indicators.push_back(ind);
 		}
 

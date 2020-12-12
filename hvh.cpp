@@ -560,7 +560,7 @@ void HVH::Fakelag( ) {
 	auto v10 = g_cfg[ XOR( "aa_fl_jitter" ) ].get< int >( );
 	auto v9 = g_cfg[ XOR( "aa_fl_triggers_amt" ) ].get< int >( );  
 
-	if ( g_csgo.m_gamerules->m_bFreezePeriod( ) || g_cl.m_local->m_fFlags( ) & FL_FROZEN || !( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) ) ) && !g_tickbase.m_shift_data.m_shift_time && g_cfg[XOR("aimbot_exploits_teleport")].get< bool >( ) && g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || g_tickbase.m_shift_data.m_shift_time + 10 > g_csgo.m_globals->m_tick_count ) {
+	if ( g_csgo.m_gamerules->m_bFreezePeriod( ) || g_cl.m_local->m_fFlags( ) & FL_FROZEN || !g_hvh.m_fake_duck && !g_tickbase.m_shift_data.m_shift_time && g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_tickbase.m_shift_data.m_shift_time + 10 > g_csgo.m_globals->m_tick_count && g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) ) {
 		g_cl.m_packet = g_csgo.m_cl->m_choked_commands >= 1;
 		return;
 	}
@@ -642,7 +642,7 @@ LABEL_5:
 
 	m_old_weapon = g_cl.m_weapon;
 
-	if ( !( g_hvh.m_fake_duck || g_config.get_hotkey( XOR( "aimbot_disable_exploits_key" ) ) ) && !g_tickbase.m_shift_data.m_shift_time && ( !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) && g_cfg[ XOR( "aimbot_hide_shots" ) ].get< bool >( ) ) && g_cfg[ XOR( "aimbot_exploits_enable" ) ].get< bool >( ) || g_tickbase.m_shift_data.m_shift_time + 10 > g_csgo.m_globals->m_tick_count && !g_cfg[ XOR( "aimbot_exploits_teleport" ) ].get< bool >( ) )
+	if ( !g_hvh.m_fake_duck && !g_tickbase.m_shift_data.m_shift_time && g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) || g_tickbase.m_shift_data.m_shift_time + 10 > g_csgo.m_globals->m_tick_count && !g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) )
 		math::clamp( v81, 1, (g_cl.m_max_lag / 2 - 1) );
 	else
 		math::clamp( v81, 1, g_cl.m_max_lag );
