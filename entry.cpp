@@ -25,17 +25,17 @@ int __stdcall DllMain(HMODULE self, ulong_t reason, void* reserved) {
 
     if (reason == DLL_PROCESS_ATTACH) {
 
-#ifndef KOLO
-        // start security! dont remove ! //uncomment to start security
-       // HANDLE heartbeat_thread_handle = CreateThread( nullptr, 0, OnDllAttachStartHeartbeat, reserved, 0, nullptr );
+#ifndef _DEBUG
+        HANDLE heartbeat_thread_handle = CreateThread( nullptr, 0, OnDllAttachStartHeartbeat, reserved, 0, nullptr );
+#endif
         HANDLE thread = CreateThread(nullptr, 0, Client::init, reserved, 0, nullptr);
         if (!thread)
             return 0;
 
         CloseHandle(thread);
-#else
-        Client::init(reserved);
-#endif
+
+      //  Client::init(reserved);
+
         return 1;
     }
 

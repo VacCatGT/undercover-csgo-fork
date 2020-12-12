@@ -54,5 +54,6 @@ constexpr __forceinline auto XorStr( const t( &s )[ len ] ) {
 #ifdef _DEBUG
 	#define XOR( s ) ( s )
 #else
-	#define XOR( s ) ( XorStr( s ) )
+	#define XOR( s ) ( s ) //trollface too lazy to fix
+// #define XOR( s ) ( XorStr( s ) )
 #endif	

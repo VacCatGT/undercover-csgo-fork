@@ -100,10 +100,10 @@ inline int		V_wcslen( const wchar_t* pwch ) { return ( int )wcslen( pwch ); }
 inline char* V_strrchr( const char* s, char c ) { return ( char* )strrchr( s, c ); }
 inline int		V_strcmp( const char* s1, const char* s2 ) { return strcmp( s1, s2 ); }
 inline int		V_wcscmp( const wchar_t* s1, const wchar_t* s2 ) { return wcscmp( s1, s2 ); }
-inline int		V_stricmp( const char* s1, const char* s2 ) { return stricmp( s1, s2 ); }
+inline int		V_stricmp( const char* s1, const char* s2 ) { return _stricmp( s1, s2 ); }
 inline char* V_strstr( const char* s1, const char* search ) { return ( char* )strstr( s1, search ); }
-inline char* V_strupr( char* start ) { return strupr( start ); }
-inline char* V_strlower( char* start ) { return strlwr( start ); }
+inline char* V_strupr( char* start ) { return _strupr( start ); }
+inline char* V_strlower( char* start ) { return _strlwr( start ); }
 
 #endif
 

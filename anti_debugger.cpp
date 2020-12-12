@@ -67,20 +67,20 @@ bool anti_debugger::is_security_breached()
 {
 	BOOL result; //Create a result boolean for our result to be stored. //dont mind the cheat engines, just extra if we have to remove the classid check due to user problems
 	LPCSTR DetectedWindows[] = { XOR("Windows Sandbox"), XOR("Cheat Engine 7.2"),  XOR("Cheat Engine 7.1"),  XOR("Cheat Engine 7.0"),  XOR("Cheat Engine 6.7"),  XOR("Cheat Engine 6.6"),  XOR("Cheat Engine 6.1"),  XOR("Cheat Engine 6.0"), XOR("x32dbg"), XOR("x64dbg"), XOR("IDA: Quick start"), XOR("IDA v6.8.150423") };
+	std::this_thread::sleep_for(std::chrono::seconds(15));
 
 	while (1) //Enter our loop.
 	{
+
 		uc_kernelmode;
 
 		uc_CloseHandle();
 
 		uc_Trap_Debugger();
 
-		uc_SizeOfImage();
+		uc_SizeOfImage(); 
 
 		uc_HideFromDebugger();
-
-		uc_tflag();
 
 		uc_CheckWindowName();
 
@@ -98,15 +98,9 @@ bool anti_debugger::is_security_breached()
 
 		uc_HardwareDebugRegisters();
 
-		uc_MovSS(); //might look autistic but it works, doesnt drop perfomance
+		uc_MovSS(); //might look autistic but it works, doesnt drop perfomance 
 
 		uc_CloseHandleException();
-
-		uc_Int3();
-
-		uc_PrefixHop();
-
-		uc_Int2D();
 
 		if (IsDebuggerPresent()) // simple check
 		{
@@ -143,7 +137,7 @@ bool anti_debugger::is_security_breached()
 
 void uc_SizeOfImage(void)
 {
-	// Any unreasonably large value will work say for example 0x100000 or 100,000h
+	
 	__asm
 	{
 		mov eax, fs: [0x30]				// PEB
@@ -164,15 +158,6 @@ void uc_Trap_Debugger(void)
 
 BOOL uc_CloseHandle()
 {
-	// APIs making user of the ZwClose syscall (such as CloseHandle, indirectly) 
-	// can be used to detect a debugger. When a process is debugged, calling ZwClose 
-	// with an invalid handle will generate a STATUS_INVALID_HANDLE (0xC0000008) exception.
-	// As with all anti-debugs that rely on information made directly available 
-	// from the kernel (therefore involving a syscall), the only proper way to bypass 
-	// the "CloseHandle" anti-debug is to either modify the syscall data from ring3, 
-	// before it is called, or set up a kernel hook.
-	// This anti-debug, though extremely powerful, does not seem to be widely used 
-	// by malicious programs.
 
 	__try {
 		CloseHandle((HANDLE)0x99999999);
@@ -211,10 +196,6 @@ const ULONG ThreadHideFromDebugger = 0x11;
 
 BOOL uc_HideFromDebugger()
 {
-	/* Calling NtSetInformationThread will attempt with ThreadInformationClass set to  x11 (ThreadHideFromDebugger)
-	to hide a thread from the debugger, Passing NULL for hThread will cause the function to hide the thread the
-	function is running in. Also, the function returns false on failure and true on success. When  the  function
-	is called, the thread will continue  to run but a debugger will no longer receive any events related  to  that  thread. */
 
 	// Function Pointer Typedef for NtQueryInformationProcess
 	typedef NTSTATUS(WINAPI* pNtSetInformationThread)(IN HANDLE, IN UINT, IN PVOID, IN ULONG);
@@ -222,7 +203,7 @@ BOOL uc_HideFromDebugger()
 	// ThreadHideFromDebugger
 	const int ThreadHideFromDebugger = 0x11;
 
-	// We have to import the function
+	// import the function
 	pNtSetInformationThread NtSetInformationThread = NULL;
 
 	// Other Vars
@@ -232,20 +213,17 @@ BOOL uc_HideFromDebugger()
 	HMODULE hNtDll = LoadLibrary(XOR(TEXT("ntdll.dll")));
 	if (hNtDll == NULL)
 	{
-		// Handle however.. chances of this failing
-		// is essentially 0 however since
-		// ntdll.dll is a vital system resource
+		// cant fail
 	}
 
 	NtSetInformationThread = (pNtSetInformationThread)GetProcAddress(hNtDll, XOR( "NtSetInformationThread"));
 
 	if (NtSetInformationThread == NULL)
 	{
-		// Handle however it fits your needs but as before,
 		// if this is missing there are some SERIOUS issues with the OS
 	}
 
-	// Time to finally make the call
+	// make the call
 	Status = NtSetInformationThread(GetCurrentThread(), ThreadHideFromDebugger, NULL, 0);
 
 	if (Status)
