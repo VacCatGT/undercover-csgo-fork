@@ -216,9 +216,6 @@ void Aimbot::init( ) {
 	m_best_dist = std::numeric_limits< float >::max( );
 	m_best_fov = 180.f + 1.f;
 	m_best_damage = 0.f;
-	m_best_hp = 100 + 1;
-	m_best_lag = std::numeric_limits< float >::max( );
-	m_best_height = std::numeric_limits< float >::max( );
 	g_aimbot.m_current_matrix = nullptr;
 
 	if ( !g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready )
@@ -966,14 +963,43 @@ bool AimPlayer::SafePointMultiPoint( LagComp::LagRecord_t* record, BoneArray* bo
 }
 
 bool Aimbot::SortTargets( LagComp::LagRecord_t* record, const vec3_t& aim, float damage ) {
-	float dist, fov, height;
-	int   hp;
+	float dist, fov;
 
-	dist = g_cl.m_shoot_pos.dist_to( record->m_vecOrigin );
+	switch ( g_cfg[ XOR( "aimbot_target_selection" ) ].get<int>( ) ) {
 
-	if ( dist < m_best_dist ) {
-		m_best_dist = dist;
-		return true;
+		// crosshair.
+		case 0:
+			fov = math::GetFOV( g_cl.m_view_angles, g_cl.m_shoot_pos, aim );
+
+			if ( fov < m_best_fov ) {
+				m_best_fov = fov;
+				return true;
+			}
+
+			break;
+
+		// distance.
+		case 1:
+			dist = g_cl.m_shoot_pos.dist_to( record->m_vecOrigin );
+
+			if ( dist < m_best_dist ) {
+				m_best_dist = dist;
+				return true;
+			}
+
+			break;
+
+		// damage.
+		case 2:
+			if ( damage > m_best_damage ) {
+				m_best_damage = damage;
+				return true;
+			}
+
+			break;
+
+		default:
+			return false;
 	}
 
 	return false;
@@ -1029,7 +1055,7 @@ void Aimbot::apply( ) {
 			g_cl.m_shot = true;
 		}
 
-		if ( !m_shoot_next_tick && ( g_cl.m_goal_shift == 14 ) && g_tickbase.m_shift_data.m_should_attempt_shift && !( g_tickbase.m_shift_data.m_prepare_recharge || g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready ) ) {
+		if ( !m_shoot_next_tick && ( g_cl.m_goal_shift == ( g_cl.m_max_lag - 1 ) ) && g_tickbase.m_shift_data.m_should_attempt_shift && !( g_tickbase.m_shift_data.m_prepare_recharge || g_tickbase.m_shift_data.m_did_shift_before && !g_tickbase.m_shift_data.m_should_be_ready ) ) {
 			m_shoot_next_tick = true;
 		}
 	}

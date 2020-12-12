@@ -145,9 +145,6 @@ public:
 	float m_best_dist;
 	float m_best_fov;
 	float m_best_damage;
-	int   m_best_hp;
-	float m_best_lag;
-	float m_best_height;
 
 	// multithreading data.
 	bool m_attack;
