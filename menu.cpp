@@ -78,11 +78,11 @@ void Menu::Think( IDirect3DDevice9* device ) {
 
 							g_frw.RenderModule( positions::left_top, sizes::full, XOR( "AIMBOT_MAIN" ) ); {
 								g_frw.Checkbox( XOR( "Enable Aimbot" ), XOR( "aimbot_enable" ) );
+								g_frw.ComboBox( XOR( "Target Selection" ), XOR( "aimbot_target_selection" ), XOR( "Closest To Crosshair\0Lowest Distance\0Highest Damage" ), 3 );
 								g_frw.Checkbox( XOR( "Auto Shoot" ), XOR( "aimbot_autofire" ) );
 								g_frw.Checkbox( XOR( "Silent" ), XOR( "aimbot_silent" ) );
 								g_frw.Checkbox( XOR( "Resolver" ), XOR( "aimbot_resolver" ) );
 								g_frw.Checkbox( XOR( "Pitch Resolver" ), XOR( "aimbot_pitch_resolver" ) );
-								g_frw.ComboBox( XOR( "Targer Selection" ), XOR( "aimbot_target_selection" ), XOR( "Closest To Crosshair\0Lowest Distance\0Highest Damage" ), 3 );
 								//g_frw.Checkbox( XOR( "Taser Bot" ), XOR( "aimbot_zeusbot" ) );
 								//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );
 
