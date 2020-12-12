@@ -607,6 +607,12 @@ void Visuals::Keybinds() {
 	// dont do if dead.
 	if (g_cl.m_processing) {
 
+		if ( g_hvh.m_fake_duck ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Fake Duck" );
+			indicators.push_back( ind );
+		}
+
 		if ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) && !g_hvh.m_fake_duck) {
 			Indicator_t ind{ };
 			ind.text = XOR( "Doubletap" );
@@ -695,8 +701,7 @@ void Visuals::Keybinds() {
 	// render text.
 	render::esp.string(position.x + (g_menu.m_opened ? 120 : 80),position.y + 3,{255,255,255,255},XOR("Keybinds"),render::ALIGN_CENTER);
 
-	// only render when menu isn't open.
-	if (g_menu.m_opened || indicators.empty())
+	if (indicators.empty())
 		return;
 
 	// iterate and draw indicators.
