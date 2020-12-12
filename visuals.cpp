@@ -573,21 +573,20 @@ void Visuals::Spectators() {
 	size_t total_size = spectators.size() * (15);
 
 	// render background.
-	render::rect_filled(position.x,position.y,(g_menu.m_opened ? 240 : 160),19,Color(30,30,30,120));
+	render::rect_filled(position.x,position.y,160,19,Color(30,30,30,120));
 
 	//bourdeer leftft
 	render::rect_filled(position.x,position.y,19,1,Color(255,0,0,180));
 	render::rect_filled(position.x,position.y,1,19,Color(255,0,0,180));
 
 	//bourdeer raightht
-	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160) - 20,position.y + 18,20,1,Color(255,0,0,180));
-	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160),position.y,1,19,Color(255,0,0,180));
+	render::rect_filled(position.x + 160 - 20,position.y + 18,20,1,Color(255,0,0,180));
+	render::rect_filled(position.x + 160,position.y,1,19,Color(255,0,0,180));
 
 	// render text.
-	render::esp.string(position.x + (g_menu.m_opened ? 120 : 80),position.y + 3,{255,255,255,255},XOR("Spectators"),render::ALIGN_CENTER);
+	render::esp.string(position.x + 80,position.y + 3,{255,255,255,255},XOR("Spectators"),render::ALIGN_CENTER);
 
-	// only render when menu isn't open.
-	if (g_menu.m_opened || spectators.empty())
+	if (spectators.empty())
 		return;
 
 	for (size_t i {}; i < spectators.size(); ++i) {
@@ -688,18 +687,18 @@ void Visuals::Keybinds() {
 	position.y -= s_drag.y;
 
 	// render background.
-	render::rect_filled(position.x,position.y,(g_menu.m_opened ? 240 : 160),19,Color(30,30,30,120));
+	render::rect_filled(position.x,position.y,160,19,Color(30,30,30,120));
 
 	//bourdeer leftft
 	render::rect_filled(position.x,position.y,19,1,Color(255,0,0,180));
 	render::rect_filled(position.x,position.y,1,19,Color(255,0,0,180));
 
 	//bourdeer raightht
-	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160) - 20,position.y + 18,20,1,Color(255,0,0,180));
-	render::rect_filled(position.x + (g_menu.m_opened ? 240 : 160),position.y,1,19,Color(255,0,0,180));
+	render::rect_filled(position.x + 160 - 20,position.y + 18,20,1,Color(255,0,0,180));
+	render::rect_filled(position.x + 160,position.y,1,19,Color(255,0,0,180));
 
 	// render text.
-	render::esp.string(position.x + (g_menu.m_opened ? 120 : 80),position.y + 3,{255,255,255,255},XOR("Keybinds"),render::ALIGN_CENTER);
+	render::esp.string(position.x + 80,position.y + 3,{255,255,255,255},XOR("Keybinds"),render::ALIGN_CENTER);
 
 	if (indicators.empty())
 		return;

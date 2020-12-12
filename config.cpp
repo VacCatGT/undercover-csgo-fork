@@ -607,6 +607,11 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "skins_KNIFE_SKELETON_stattrak" ), pre_defined },
 	{ XOR( "skins_KNIFE_SKELETON_seed" ), pre_defined },
 
+	{ XOR( "spectator_list_x" ), pre_defined },
+	{ XOR( "spectator_list_y" ), pre_defined },
+	{ XOR( "keybind_list_x" ), pre_defined },
+	{ XOR( "keybind_list_y" ), pre_defined },
+
 };
 
 bool Config::get_hotkey( std::string str )
