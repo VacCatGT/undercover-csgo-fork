@@ -16,7 +16,7 @@
 
 using ulong_t = unsigned long;
 
-
+typedef char* (*t_Username)();
 // windows / stl includes.
 #include <Windows.h>
 #include <cstdint>
