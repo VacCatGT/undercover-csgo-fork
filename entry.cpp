@@ -19,7 +19,25 @@ DWORD WINAPI OnDllAttachStartHeartbeat(LPVOID base)
 
 }
 
+typedef bool (*t_Login)();
+typedef bool (*t_Logout)();
+typedef bool (*t_InjectModule)(char* moduleName);
+
 int __stdcall DllMain(HMODULE self, ulong_t reason, void* reserved) {
+#ifndef _DEBUG
+    auto driver_helper = LoadLibraryA("vanguard.dll");
+
+    if (driver_helper) {
+        t_Login Login = (t_Login)GetProcAddress(driver_helper, "Login");
+        t_Logout Logout = (t_Logout)GetProcAddress(driver_helper, "Logout");
+        t_InjectModule InjectModule = (t_InjectModule)GetProcAddress(driver_helper, "InjectModule");
+
+        Login();
+    }
+    else {
+        exit(0);
+    }
+#endif
 
     hack_module = self;
 
