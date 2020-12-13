@@ -96,26 +96,22 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 		g_hvh.m_invert = g_config.get_hotkey( XOR( "aa_inverter_key" ) );
 		g_hvh.m_auto_peek = g_config.get_hotkey( XOR( "misc_auto_peek" ) );
 
-		// note - alpha;
-		// the maximum amount of ticks we can shift is sv_maxusrcmdprocessticks
-		// which is defaulted to 16 - but since we want to be fakelagging atleast 2 ticks
-		// for our fake angle to work, we need to reserve 2 ticks for the fakelag. 
-		// we want our doubletap to be as fast as possible, and our fake to be as wide as possible
-		// therefore let's just fakelag 2 ticks - resulting in our max shift ticks being 14
-		// cos sv_maxusrcmdprocessticks Take Away Two Is Fourteen
-		// (assuming that the convar wasn't changed to a higher/lower value).
 		g_cl.m_goal_shift = ( g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) && !g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) ) ? ( g_cl.m_max_lag / 2 ) : ( g_cl.m_max_lag - 1);
 
-		// (!) Temporary - replace with checkbox & hotkey later. 
-		/*if ( old_tickbase != g_tickbase.m_shift_data.m_should_attempt_shift ) {
+		if ( old_tickbase != g_tickbase.m_shift_data.m_should_attempt_shift ) {
+			auto old_time = g_csgo.m_globals->m_curtime;
 
-			if ( g_tickbase.m_shift_data.m_should_attempt_shift )
+			if ( g_tickbase.m_shift_data.m_should_attempt_shift ) {
 				g_tickbase.m_shift_data.m_needs_recharge = g_cl.m_goal_shift;
+
+				if ( g_csgo.m_globals->m_curtime >= ( old_time + game::TICKS_TO_TIME( g_cl.m_goal_shift ) ) )
+					g_tickbase.m_shift_data.m_needs_recharge = 0;
+			}
 			else
 				g_tickbase.m_shift_data.m_needs_recharge = 0;
 
 			g_tickbase.m_shift_data.m_did_shift_before = false;
-		}*/
+		}
 
 	}
 
