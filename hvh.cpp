@@ -125,7 +125,47 @@ float HVH::Real( float a1 ) {
 	}
 	else 
 	{
-		AtTargets( );
+		static int side = -1;
+		static size_t lastTime = 0;
+		static size_t blastTime = 0;
+		static size_t rlastTime = 0;
+
+		if ( g_config.get_hotkey( XOR( "aa_manual_left_key" ) ) && g_cfg[ XOR( "aa_manual" ) ].get< bool >( ) )	{
+			if ( GetTickCount64( ) > lastTime ) {
+				side = ( side == 0 ? -1 : 0 );
+				lastTime = GetTickCount64( ) + 450;
+			}
+		}
+		else if ( g_config.get_hotkey( XOR( "aa_manual_right_key" ) ) && g_cfg[ XOR( "aa_manual" ) ].get< bool >( ) ) {
+			if ( GetTickCount64( ) > rlastTime ) {
+				side = ( side == 1 ? -1 : 1 );
+				rlastTime = GetTickCount64( ) + 450;
+			}
+		}
+		else if ( g_config.get_hotkey( XOR( "aa_manual_back_key" ) ) && g_cfg[ XOR( "aa_manual" ) ].get< bool >( ) ) {
+			if ( GetTickCount64( ) > blastTime ) {
+				side = ( side == 2 ? -1 : 2 );
+				blastTime = GetTickCount64( ) + 450;
+			}
+		}
+
+		if (side == -1 || !g_cfg[ XOR( "aa_manual" ) ].get< bool >( ) )
+			AtTargets( );
+		else {
+			switch ( side )
+			{
+				case 0:
+					g_cl.m_cmd->m_view_angles.y += 90.f;
+					break;
+				case 1:
+					g_cl.m_cmd->m_view_angles.y -= 90.f;
+					break;
+				case 2:
+					g_cl.m_cmd->m_view_angles.y += 180.f;
+					break;
+			}
+		}
+
 		auto v12 = g_cfg[ XOR( "aa_yaw_offset" ) ].get< int >( ) + g_cl.m_cmd->m_view_angles.y;
 		bool v9;
 		if( !m_jitter || abs( g_cfg[ XOR( "aa_jitter_offset" ) ].get< int >( ) ) <= 3 || ( g_csgo.m_cl->m_choked_commands ? ( v9 = m_jitter_flip ) : ( v9 = m_jitter_flip == 0, m_jitter_flip = m_jitter_flip == 0 ), !v9 ) ) {

@@ -44,7 +44,7 @@ public:
 	void				 Checkbox( std::string name, std::string boolean );
 	void				 KeybindCheckbox( std::string name );
 	void				 NumberPicker( std::string name, std::string value, int min, int max, std::string unit, int step );
-	bool				 GetKey( std::string name, std::string key, std::string keybind_type );
+	bool				 GetKey( std::string name, std::string key, std::string keybind_type, bool dotype = true );
 	bool				 ListBox( std::string name, std::string current_index, std::vector<std::string> values, int height );
 	void				 MultiCombo( std::string name, std::vector<std::string> config_values, std::vector<std::string> names );
 	void				 ComboBox( std::string name, std::string current_item, const char* items, int count );

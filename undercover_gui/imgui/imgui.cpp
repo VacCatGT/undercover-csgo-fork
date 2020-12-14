@@ -8183,7 +8183,7 @@ static bool Items_ArrayGetter( void* data, int idx, const char** out_text ) {
 	return true;
 }
 
-bool ImGui::Hotkey( const char* label, int* k, const ImVec2& size_arg, int* type ) {
+bool ImGui::Hotkey( const char* label, int* k, const ImVec2& size_arg, int* type, bool dotype ) {
 	ImGui::SetCursorPosX(249);
 	ImGui::SetCursorPosY(ImGui::GetCursorPosY());
 
@@ -8321,42 +8321,46 @@ bool ImGui::Hotkey( const char* label, int* k, const ImVec2& size_arg, int* type
 
 	style.KeyBindOverride = ImVec2(0, 0);
 
-	static bool selector_open = false;
+	if ( dotype ) {
+		static bool selector_open = false;
 
-	if( hovered && io.MouseClicked[1] ) {
-		selector_open = !selector_open;
-		if(selector_open)
-			OpenPopupEx(id, false);
-		else
-			ClosePopup(id);
-	}	
+		if ( hovered && io.MouseClicked[ 1 ] ) {
+			selector_open = !selector_open;
+			if ( selector_open )
+				OpenPopupEx( id, false );
+			else
+				ClosePopup( id );
+		}
 
-	if ( selector_open ) {
+		if ( selector_open ) {
 
-		SetNextWindowSize(ImVec2(80, 100), ImGuiCond_Always);
-		SetNextWindowPos(ImVec2(frame_bb.Min.x + 20, frame_bb.Min.y - 10), ImGuiCond_Always);
+			SetNextWindowSize( ImVec2( 80, 100 ), ImGuiCond_Always );
+			SetNextWindowPos( ImVec2( frame_bb.Min.x + 20, frame_bb.Min.y - 10 ), ImGuiCond_Always );
 
-		PushStyleVar( ImGuiStyleVar_FramePadding, { 3, 3} );
-		PushStyleVar( ImGuiStyleVar_WindowPadding, { 3, 3} );
-		PushStyleVar( ImGuiStyleVar_FramePadding, { 3, 3} );
-		PushStyleVar( ImGuiStyleVar_ItemSpacing, { 3, 3} );
-		 
-		if( BeginPopup( label ) ) {
-			if ( ImGui::SelectableMeme("Toggle", *type == 0, 0, {100, 20}) )
-				*type = 0;
-			if ( ImGui::SelectableMeme("Hold", *type == 1, 0, {100, 20}) )
-				*type = 1;
-			if ( ImGui::SelectableMeme("Force Off", *type == 2, 0, {100, 20}) )
-				*type = 2;
-			if ( ImGui::SelectableMeme("Always On", *type == 3, 0, {100, 20}) )
-				*type = 3;
+			PushStyleVar( ImGuiStyleVar_FramePadding, { 3, 3 } );
+			PushStyleVar( ImGuiStyleVar_WindowPadding, { 3, 3 } );
+			PushStyleVar( ImGuiStyleVar_FramePadding, { 3, 3 } );
+			PushStyleVar( ImGuiStyleVar_ItemSpacing, { 3, 3 } );
 
-			EndPopup( );
-		} 
-		
-		ImGui::PopStyleVar( 4 ); 
-		
+			if ( BeginPopup( label ) ) {
+				if ( ImGui::SelectableMeme( "Toggle", *type == 0, 0, { 100, 20 } ) )
+					*type = 0;
+				if ( ImGui::SelectableMeme( "Hold", *type == 1, 0, { 100, 20 } ) )
+					*type = 1;
+				if ( ImGui::SelectableMeme( "Force Off", *type == 2, 0, { 100, 20 } ) )
+					*type = 2;
+				if ( ImGui::SelectableMeme( "Always On", *type == 3, 0, { 100, 20 } ) )
+					*type = 3;
+
+				EndPopup( );
+			}
+
+			ImGui::PopStyleVar( 4 );
+
+		}
 	}
+	else
+		*type = 1;
 
 	return value_changed;
 } 

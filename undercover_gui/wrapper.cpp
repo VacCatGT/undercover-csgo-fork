@@ -227,12 +227,12 @@ void MenuFramework::NumberPicker( std::string name, std::string value, float min
 	g_cfg[ value ].set<float>( val );
 }
 
-bool MenuFramework::GetKey( std::string name, std::string key, std::string keybind_type ) {
+bool MenuFramework::GetKey( std::string name, std::string key, std::string keybind_type, bool dotype ) {
 	int key_int = g_cfg[ key ].get<int>( );
 	int key_int_type = g_cfg[ keybind_type ].get<int>( );
 	ImGui::SameLine( );
 	ImGui::SetCursorPos( ImVec2( ImGui::GetWindowSize( ).x - ImGui::GetStyle( ).FramePadding.x * 2.0f, ImGui::GetCursorPosY( ) ) );
-	ImGui::Hotkey( name.c_str( ), &key_int, ImVec2( 220, 15 ), &key_int_type );
+	ImGui::Hotkey( name.c_str( ), &key_int, ImVec2( 220, 15 ), &key_int_type, dotype );
 	g_cfg[ key ].set<int>( key_int );
 	g_cfg[ keybind_type ].set<int>( key_int_type );
 	ImGui::SetCursorPosY( ImGui::GetCursorPosY( ) - 6 );

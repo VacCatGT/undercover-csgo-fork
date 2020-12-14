@@ -178,7 +178,14 @@ void Menu::Think( IDirect3DDevice9* device ) {
 							g_frw.RenderModule( positions::left_top, sizes::full, XOR( "ANTIAIM_REAL" ) ); {
 								g_frw.Checkbox( XOR( "Enabled" ), XOR( "aa_enabled" ) );
 								g_frw.Checkbox( XOR( "At Targets" ), XOR( "aa_at_targets" ) );
-								g_frw.Checkbox( XOR( "Auto Direction" ), XOR( "aa_freestand" ) );
+								//g_frw.Checkbox( XOR( "Auto Direction" ), XOR( "aa_freestand" ) );
+								g_frw.Checkbox( XOR( "Manual" ), XOR( "aa_manual" ) );
+								g_frw.KeybindCheckbox( XOR( "Manual Left" ) );
+								g_frw.GetKey( XOR( "aa_manual_left" ), XOR( "aa_manual_left_key" ), XOR( "aa_manual_left_key_type" ), false );
+								g_frw.KeybindCheckbox( XOR( "Manual Right" ) );
+								g_frw.GetKey( XOR( "aa_manual_right" ), XOR( "aa_manual_right_key" ), XOR( "aa_manual_right_key_type" ), false );
+								g_frw.KeybindCheckbox( XOR( "Manual Back" ) );
+								g_frw.GetKey( XOR( "aa_manual_back" ), XOR( "aa_manual_back_key" ), XOR( "aa_manual_back_key_type" ), false );
 								g_frw.NumberPicker( XOR( "Yaw Offset" ), XOR( "aa_yaw_offset" ), -180, 180, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker( XOR( "Jitter Offset" ), XOR( "aa_jitter_offset" ), -180, 180, XOR( "%0.f" ), 1 );
 								g_frw.Checkbox( XOR( "Fake Enable" ), XOR( "aa_fake" ) );
