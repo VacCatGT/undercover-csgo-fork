@@ -297,9 +297,6 @@ bool Aimbot::AdjustVelocity(  ) { // temporary
 	auto v23 = g_cl.m_local->get<uintptr_t>( g_csgo.AnimOverlay );
 	auto v73 = *( __m128* )( v23 + 0x58 );
 
-	if ( !m_autostop )
-		return true;
-
 	if ( !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && !m_in_air )
 		return true;
 
