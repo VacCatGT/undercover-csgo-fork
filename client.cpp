@@ -792,10 +792,6 @@ void Client::BuildSeedTable( )
 }
 
 void Client::Purchasebot( ) {
-
-	if ( GetAsyncKeyState( VK_SPACE ) )
-		g_csgo.m_engine->ExecuteClientCmd( XOR( "buy awp;" ) );
-
 	if ( !g_cl.m_processing || !g_cfg[ XOR( "misc_buybot_enable" ) ].get< bool >( ) )
 		return;
 
@@ -803,9 +799,7 @@ void Client::Purchasebot( ) {
 	auto cash = g_cl.m_local->m_iAccount( );
 
 	int loadout = g_cfg[ XOR( "misc_buybot_loadout" ) ].get< int >( );
-
-	g_csgo.m_engine->ExecuteClientCmd( XOR( "buy scar20; buy g3sg1;" ) );
-	/*
+	
 	switch ( g_cfg[ XOR( "misc_buybot_loadout" + std::to_string( loadout ) + XOR( "_primary" ) ) ].get< int >( ) ) {
 		case 0: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy scar20; buy g3sg1;" ) ); break;
 		case 1: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy awp;" ) ); break;
@@ -822,7 +816,23 @@ void Client::Purchasebot( ) {
 			case 3: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy sg08;" ) ); break;
 		}
 	}
-	*/
 
+	switch ( g_cfg[ XOR( "misc_buybot_loadout" + std::to_string( loadout ) + XOR( "_pistol" ) ) ].get< int >( ) ) {
+		case 0: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy deagle;" ) ); break;
+		case 1: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy elite;" ) ); break;
+		case 2: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy fn57;" ) ); break;
+		case 3: g_csgo.m_engine->ExecuteClientCmd( XOR( "buy p250;" ) ); break;
+	}
 
+	if ( g_cfg[ XOR( "misc_buybot_loadout" + std::to_string( loadout ) + XOR( "_defuse" ) ) ].get< bool >( ) )
+		g_csgo.m_engine->ExecuteClientCmd( XOR( "buy defuser;" ) );
+
+	if ( g_cfg[ XOR( "misc_buybot_loadout" + std::to_string( loadout ) + XOR( "_armor" ) ) ].get< bool >( ) )
+		g_csgo.m_engine->ExecuteClientCmd( XOR( "buy vesthelm;" ) );
+
+	if ( g_cfg[ XOR( "misc_buybot_loadout" + std::to_string( loadout ) + XOR( "_taser" ) ) ].get< bool >( ) )
+		g_csgo.m_engine->ExecuteClientCmd( XOR( "buy taser 34;" ) );
+
+	if ( g_cfg[ XOR( "misc_buybot_loadout" + std::to_string( loadout ) + XOR( "_nades" ) ) ].get< bool >( ) )
+		g_csgo.m_engine->ExecuteClientCmd( XOR( "buy smokegrenade; buy molotov; buy incgrenade; buy hegrenade;" ) );
 }

@@ -39,7 +39,7 @@ void events::round_start( IGameEvent* evt ) {
 	g_cl.m_net_pos.clear( );
 
 	// buybot.
-//	g_cl.Purchasebot( );
+	g_cl.Purchasebot( );
 
 	// disable recharge choke.
 	g_tickbase.m_shift_data.m_shift_time;
