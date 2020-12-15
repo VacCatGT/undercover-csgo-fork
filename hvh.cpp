@@ -703,7 +703,7 @@ void HVH::FakeDuck( )
 		g_cl.m_cmd->m_buttons |= IN_BULLRUSH;
 
 	// don't attempt to fakeduck if server does not allow it.
-	if ( !g_cl.m_processing || !g_cl.m_cmd->m_buttons & IN_BULLRUSH )
+	if ( !g_cl.m_processing || !( g_cl.m_cmd->m_buttons & IN_BULLRUSH ) )
 		return;
 
 	// unduck if we are choking (m_max_lag / 2) or less ticks.
