@@ -297,21 +297,21 @@ bool Aimbot::AdjustVelocity(  ) { // temporary
 	auto v23 = g_cl.m_local->get<uintptr_t>( g_csgo.AnimOverlay );
 	auto v73 = *( __m128* )( v23 + 0x58 );
 
+	if ( !m_autostop )
+		return true;
+
+	if ( !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && !m_in_air )
+		return true;
+
+	if ( g_movement.m_slow_motion )
+		return true;
+
 	auto v52 = _mm_shuffle_ps( v73, v73, 170 ).m128_f32[ 3 ] >= 0.55f ? 1.0f : v73.m128_f32[ 3 ];
 	if ( v52 < 0.99f )
 		return false;
 
 	if( !m_target )
 		return false;
-
-	if( !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && !m_in_air )
-		return false;
-
-	//if( !m_stop )
-	//	return true;
-
-	if( g_movement.m_slow_motion )
-		return true;
 
 	if( !m_between_shots && !g_cl.m_weapon_fire )
 		return false;
