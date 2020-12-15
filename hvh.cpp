@@ -695,11 +695,15 @@ void HVH::FakeDuck( )
 	if ( !g_csgo.m_cl || !g_cl.m_cmd )
 		return;
 
+	if ( !g_config.get_hotkey( XOR( "misc_fakeduck_key" ) ) )
+		return;
+
 	// ensure infinite duck.
 	if ( !g_cfg[ XOR( "misc_duck_stamina" ) ].get< bool >( ) )
 		g_cl.m_cmd->m_buttons |= IN_BULLRUSH;
 
-	if ( !g_cl.m_processing || !m_fake_duck )
+	// don't attempt to fakeduck if server does not allow it.
+	if ( !g_cl.m_processing || !g_cl.m_cmd->m_buttons & IN_BULLRUSH )
 		return;
 
 	// unduck if we are choking (m_max_lag / 2) or less ticks.
