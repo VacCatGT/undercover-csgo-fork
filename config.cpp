@@ -94,6 +94,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "aimbot_r8_overriden_hitbox_stomach" ), pre_defined },
 	{ XOR( "aimbot_r8_overriden_hitbox_legs"), pre_defined },
 	{ XOR( "aimbot_r8_overriden_hitbox_feet"), pre_defined },
+	{ XOR( "aimbot_jumpscout" ), pre_defined },
 	{ XOR( "aimbot_ssg08_hc"), pre_defined },
 	{ XOR( "aimbot_ssg08_min_dmg"), pre_defined },
 	{ XOR( "aimbot_ssg08_overriden_min_dmg"), pre_defined },

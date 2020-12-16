@@ -448,7 +448,7 @@ void Aimbot::find( test_parallel_t& data ) {
 			return;
 
 		bool on = true;
-		bool hit = ( !g_cl.m_ground && g_cl.m_weapon_id == SSG08 && g_cl.m_weapon && g_cl.m_weapon->GetInaccuracy( ) < 0.009f ) || ( on && g_aimbot.CheckHitchance( g_aimbot.m_target, g_aimbot.m_angle, g_aimbot.m_record, best.hitbox ) );
+		bool hit = ( !g_cl.m_ground && g_cl.m_weapon && g_cl.m_weapon_id == SSG08 && g_cfg[ XOR( "aimbot_jumpscout" ) ].get< bool >( ) && g_cl.m_weapon->GetInaccuracy( ) < 0.009f ) || ( on && g_aimbot.CheckHitchance( g_aimbot.m_target, g_aimbot.m_angle, g_aimbot.m_record, best.hitbox ) );
 
 		// if we can scope.
 		bool can_scope = g_cl.m_weapon && g_cl.m_weapon->m_zoomLevel( ) == 0 && g_cl.m_weapon->IsZoomable( true );

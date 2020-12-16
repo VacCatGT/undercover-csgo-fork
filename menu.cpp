@@ -132,8 +132,8 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.Checkbox( XOR( "Auto Scope" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autoscope" ) ) );
 								g_frw.MultiCombo( XOR( "Auto Stop" ), { XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_between" ) ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_air" ) ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_force" ) ) }, { XOR( "Between Shots" ), XOR( "In Air" ), XOR( "Force Accuracy" ) } );
 
-								//if ( weapon_name == XOR( "Scout" ) )
-								//	g_frw.Checkbox( XOR( "Jumpscout" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_jumpscout" ) );
+								if ( weapon_name == XOR( "Scout" ) )
+									g_frw.Checkbox( XOR( "Jumpscout" ), XOR( "aimbot_jumpscout" ) );
 								//g_frw.Checkbox( XOR( "Stop Between Shots" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_between_shots" ) );
 								//g_frw.NumberPicker( XOR( "Head Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_headscale" ), 0, 100, XOR( "%0.f" ), 1 );
 								//g_frw.NumberPicker( XOR( "Body Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_bodyscale" ), 0, 100, XOR( "%0.f" ), 1 );
@@ -159,11 +159,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.MultiCombo( XOR( "Body aim" ), { std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "body_in_air" ) ), std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "body_on_crouch" ) ),
 									std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "body_lethal" ) ), std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "body_lethal2" ) ) },
 									{ XOR( "In air" ), XOR( "On crouch" ), XOR( "If lethal" ), XOR( "If lethal x2" ) } );
-
-								/*	g_frw.Checkbox( XOR( "Body Aim In Air" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_in_air" ) ) );
-									g_frw.Checkbox( XOR( "Body Aim On Crouch" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_on_crouch" ) ) );
-									g_frw.Checkbox( XOR( "Body Aim If Lethal" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_lethal" ) ) );
-									g_frw.Checkbox( XOR( "Body Aim If Lethal x2" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "body_lethal2" ) ) );*/
 
 							} g_frw.EndModule( );
 
@@ -648,7 +643,6 @@ void Menu::Think( IDirect3DDevice9* device ) {
 									g_frw.GetKey( XOR( "Edge jump bind" ), XOR( "movement_edgejump" ), XOR( "movement_edgejump_type" ) );
 									g_frw.Checkbox( XOR( "Fast Stop" ), XOR( "misc_faststop" ) );
 									g_frw.Checkbox( XOR( "Hitsound" ), XOR( "misc_hitsound" ) );
-									g_frw.Checkbox( XOR( "Remove blood" ), XOR( "misc_low_violence" ) );
 									g_frw.Checkbox( XOR( "Preserve killfeed" ), XOR( "misc_preserve_killfeed" ) );
 									g_frw.Checkbox( XOR( "Unlock all convars" ), XOR( "misc_unlock_cvars" ) );
 									if ( g_cfg[ XOR( "misc_unlock_cvars" ) ].get<bool>( ) )
