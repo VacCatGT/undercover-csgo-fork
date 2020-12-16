@@ -721,6 +721,25 @@ void Config::load( std::string name, bool from_clipboard ) {
 	g_notify.add( XOR( "config loaded." ) );
 }
 
+void Config::delet( std::string name ) {
+	if ( !m_init ) {
+		return;
+	}
+
+	static TCHAR path[ 256 ]; // enough?
+	std::string folder, file;
+
+	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, 0, path ) ) )
+	{
+		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name + XOR( ".ini" ) );
+
+		if ( remove( file.c_str( ) ) != 0 )
+			g_notify.add( XOR( "error deleting config." ) );
+		else
+			g_notify.add( XOR( "config deleted." ) );
+	}
+}
+
 typedef void( *LPSEARCHFUNC )( LPCTSTR lpszFileName );
 
 BOOL search_files( LPCTSTR lpszFileName, LPSEARCHFUNC lpSearchFunc, BOOL bInnerFolders = FALSE )

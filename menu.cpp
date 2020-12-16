@@ -742,19 +742,17 @@ void Menu::Think( IDirect3DDevice9* device ) {
 									if ( t3 ) {
 										g_config.load( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
 										g_skins.m_update = true;
+									}
+									g_frw.Button( XOR( "Delete file" ), &t5 );
+									if (t5)
+									{
+										g_config.delet( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
+										g_config.refresh( );
 									}g_frw.EndModule( );
 
 									g_frw.ConcludeModuleHeader( );
 								}
 							}
-
-
-							//g_frw.Button( XOR( "Delete file" ), &t5 );
-							//if (t5)
-							//{
-						//		std::string  pAtH = std::string(XOR("C:\\Users\Kian\\AppData\\Roaming\\undercover.host\\")) + config_name + std::string(XOR(".ini"));
-							//	remove(pAtH.c_str());
-							//}
 
 							break;
 

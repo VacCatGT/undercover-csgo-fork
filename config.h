@@ -55,6 +55,7 @@ public:
 	bool get_hotkey(std::string str);
 	void save(std::string name = XOR("config.ini"), bool to_clipboard = false);
 	void load(std::string name = XOR("config.ini"), bool from_clipboard = false);
+	void delet( std::string name = XOR( "config.ini" ) );
 	void refresh();
 	inline static std::string m_path;
 
