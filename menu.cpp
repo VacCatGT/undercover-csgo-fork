@@ -741,13 +741,11 @@ void Menu::Think( IDirect3DDevice9* device ) {
 									g_frw.Button( XOR( "Load" ), &t3 );
 									if ( t3 ) {
 										g_config.load( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
-										g_skins.m_update = true;
 									}
 									g_frw.Button( XOR( "Delete file" ), &t5 );
 									if (t5)
 									{
 										g_config.delet( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
-										g_config.refresh( );
 									}g_frw.EndModule( );
 
 									g_frw.ConcludeModuleHeader( );

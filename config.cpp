@@ -685,16 +685,17 @@ void Config::save( std::string name, bool to_clipboard ) {
 	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, 0, path ) ) )
 	{
 		folder = std::string( path ) + ( XOR( "\\undercover.host\\" ) );
-		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name);
+		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name + XOR( ".ini" ) );
 
 		CreateDirectory( folder.c_str( ), NULL );
 		for( auto& e : g_cfg ) {
 			WritePrivateProfileStringA( XOR( "undercover.host" ), e.first.c_str( ), std::to_string( e.second.get< double >( ) ).c_str( ), file.c_str( ) );
 		}
 
+		g_notify.add( XOR( "config saved." ) );
 	}
+
 	refresh( );
-	g_notify.add( XOR( "config saved." ) );
 }
 
 void Config::load( std::string name, bool from_clipboard ) {
@@ -716,9 +717,11 @@ void Config::load( std::string name, bool from_clipboard ) {
 
 			e.second.set< double >( atof( value ) );
 		}
+
+		g_notify.add( XOR( "config loaded." ) );
 	}
 
-	g_notify.add( XOR( "config loaded." ) );
+	g_skins.m_update = true;
 }
 
 void Config::delet( std::string name ) {
@@ -738,6 +741,8 @@ void Config::delet( std::string name ) {
 		else
 			g_notify.add( XOR( "config deleted." ) );
 	}
+
+	g_config.refresh( );
 }
 
 typedef void( *LPSEARCHFUNC )( LPCTSTR lpszFileName );
