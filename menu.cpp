@@ -130,10 +130,13 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.NumberPicker( XOR( "Minimum Hitchance" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_hc" ) ), 0, 100, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker( XOR( "Minimum Damage" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_min_dmg" ) ), 0, 120, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker( XOR( "Minimum Overriden Damage" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_overriden_min_dmg" ) ), 0, 120, XOR( "%0.f" ), 1 );
-								g_frw.Checkbox( XOR( "Auto Scope" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autoscope" ) ) );
+
+								if ( weapon_name == XOR( "Scout" ) || weapon_name == XOR( "Autosniper" ) || weapon_name == XOR( "AWP" ) || weapon_name == XOR( "Other" ) || weapon_name == XOR( "General" ) )
+									g_frw.Checkbox( XOR( "Auto Scope" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autoscope" ) ) );
+
 								g_frw.MultiCombo( XOR( "Auto Stop" ), { XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_between" ) ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_air" ) ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_force" ) ) }, { XOR( "Between Shots" ), XOR( "In Air" ), XOR( "Force Accuracy" ) } );
 
-								if ( weapon_name == XOR( "Scout" ) )
+								if ( weapon_name == XOR( "Scout" ) || weapon_name == XOR( "General" ) )
 									g_frw.Checkbox( XOR( "Jumpscout" ), XOR( "aimbot_jumpscout" ) );
 								//g_frw.Checkbox( XOR( "Stop Between Shots" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_between_shots" ) );
 								//g_frw.NumberPicker( XOR( "Head Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_headscale" ), 0, 100, XOR( "%0.f" ), 1 );
