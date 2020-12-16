@@ -657,7 +657,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.ContinueModule( );
 
 								g_frw.RenderModule( positions::right_top, sizes::full, XOR( "UTILITIES" ) ); {
-									g_frw.Checkbox( XOR( "Buy bot" ), XOR( "misc_buybot_enable" ) );
+								/*	g_frw.Checkbox( XOR( "Buy bot" ), XOR( "misc_buybot_enable" ) );
 									g_frw.ComboBox( XOR( "Loadout" ), XOR( "misc_buybot_loadout" ), XOR( "Loadout One\0Loadout Two\0Loadout Three\0Loadout Four" ), 4 );
 									switch ( g_cfg[ XOR( "misc_buybot_loadout" ) ].get<int>( ) ) {
 										case 0:
@@ -697,7 +697,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 											g_frw.Checkbox( XOR( "Taser" ), XOR( "misc_buybot_loadout4_taser" ) );
 											g_frw.Checkbox( XOR( "Nades" ), XOR( "misc_buybot_loadout4_nades" ) );
 											break;
-									}
+									}*/
 									g_frw.ComboBox( XOR( "Clantag type" ), XOR( "misc_clantag_type" ), XOR( "None\0Undercover\0Custom" ), 4 );
 									g_frw.ComboBox( XOR( "Clantag mode" ), XOR( "misc_clantag_mode" ), XOR( "Static\0Rotating " ), 4 );
 
