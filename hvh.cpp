@@ -203,6 +203,9 @@ void HVH::AtTargets( ) {
 				if( !g_aimbot.IsValidTarget( temp_ent ) )
 					continue;
 
+				if ( temp_ent->dormant( ) )
+					continue;
+
 				float v3 = g_cl.m_shoot_pos.dist_to( temp_ent->m_vecOrigin( ) );
 
 				if ( v3 < v654 ) {
