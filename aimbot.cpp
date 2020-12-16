@@ -741,7 +741,7 @@ bool AimPlayer::GetBestAimPosition( vec3_t& aim, float& damage, int& hitbox, Lag
 	CGameTrace            trace;
 
 	// get player hp.
-	int hp = std::min( 100, m_player->m_iHealth( ) );
+	int hp = m_player->m_iHealth( );
 
 	m_matrix = record->m_pMatrix;
 
