@@ -549,7 +549,7 @@ bool AimPlayer::SetupHitboxPoints( LagComp::LagRecord_t* record, BoneArray* bone
 	float scale = 85 * 0.01;
 
 	// big inair fix.
-	if ( !( record->m_fFlags ) & FL_ONGROUND )
+	if ( !( record->m_fFlags  & FL_ONGROUND ) )
 		scale = 0.7f;
 
 	float bscale = 85 * 0.01;
