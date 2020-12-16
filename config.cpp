@@ -425,6 +425,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "Quickpeek_Bind" ), pre_defined },
 	{ XOR( "misc_quickpeek_bind" ), pre_defined },
 	{ XOR( "misc_quickpeek_bind_type" ), pre_defined },
+	{ XOR( "misc_fakeduck" ), pre_defined },
 	{ XOR( "misc_fakeduck_key" ), pre_defined },
 	{ XOR( "misc_fakeduck_key_type" ), pre_defined },
 	{ XOR( "misc_buybot_enable" ), pre_defined },

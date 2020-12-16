@@ -214,7 +214,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.KeybindCheckbox( "Slowwalk" );
 								g_frw.GetKey( XOR( "Slowwalk" ), XOR( "misc_slowwalk_bind" ), XOR( "misc_slowwalk_bind_type" ) );
 								g_frw.KeybindCheckbox( XOR( "Fake Duck" ) );
-								g_frw.GetKey( XOR( "Duck Exploit_Bind" ), XOR( "misc_fakeduck_key" ), XOR( "misc_fakeduck_key_type" ) );
+								g_frw.GetKey( XOR( "misc_fakeduck" ), XOR( "misc_fakeduck_key" ), XOR( "misc_fakeduck_key_type" ) );
 
 
 
