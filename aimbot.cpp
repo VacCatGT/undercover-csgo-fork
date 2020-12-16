@@ -239,6 +239,9 @@ void Aimbot::think( ) {
 	// do all startup routines.
 	init( );
 
+	if ( !g_aimbot.m_enable )
+		return;
+
 	// sanity.
 	if ( !g_cl.m_weapon )
 		return;

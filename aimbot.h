@@ -179,6 +179,7 @@ public:
 	int m_minimum_damage;
 	int m_minimum_hitchance;
 	int m_overriden_damage;
+	bool m_enable;
 	bool m_override_hitboxes;
 	bool m_autostop;
 	int m_autostop_mode;

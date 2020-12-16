@@ -6,6 +6,8 @@ value pre_defined;
 
 std::map< std::string, value > g_cfg{
 	{ XOR( "aimbot_enable" ), pre_defined },
+	{ XOR( "aimbot_enable_key" ), pre_defined },
+	{ XOR( "aimbot_enable_key_type" ), pre_defined },
 	{ XOR( "aimbot_autofire" ), pre_defined },
 	{ XOR( "aimbot_silent" ), pre_defined },
 	{ XOR( "aimbot_knifebot" ), pre_defined },
