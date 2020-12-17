@@ -83,6 +83,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.Checkbox( XOR( "Auto Shoot" ), XOR( "aimbot_autofire" ) );
 								g_frw.Checkbox( XOR( "Silent" ), XOR( "aimbot_silent" ) );
 								g_frw.Checkbox( XOR( "Resolver" ), XOR( "aimbot_resolver" ) );
+								g_frw.Checkbox( XOR( "Fix Lag" ), XOR( "aimbot_fix_lag" ) );
 								g_frw.Checkbox( XOR( "Pitch Resolver" ), XOR( "aimbot_pitch_resolver" ) );
 								//g_frw.Checkbox( XOR( "Taser Bot" ), XOR( "aimbot_zeusbot" ) );
 								//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );

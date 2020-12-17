@@ -385,7 +385,7 @@ void Aimbot::find( test_parallel_t& data ) {
 		if ( !t->m_player )
 			continue;
 
-		if ( g_lagcompensation.BreakingLagCompensation( t->m_player ) ) {
+		if ( g_lagcompensation.BreakingLagCompensation( t->m_player ) && g_cfg[ XOR( "aimbot_fix_lag" ) ].get< bool >( ) ) {
 			const auto first = g_lagcompensation.GetLatestRecord( t->m_player );
 
 			t->SetupHitboxes( first.value( ), false );
@@ -399,6 +399,7 @@ void Aimbot::find( test_parallel_t& data ) {
 				best.player = t->m_player;
 				best.pos = tmp_pos;
 				best.damage = tmp_damage;
+				best.min_damage = tmp_min_damage;
 				best.record = first.value( );
 			}
 		}

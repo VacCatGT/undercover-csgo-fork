@@ -215,7 +215,7 @@ bool LagComp::BreakingLagCompensation( Player* pEntity ) {
 	if ( valid.size( ) < 2 )
 		return false;
 
-	auto prev_org = valid[ 0 ]->m_vecOrigin;
+	auto prev_org = valid.at(0)->m_vecOrigin;
 	auto skip_first = true;
 
 	for ( auto& record : valid )

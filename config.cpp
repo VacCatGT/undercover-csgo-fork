@@ -265,6 +265,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "aimbot_rapid_fire"), pre_defined },
 	{ XOR( "aimbot_teleport_amount"), pre_defined },
 	{ XOR( "aimbot_resolver" ), pre_defined },
+	{ XOR( "aimbot_fix_lag" ), pre_defined },
 	{ XOR( "aimbot_pitch_resolver" ), pre_defined },
 	{ XOR( "aa_enabled" ), pre_defined },
 	{ XOR( "aa_auto_pos" ), pre_defined },
