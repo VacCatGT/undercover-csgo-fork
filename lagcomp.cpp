@@ -237,6 +237,8 @@ bool LagComp::BreakingLagCompensation( Player* pEntity ) {
 
 		prev_org = record->m_vecOrigin;
 	}
+
+	return false;
 }
 
 std::optional<LagComp::LagRecord_t*> LagComp::GetLatestRecord( Player* pEntity ) {
