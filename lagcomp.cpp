@@ -209,6 +209,36 @@ void LagComp::PostPlayerUpdate( ) {
 	}
 }
 
+bool LagComp::BreakingLagCompensation( Player* pEntity ) {
+	const auto valid = g_lagcompensation.GetValidRecords( pEntity );
+
+	if ( valid.size( ) < 2 )
+		return false;
+
+	auto prev_org = valid[ 0 ]->m_vecOrigin;
+	auto skip_first = true;
+
+	for ( auto& record : valid )
+	{
+		if ( skip_first )
+		{
+			skip_first = false;
+			continue;
+		}
+
+		auto delta = record->m_vecOrigin - prev_org;
+		if ( delta.length_2d_sqr( ) > 4096 )
+		{
+			return true;
+		}
+
+		if ( record->m_flSimulationTime <= pEntity->m_flSimulationTime( ) )
+			break;
+
+		prev_org = record->m_vecOrigin;
+	}
+}
+
 std::optional<LagComp::LagRecord_t*> LagComp::GetLatestRecord( Player* pEntity ) {
 	const auto pInfo = g_anims.m_ulAnimationInfo.find( pEntity->GetRefEHandle( ) );
 	if ( pInfo == g_anims.m_ulAnimationInfo.end( ) || pInfo->second.m_pRecords.empty( ) ) {

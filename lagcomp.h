@@ -85,6 +85,8 @@ public:
 
 	void PostPlayerUpdate( );
 
+	bool BreakingLagCompensation( Player* pEntity );
+
 	std::optional<LagRecord_t*> GetLatestRecord( Player* pEntity );
 	std::optional<LagRecord_t*> GetOldestRecord( Player* pEntity );
 
