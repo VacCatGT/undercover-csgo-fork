@@ -727,28 +727,49 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.ContinueModule( );
 
 								g_frw.RenderModule( positions::right_top, sizes::full, XOR( "CONFIG2" ) ); {
-
+									static bool sure_save = false;
+									static bool sure_delete = false;
 									g_frw.TextInput( XOR( "Name" ), config_name, true );
 									g_frw.Button( XOR( "Create new file" ), &t4 );
 									if ( t4 ) {
-										g_config.save( config_name + std::string( XOR( ".ini" ) ) );
+										g_config.create( config_name + std::string( XOR( ".ini" ) ) );
+										sure_save = false;
+										sure_delete = false;
 									}
 									g_frw.Button( XOR( "Refresh list" ), &t1 );
 									if ( t1 ) {
 										g_config.refresh( );
+										sure_save = false;
+										sure_delete = false;
 									}
-									g_frw.Button( XOR( "Save to file" ), &t2 );
+									g_frw.Button( sure_save ? XOR( "Are you sure?" ) : XOR( "Save to file" ), &t2 );
 									if ( t2 ) {
-										g_config.save( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
+										sure_delete = false;
+										if ( !sure_save ) {
+											sure_save = true;
+										}
+										else {
+											g_config.save( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
+											sure_save = false;
+										}
 									}
 									g_frw.Button( XOR( "Load" ), &t3 );
 									if ( t3 ) {
 										g_config.load( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
+										sure_save = false;
+										sure_delete = false;
 									}
-									g_frw.Button( XOR( "Delete file" ), &t5 );
+									g_frw.Button( sure_delete ? XOR( "Are you sure?" ) : XOR( "Delete file" ), &t5 );
 									if (t5)
 									{
-										g_config.delet( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
+										sure_save = false;
+										if ( !sure_delete ) {
+											sure_delete = true;
+										}
+										else {
+											g_config.delet( g_config.configs.at( g_cfg[ XOR( "cfg" ) ].get< int >( ) ) );
+											sure_delete = false;
+										}
 									}g_frw.EndModule( );
 
 									g_frw.ConcludeModuleHeader( );

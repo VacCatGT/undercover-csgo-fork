@@ -674,6 +674,32 @@ void Config::init( ) {
 	m_init = true;
 }
 
+void Config::create( std::string name ) {
+	if ( !m_init ) {
+		return;
+	}
+
+	static TCHAR path[ 256 ];
+	std::string folder, file;
+
+	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, 0, path ) ) )
+	{
+		folder = std::string( path ) + ( XOR( "\\undercover.host\\" ) );
+		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name + XOR( ".ini" ) );
+
+		CreateDirectory( folder.c_str( ), NULL );
+		for ( auto& e : g_cfg ) {
+			WritePrivateProfileStringA( XOR( "undercover.host" ), e.first.c_str( ), std::to_string( e.second.get< double >( ) ).c_str( ), file.c_str( ) );
+		}
+
+		g_notify.add( XOR( "config created." ) );
+	}
+	else
+		g_notify.add( XOR( "error creating config." ) );
+
+	g_config.refresh( );
+}
+
 void Config::save( std::string name, bool to_clipboard ) {
 	if( !m_init ) {
 		return;
