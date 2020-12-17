@@ -1063,9 +1063,8 @@ void Aimbot::apply( ) {
 		if ( m_target ) {
 			// make sure to aim at un-interpolated data.
 			// do this so BacktrackEntity selects the exact record.
-			if ( m_record /*&& !m_record->m_broke_lc*/ ) {
+			if ( m_record && !g_lagcompensation.BreakingLagCompensation( m_target ) || m_record && !g_cfg[ XOR( "aimbot_fix_lag" ) ].get< bool >( ) ) {
 				g_cl.m_cmd->m_tick = game::TIME_TO_TICKS( m_record->m_flSimulationTime + g_cl.m_lerp );
-
 			}
 
 			// set angles to target.
