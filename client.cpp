@@ -365,7 +365,9 @@ void Client::StartMove( CUserCmd* cmd ) {
 	m_buttons = cmd->m_buttons;
 	m_pressing_move = ( m_buttons & ( IN_LEFT ) || m_buttons & ( IN_FORWARD ) || m_buttons & ( IN_BACK ) ||
 		m_buttons & ( IN_RIGHT ) || m_buttons & ( IN_MOVELEFT ) || m_buttons & ( IN_MOVERIGHT ) ||
-		m_buttons & ( IN_JUMP ) );
+		m_buttons & ( IN_JUMP ) ) && !( ( m_buttons & ( IN_LEFT ) || m_buttons & ( IN_MOVELEFT ) ) && m_buttons & ( IN_FORWARD ) && m_buttons & ( IN_BACK ) && ( m_buttons & ( IN_RIGHT ) || m_buttons & ( IN_MOVERIGHT ) ) && !( m_buttons & ( IN_JUMP ) ) )
+		&& !( ( m_buttons & ( IN_LEFT ) || m_buttons & ( IN_MOVELEFT ) ) && !( m_buttons & ( IN_FORWARD ) ) && !( m_buttons & ( IN_BACK ) ) && ( m_buttons & ( IN_RIGHT ) || m_buttons & ( IN_MOVERIGHT ) ) && !( m_buttons & ( IN_JUMP ) ) )
+		&& !( !( ( m_buttons & ( IN_LEFT ) || m_buttons & ( IN_MOVELEFT ) ) ) && m_buttons & ( IN_FORWARD ) && m_buttons & ( IN_BACK ) && !( ( m_buttons & ( IN_RIGHT ) || m_buttons & ( IN_MOVERIGHT ) ) ) && !( m_buttons & ( IN_JUMP ) ) );
 
 	// store max choke
 	m_max_lag = g_csgo.m_gamerules->m_bIsValveDS( ) ? 6 : 14;
