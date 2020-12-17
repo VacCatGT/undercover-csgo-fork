@@ -364,18 +364,16 @@ bool Aimbot::AdjustVelocity(  ) { // temporary
 void Aimbot::find( test_parallel_t& data ) {
 	struct BestTarget_t { Player* player; AimPlayer* target; vec3_t pos; float damage; float min_damage; LagComp::LagRecord_t* record; int hitbox; };
 
-	vec3_t       tmp_pos{ };
+	vec3_t       tmp_pos;
 	float        tmp_damage{ };
-	float		 real_damage{ };
-	float		 backtrack_damage{ };
-	float		 tmp_min_damage{ };
+	float		 tmp_min_damage;
 	BestTarget_t best;
 	best.player = nullptr;
 	best.target = nullptr;
 	best.damage = -1.f;
-	best.hitbox = 0;
 	best.pos = vec3_t{ };
 	best.record = nullptr;
+	best.hitbox = -1;
 
 	if ( g_aimbot.m_targets.empty( ) )
 		return;
@@ -404,56 +402,45 @@ void Aimbot::find( test_parallel_t& data ) {
 			}
 		}
 		else {
-			LagComp::LagRecord_t* tmp_record = nullptr;
-
-			const auto first = g_lagcompensation.GetLatestRecord( t->m_player );
-			if ( !first.has_value( ) || first.value( )->m_bDormant || ( first.value( )->m_pEntity && first.value( )->m_pEntity->m_bGunGameImmunity( ) ) )
+			const auto ideal = g_lagcompensation.GetLatestRecord( t->m_player );
+			if ( !ideal.has_value( ) || ideal.value( )->m_bDormant || ( ideal.value( )->m_pEntity && ideal.value( )->m_pEntity->m_bGunGameImmunity( ) ) )
 				continue;
 
-			t->SetupHitboxes( first.value( ), false );
+			t->SetupHitboxes( ideal.value( ), false );
 			if ( t->m_hitboxes.empty( ) )
 				continue;
 
-			vec3_t real_pos{ };
-			int real_hitbox{ };
-
-			if ( !t->GetBestAimPosition( real_pos, real_damage, real_hitbox, first.value( ), tmp_min_damage ) && !g_aimbot.SortTargets( first.value( ), real_pos, real_damage ) )
-				continue;
+			// try to select best record as target.
+			if ( t->GetBestAimPosition( tmp_pos, tmp_damage, best.hitbox, ideal.value( ), tmp_min_damage ) ) {
+				if ( g_aimbot.SortTargets( ideal.value( ), tmp_pos, tmp_damage ) ) {
+					// if we made it so far, set shit. 
+					best.player = t->m_player;
+					best.pos = tmp_pos;
+					best.damage = tmp_damage;
+					best.record = ideal.value( );
+					best.min_damage = tmp_min_damage;
+					best.target = t;
+				}
+			}
 
 			const auto last = g_lagcompensation.GetOldestRecord( t->m_player );
-			if ( !last.has_value( ) || last.value( ) == first.value( ) || last.value( )->m_bDormant || ( last.value( )->m_pEntity && last.value( )->m_pEntity->m_bGunGameImmunity( ) ) )
+			if ( !last.has_value( ) || last.value( ) == ideal.value( ) || last.value( )->m_bDormant || ( last.value( )->m_pEntity && last.value( )->m_pEntity->m_bGunGameImmunity( ) ) )
 				continue;
 
 			t->SetupHitboxes( last.value( ), true );
 			if ( t->m_hitboxes.empty( ) )
 				continue;
 
-			vec3_t last_pos{ };
-			int last_hitbox{ };
-
-			if ( !t->GetBestAimPosition( last_pos, backtrack_damage, last_hitbox, last.value( ), tmp_min_damage ) && !g_aimbot.SortTargets( last.value( ), last_pos, backtrack_damage ) )
-				continue;
-
-			if ( backtrack_damage >= real_damage )
-				tmp_record = last.value( );
-			else
-				tmp_record = first.value( );
-
-			if ( tmp_record != nullptr )
-			{
-				t->SetupHitboxes( tmp_record, false );
-				if ( t->m_hitboxes.empty( ) )
-					continue;
-
-				if ( t->GetBestAimPosition( tmp_pos, tmp_damage, best.hitbox, tmp_record, tmp_min_damage ) && g_aimbot.SortTargets( tmp_record, tmp_pos, tmp_damage ) ) {
-					// if we made it so far, set shit.
-					best.player = t->m_player;
-					best.pos = tmp_pos;
-					best.damage = tmp_damage;
-					best.record = tmp_record;
-					best.min_damage = tmp_min_damage;
-					best.target = t;
-				}
+			// rip something went wrong..
+			// try to select best record as target.
+			if ( t->GetBestAimPosition( tmp_pos, tmp_damage, best.hitbox, ideal.value( ), tmp_min_damage ) ) {
+				// if we made it so far, set shit. 
+				best.player = t->m_player;
+				best.pos = tmp_pos;
+				best.damage = tmp_damage;
+				best.record = ideal.value( );
+				best.min_damage = tmp_min_damage;
+				best.target = t;
 			}
 		}
 	}
