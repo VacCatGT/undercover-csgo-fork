@@ -260,10 +260,10 @@ bool CSGO::init( ) {
 	g_cl.BuildSeedTable( );
 
 	// setup console.
-	g_csgo.m_cvar->FindVar( HASH( "contimes" ) )->SetValue( 15 );
+	/*g_csgo.m_cvar->FindVar( HASH( "contimes" ) )->SetValue( 15 );
 	g_csgo.m_cvar->FindVar( HASH( "con_filter_text" ) )->SetValue( XOR( "L " ) );
 	g_csgo.m_cvar->FindVar( HASH( "con_filter_text_out" ) )->SetValue( XOR( " " ) );
-	g_csgo.m_cvar->FindVar( HASH( "con_filter_enable" ) )->SetValue( 2 );
+	g_csgo.m_cvar->FindVar( HASH( "con_filter_enable" ) )->SetValue( 2 );*/
 	g_csgo.m_engine->ExecuteClientCmd( XOR( "clear" ) );
 
 	// refresh configs.
