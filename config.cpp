@@ -694,8 +694,8 @@ void Config::save( std::string name, bool to_clipboard ) {
 
 		g_notify.add( XOR( "config saved." ) );
 	}
-
-	refresh( );
+	else
+		g_notify.add( XOR( "error saving config." ) );
 }
 
 void Config::load( std::string name, bool from_clipboard ) {
@@ -720,6 +720,8 @@ void Config::load( std::string name, bool from_clipboard ) {
 
 		g_notify.add( XOR( "config loaded." ) );
 	}
+	else
+		g_notify.add( XOR( "error loading config." ) );
 
 	g_skins.m_update = true;
 }
@@ -737,10 +739,12 @@ void Config::delet( std::string name ) {
 		file = std::string( path ) + ( XOR( "\\undercover.host\\" ) + name + XOR( ".ini" ) );
 
 		if ( remove( file.c_str( ) ) != 0 )
-			g_notify.add( XOR( "error deleting config." ) );
+			g_notify.add( XOR( "error deleting config. [0x1]" ) );
 		else
 			g_notify.add( XOR( "config deleted." ) );
 	}
+	else
+		g_notify.add( XOR( "error deleting config. [0x2]" ) );
 
 	g_config.refresh( );
 }
