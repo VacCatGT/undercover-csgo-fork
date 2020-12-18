@@ -419,7 +419,7 @@ void HVH::Fake( ) {
 
 	auto MaxDesyncDelta = g_cl.m_local->GetMaxBodyRotation( );// MaxBodyRotation ?
 
-	if( g_cl.m_local->m_vecVelocity( ).length( ) > 0.1 ) {
+	if( g_cl.m_local->m_vecVelocity( ).length( ) > 0.1 || !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) ) {
 
 LABEL_42:
 		v31 = false;
@@ -453,7 +453,7 @@ LABEL_43:
 
 	static auto byte_3F80620A = g_hvh.m_invert; // this is wrong.
 
-	if( g_cl.m_local->m_vecVelocity( ).length_2d( ) <= 10.0 ) {
+	if( g_cl.m_local->m_vecVelocity( ).length_2d( ) <= 10.0 && g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) {
 		byte_3F80620B = 1;
 		goto LABEL_78;
 	}
