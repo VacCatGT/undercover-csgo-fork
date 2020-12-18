@@ -290,9 +290,9 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.Checkbox( XOR( "Enemies corpse chams" ), XOR( "chams_enemy_ragdoll" ) );
 								g_frw.ColorPicker( XOR( "Corpse color" ), XOR( "esp_chams_enemies_corpse_color" ) );
 								g_frw.ComboBox( XOR( "Corpse Material" ), XOR( "esp_chams_corpse_enemies" ), XOR( "Disabled\0Flat\0Normal\0Glow" ), 4 );
-								g_frw.Checkbox( XOR( "Enemies wounded chams" ), XOR( "chams_enemy_hit" ) );
+								/*g_frw.Checkbox( XOR( "Enemies wounded chams" ), XOR( "chams_enemy_hit" ) );
 								g_frw.ColorPicker( XOR( "Wounded color" ), XOR( "esp_chams_enemies_wounded_color" ) );
-								g_frw.ComboBox( XOR( "Wounded Material" ), XOR( "esp_chams_wounded_enemies" ), XOR( "Disabled\0Flat\0Normal\0Glow" ), 4 );
+								g_frw.ComboBox( XOR( "Wounded Material" ), XOR( "esp_chams_wounded_enemies" ), XOR( "Disabled\0Flat\0Normal\0Glow" ), 4 );*/
 							} g_frw.EndModule( );
 
 
@@ -312,7 +312,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								g_frw.NumberPicker( XOR( "Fog Amount" ), XOR( "fog_density" ), 0, 100, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker( XOR( "Fog Length" ), XOR( "fog_length" ), 0, 2500, XOR( "%0.f" ), 1 );
 								g_frw.Checkbox( XOR( "Fullbright" ), XOR( "misc_world_fullbright" ) );
-								g_frw.ComboBox( XOR( "Skbox" ), XOR( "misc_world_skybox" ), XOR( "Default\0Night01\0Night02\0Cloudy\0Clear\0Dawn" ), 4 );
+								g_frw.ComboBox( XOR( "Skybox" ), XOR( "misc_world_skybox" ), XOR( "Default\0Night01\0Night02\0Cloudy\0Clear\0Dawn" ), 4 );
 								g_frw.Checkbox( XOR( "Grenade prediction" ), XOR( "visuals_misc_grenade_prediction" ) );
 								g_frw.NumberPicker( XOR( "Ragdoll thrust" ), XOR( "visuals_misc_ragdoll_thrust" ), 0, 1000, XOR( "%0.f" ), 1 );
 								g_frw.Checkbox( XOR( "Fire proximity" ), XOR( "misc_world_fire_proximity" ) );
