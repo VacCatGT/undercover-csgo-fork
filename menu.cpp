@@ -733,7 +733,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 									g_frw.TextInput( XOR( "Name" ), config_name, true );
 									g_frw.Button( XOR( "Create new file" ), &t4 );
 									if ( t4 ) {
-										g_config.create( config_name + std::string( XOR( ".ini" ) ) );
+										g_config.create( config_name );
 										sure_save = false;
 										sure_delete = false;
 									}

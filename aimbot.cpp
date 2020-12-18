@@ -442,6 +442,10 @@ void Aimbot::find( test_parallel_t& data ) {
 				best.min_damage = tmp_min_damage;
 				best.target = t;
 			}
+
+			// we found a target we can shoot at and deal damage? fuck yeah. (THIS IS TEMPORARY TILL WE REPLACE THE TARGET SELECTION)
+			if ( best.damage > 0.f && best.player && best.record )
+				break;
 		}
 	}
 
