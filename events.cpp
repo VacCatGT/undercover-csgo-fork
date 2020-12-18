@@ -104,8 +104,9 @@ void events::player_hurt( IGameEvent* evt ) {
 			
 			// hitsounds
 			if ( g_cfg[ XOR( "misc_hitsound" ) ].get< bool >( ) ) {
-				waveOutSetVolume( 0, 858993459 );
-				PlaySoundA( hitsound_array, NULL, SND_ASYNC | SND_MEMORY );
+				//waveOutSetVolume( 0, 858993459 );
+				//PlaySoundA( hitsound_array, NULL, SND_ASYNC | SND_MEMORY );
+				g_csgo.m_surface->PlaySoundA( "buttons\\arena_switch_press_02.wav" );
 			}
 
 			//// get correct data from lagcomp.
