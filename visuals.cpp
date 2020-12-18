@@ -606,58 +606,58 @@ void Visuals::Keybinds() {
 			indicators.push_back( ind );
 		}
 
-		if ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) && !g_hvh.m_fake_duck) {
+		if ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
 			Indicator_t ind{ };
 			ind.text = XOR( "Doubletap" );
 			indicators.push_back( ind );
 		}
 
-		if ( g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) && !g_hvh.m_fake_duck ) {
+		if ( g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
 			Indicator_t ind{ };
 			ind.text = XOR( "Hide Shots" );
 			indicators.push_back( ind );
 		}
 
-		if (g_movement.m_started_peeking) {
-			Indicator_t ind {};
-			ind.text = XOR("Auto Peek");
-			indicators.push_back(ind);
+		if ( g_movement.m_started_peeking ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Auto Peek" );
+			indicators.push_back( ind );
 		}
 
-		if (g_movement.m_slow_motion) {
-			Indicator_t ind {};
-			ind.text = XOR("Controlled Walk");
-			indicators.push_back(ind);
+		if ( g_movement.m_slow_motion ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Slowwalk" );
+			indicators.push_back( ind );
 		}
 
-		if (g_aimbot.m_override_damage) {
-			Indicator_t ind {};
-			ind.text = XOR("Override Damage");
-			indicators.push_back(ind);
+		if ( g_aimbot.m_override_damage ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Override Damage" );
+			indicators.push_back( ind );
 		}
 
-		if (g_aimbot.m_override_hitboxes) {
-			Indicator_t ind {};
-			ind.text = XOR("Override Hitboxes");
-			indicators.push_back(ind);
+		if ( g_aimbot.m_override_hitboxes ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Override Hitboxes" );
+			indicators.push_back( ind );
 		}
 
-		if (g_aimbot.m_force_safepoint) {
-			Indicator_t ind {};
-			ind.text = XOR("Force Safepoint");
-			indicators.push_back(ind);
+		if ( g_aimbot.m_force_safepoint ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Force Safepoint" );
+			indicators.push_back( ind );
 		}
 
-		if (g_movement.m_edge_jump) {
-			Indicator_t ind {};
-			ind.text = XOR("Edge Jump");
-			indicators.push_back(ind);
+		if ( g_movement.m_edge_jump ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Edge Jump" );
+			indicators.push_back( ind );
 		}
 
-		if (g_visuals.m_zoom) {
-			Indicator_t ind {};
-			ind.text = XOR("Zoom");
-			indicators.push_back(ind);
+		if ( g_visuals.m_zoom ) {
+			Indicator_t ind{ };
+			ind.text = XOR( "Zoom" );
+			indicators.push_back( ind );
 		}
 
 	}

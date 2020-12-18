@@ -90,7 +90,7 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 		g_aimbot.m_override_hitboxes = g_config.get_hotkey( XOR( "hitbox_override_key" ) );
 		g_aimbot.m_override_damage = g_config.get_hotkey( XOR( "override_min_dmg_key" ) );
 		g_aimbot.m_force_body = g_config.get_hotkey( XOR( "rage_aimbot_baim_key" ) );
-		g_tickbase.m_shift_data.m_should_attempt_shift = ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) ) && !g_hvh.m_fake_duck;
+		g_tickbase.m_shift_data.m_should_attempt_shift = ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) ) && !g_hvh.m_fake_duck && !(g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ));
 		g_aimbot.m_force_safepoint = g_config.get_hotkey( XOR( "safepoint_key" ) );
 		g_movement.m_edge_jump = g_config.get_hotkey( XOR( "movement_edgejump" ) );
 		g_hvh.m_jitter = g_config.get_hotkey( XOR( "aa_jitter_key" ) );

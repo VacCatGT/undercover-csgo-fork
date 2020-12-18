@@ -89,7 +89,7 @@ void TickbaseSystem::PostMovement( ) {
 		g_tickbase.m_shift_data.m_switched_weapon_passive = 128;
 	}
 
-	if ( g_hvh.m_fake_duck || g_tickbase.m_shift_data.m_round_start ) {
+	if ( g_hvh.m_fake_duck || g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) || g_tickbase.m_shift_data.m_round_start ) {
 
 		g_tickbase.m_shift_data.m_wait_for_charge = true;
 		g_tickbase.m_shift_data.m_round_start = false;
@@ -142,7 +142,7 @@ void TickbaseSystem::PostMovement( ) {
 
 	// If we can shift tickbase, shift enough ticks in order to double-tap
 	// Always prioritise fake-duck if we wish to
-	if( g_tickbase.m_shift_data.m_can_shift_tickbase && !g_hvh.m_fake_duck ) {
+	if( g_tickbase.m_shift_data.m_can_shift_tickbase && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
 
 		// Tell the cheat to shift tick-base and disable fakelag
 		g_tickbase.m_shift_data.m_next_shift_amount = g_cl.m_goal_shift;
@@ -172,7 +172,7 @@ void TickbaseSystem::PostMovement( ) {
 					g_tickbase.m_prediction.m_shifted_ticks = abs( g_tickbase.m_shift_data.m_current_shift );
 
 					// Run teleport code.
-					if ( !g_hvh.m_fake_duck && ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) ) )
+					if ( !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) && ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) ) )
 						m_client_move.m_ready_to_process = true;
 
 					// Store original tickbase
@@ -221,7 +221,7 @@ void TickbaseSystem::PassiveRecharge( ) {
 
 void TickbaseSystem::Teleport( float AccumulatedExtraSamples, bool FinalTick ) {
 	// sanity.
-	if ( !g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_hvh.m_fake_duck )
+	if ( !g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_hvh.m_fake_duck || g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) )
 		return g_detours.oCL_Move( AccumulatedExtraSamples, FinalTick );
 
 	if ( g_tickbase.m_shift_data.m_should_attempt_shift && g_tickbase.m_shift_data.m_needs_recharge && g_tickbase.m_shift_data.m_shift_time + game::TIME_TO_TICKS( 1.1 ) <= g_csgo.m_globals->m_tick_count ) {
