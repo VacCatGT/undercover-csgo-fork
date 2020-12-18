@@ -258,9 +258,8 @@ void Aimbot::think( ) {
 	bool revolver = g_cl.m_weapon_id == REVOLVER && g_cl.m_revolver_cock != 0;
 
 	// one tick before being able to shoot.
-	if ( revolver && g_cl.m_revolver_cock > 0 && g_cl.m_revolver_cock == g_cl.m_revolver_query ) {
+	if ( revolver && g_cl.m_revolver_cock > 0 && g_cl.m_revolver_cock == g_cl.m_revolver_query )
 		return;
-	}
 
 	// setup bones for all valid targets.
 	for ( int i{ 1 }; i <= g_csgo.m_globals->m_max_clients; ++i ) {
@@ -468,6 +467,9 @@ void Aimbot::find( test_parallel_t& data ) {
 		}
 
 		if ( !g_aimbot.AdjustVelocity( ) )
+			return;
+
+		if ( !g_cl.m_weapon_fire )
 			return;
 
 		bool on = true;
