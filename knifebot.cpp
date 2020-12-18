@@ -12,33 +12,29 @@ void Aimbot::knife( ) {
 	for( const auto& t : m_targets ) {
 		if (!t->m_player)
 			continue;
-		// this target has no records
-		// should never happen since it wouldnt be a target then.
-		//if( t->m_records.empty( ) )
-		//	continue;
 
 		// see if target broke lagcomp.
-		/*if(g_lagcomp.StartPrediction( t ) ) {
-			LagRecord* front = t->m_records.front( ).get( );
+		if(g_lagcompensation.BreakingLagCompensation( t->m_player ) ) {
+			const auto front = g_lagcompensation.GetLatestRecord( t->m_player );
 
-			front->cache( );
+			//front.cache( );
 
 			// trace with front.
 			for( const auto& a : m_knife_ang ) {
 
 				// check if we can knife.
-				if( !CanKnife( front, a, target.stab ) )
+				if( !CanKnife( front.value( ), a, target.stab ) )
 					continue;
 
 				// set target data.
 				target.angle  = a;
-				target.record = front;
+				target.record = front.value( );
 				break;
 			}
 		}
 
 		// we can history aim.
-		else {*/
+		else {
 
 			const auto best = g_lagcompensation.GetLatestRecord(t->m_player);
 			if( !best.has_value() )
@@ -77,7 +73,7 @@ void Aimbot::knife( ) {
 				target.record = last.value();
 				break;
 			}
-		//}
+		}
 
 		// target player has been found already.
 		if( target.record )
@@ -97,7 +93,7 @@ void Aimbot::knife( ) {
 		g_cl.m_cmd->m_buttons |= target.stab ? IN_ATTACK2 : IN_ATTACK;
 
 		// choke. 
-		g_cl.m_packet = false;
+		//g_cl.m_packet = false;
 	}
 }
 

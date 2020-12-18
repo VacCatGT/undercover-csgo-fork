@@ -45,7 +45,7 @@ void HVH::AntiAim( ) {
 	if ( !CanAntiAim( ) ) // C_AntiAim::ShouldRun( )
 		return;
 
-	if( ( g_cl.m_cmd->m_buttons & IN_ATTACK ) && g_cl.CanFireWeapon( game::TICKS_TO_TIME( g_cl.m_local->m_nTickBase( ) ) ) ) {
+	if( ( g_cl.m_cmd->m_buttons & IN_ATTACK || g_cl.m_weapon_type == WEAPONTYPE_KNIFE && g_cl.m_weapon_id != ZEUS && g_cl.m_cmd->m_buttons & IN_ATTACK2 ) && g_cl.CanFireWeapon( game::TICKS_TO_TIME( g_cl.m_local->m_nTickBase( ) ) ) ) {
 
 		if ( g_cfg[ XOR( "aa_desync_on_shot" ) ].get< bool >( ) ) {
 		

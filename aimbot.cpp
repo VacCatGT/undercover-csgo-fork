@@ -281,7 +281,7 @@ void Aimbot::think( ) {
 
 	// run knifebot.
 	if ( g_cl.m_weapon_type == WEAPONTYPE_KNIFE && g_cl.m_weapon_id != ZEUS ) {
-		//knife( );
+		knife( );
 		return;
 	}
 
