@@ -227,7 +227,7 @@ bool LagComp::BreakingLagCompensation( Player* pEntity ) {
 		}
 
 		auto delta = record->m_vecOrigin - prev_org;
-		if ( delta.length_2d_sqr( ) > 4096 )
+		if ( delta.length_2d_sqr( ) > 4096.f )
 		{
 			return true;
 		}

@@ -225,7 +225,7 @@ void Hooks::init( ) {
 	m_prediction.Init( );
 	m_prediction.add( CPrediction::INPREDICTION, util::force_cast( &Hooks::InPrediction ) );
 	m_prediction.add( CPrediction::RUNCOMMAND, util::force_cast( &Hooks::RunCommand ) );
-	m_prediction.add( CPrediction::SETUPMOVE, util::force_cast( &Hooks::SetupMove ) );
+	//m_prediction.add( CPrediction::SETUPMOVE, util::force_cast( &Hooks::SetupMove ) );
 
 	m_client_mode.m_vtable = reinterpret_cast< uintptr_t** >( g_csgo.m_client_mode );
 	m_client_mode.Init( );
