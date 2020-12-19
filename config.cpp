@@ -12,7 +12,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "aimbot_silent" ), pre_defined },
 	{ XOR( "aimbot_knifebot" ), pre_defined },
 	{ XOR( "aimbot_zeusbot" ), pre_defined },
-	{ XOR( "override_hitbox" ), pre_defined },
+	{ XOR( "hitbox_override" ), pre_defined },
 	{ XOR( "hitbox_override_key" ), pre_defined },
 	{ XOR( "hitbox_override_key_type" ), pre_defined },
 	{ XOR( "safepoint" ), pre_defined },
