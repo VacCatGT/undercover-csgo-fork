@@ -618,7 +618,7 @@ void Visuals::Keybinds() {
 			indicators.push_back( ind );
 		}
 
-		if ( g_movement.m_started_peeking ) {
+		if ( g_hvh.m_auto_peek ) {
 			Indicator_t ind{ };
 			ind.text = XOR( "Auto Peek" );
 			indicators.push_back( ind );
