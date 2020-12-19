@@ -464,7 +464,8 @@ LABEL_43:
 	bool walking = ( g_cl.m_local->m_vecVelocity( ).length_2d( ) < 136.0 ) && ( ( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) ) && ( g_cl.m_local->m_vecVelocity( ).length_2d( ) > 30.0 ) && g_cfg[ XOR( "invertflip_walking" ) ].get< bool >( );
 	if( running || air || walking ) {
 		m_bStaticInvert1 = m_bLastInvert;
-		if ( dword_3F32CD78 == 1 && !g_csgo.m_cl->m_choked_commands )
+
+		if ( /*dword_3F32CD78 == 1 &&*/ !g_csgo.m_cl->m_choked_commands )
 			m_bLastInvert = m_bLastInvert == 0;
 	}
 	else
