@@ -585,7 +585,7 @@ LABEL_139:
 	g_cl.m_cmd->m_view_angles.y = math::NormalizeYaw( g_cl.m_cmd->m_view_angles.y ); // I guess...
 
 	// do micromovements.
-	if( !g_cl.m_local->m_MoveType( ) != MOVETYPE_LADDER && m_bShouldMove && !g_cl.m_pressing_move ) {
+	if( g_cl.m_local->m_MoveType( ) != MOVETYPE_LADDER && m_bShouldMove && !g_cl.m_pressing_move ) {
 		float v207 = ( g_cl.m_cmd->m_buttons & IN_DUCK ) ? 3.25 : 1.1;
 
 		g_cl.m_cmd->m_forward_move = g_cl.m_cmd->m_tick % 2 ? v207 : -v207;
