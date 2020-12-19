@@ -606,13 +606,13 @@ void Visuals::Keybinds() {
 			indicators.push_back( ind );
 		}
 
-		if ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
+		if ( g_hvh.m_double_tap && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
 			Indicator_t ind{ };
 			ind.text = XOR( "Doubletap" );
 			indicators.push_back( ind );
 		}
 
-		if ( g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
+		if ( g_hvh.m_hide_shots && !g_hvh.m_fake_duck && !( g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ) ) ) {
 			Indicator_t ind{ };
 			ind.text = XOR( "Hide Shots" );
 			indicators.push_back( ind );

@@ -84,20 +84,22 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 		g_visuals.m_zoom = g_config.get_hotkey( XOR( "misc_zoom_key" ) );
 		g_visuals.m_thirdperson = g_config.get_hotkey( XOR( "misc_thirdperson_key" ) );
 		g_hvh.m_fake_duck = g_config.get_hotkey( XOR( "misc_fakeduck_key" ) ) && g_cl.m_cmd && g_cl.m_cmd->m_buttons & IN_BULLRUSH;
+		g_hvh.m_double_tap = g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) );
+		g_hvh.m_hide_shots = g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) );
 		g_movement.m_slow_motion = g_config.get_hotkey( XOR( "misc_slowwalk_bind" ) );
 		g_cl.m_negate_desync = g_config.get_hotkey( XOR( "rage_aa_negate_key" ) );
 		g_aimbot.m_enable = g_config.get_hotkey( XOR( "aimbot_enable_key" ) );
 		g_aimbot.m_override_hitboxes = g_config.get_hotkey( XOR( "hitbox_override_key" ) );
 		g_aimbot.m_override_damage = g_config.get_hotkey( XOR( "override_min_dmg_key" ) );
 		g_aimbot.m_force_body = g_config.get_hotkey( XOR( "rage_aimbot_baim_key" ) );
-		g_tickbase.m_shift_data.m_should_attempt_shift = ( g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) || g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) ) && !g_hvh.m_fake_duck && !(g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ));
+		g_tickbase.m_shift_data.m_should_attempt_shift = ( g_hvh.m_double_tap || g_hvh.m_hide_shots ) && !g_hvh.m_fake_duck && !(g_movement.m_slow_motion && g_cfg[ XOR( "aa_slowwalk_type" ) ].get< int >( ));
 		g_aimbot.m_force_safepoint = g_config.get_hotkey( XOR( "safepoint_key" ) );
 		g_movement.m_edge_jump = g_config.get_hotkey( XOR( "movement_edgejump" ) );
 		g_hvh.m_jitter = g_config.get_hotkey( XOR( "aa_jitter_key" ) );
 		g_hvh.m_invert = g_config.get_hotkey( XOR( "aa_inverter_key" ) );
 		g_hvh.m_auto_peek = g_config.get_hotkey( XOR( "misc_auto_peek" ) );
 
-		g_cl.m_goal_shift = ( g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) ) && !g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) ) ) ? ( g_cl.m_max_lag / 2 ) : ( g_cl.m_max_lag - 1);
+		g_cl.m_goal_shift = ( g_hvh.m_hide_shots && !g_hvh.m_double_tap ) ? ( g_cl.m_max_lag / 2 ) : ( g_cl.m_max_lag - 1);
 
 		if ( old_tickbase != g_tickbase.m_shift_data.m_should_attempt_shift ) {
 			auto old_time = g_csgo.m_globals->m_curtime;

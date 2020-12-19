@@ -3,6 +3,8 @@
 class HVH {
 public:
 	bool   m_fake_duck;
+	bool   m_double_tap;
+	bool   m_hide_shots;
 	bool   m_auto_peek;
 	bool   m_jitter;
 	bool   m_jitter_flip;
