@@ -88,8 +88,12 @@ void Menu::Think( IDirect3DDevice9* device ) {
 								//g_frw.Checkbox( XOR( "Taser Bot" ), XOR( "aimbot_zeusbot" ) );
 								//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );
 
+								if ( g_cfg[ XOR( "aimbot_exploits_teleport_ticks" ) ].get< int >( ) == 0 )
+									g_cfg[ XOR( "aimbot_exploits_teleport_ticks" ) ].set< int >( 10 );
+
 								g_frw.KeybindCheckbox( XOR( "Doubletap" ) );
 								g_frw.GetKey( XOR( "aimbot_exploits_teleport" ), XOR( "aimbot_exploits_teleport_key" ), XOR( "aimbot_exploits_teleport_key_type" ) );
+								g_frw.NumberPicker( XOR( "Doubletap Ticks" ), XOR( "aimbot_exploits_teleport_ticks" ), 10, 13, XOR( "%0.f" ), 1 );
 								g_frw.KeybindCheckbox( XOR( "Hide Shots" ) );
 								g_frw.GetKey( XOR( "aimbot_hide_shots" ), XOR( "aimbot_hide_shots_key" ), XOR( "aimbot_hide_shots_key_type" ) );
 

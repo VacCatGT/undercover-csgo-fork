@@ -24,6 +24,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "aimbot_exploits_teleport" ), pre_defined },
 	{ XOR( "aimbot_exploits_teleport_key" ), pre_defined },
 	{ XOR( "aimbot_exploits_teleport_key_type" ), pre_defined },
+	{ XOR( "aimbot_exploits_teleport_ticks" ), pre_defined },
 	{ XOR( "aimbot_hide_shots" ), pre_defined },
 	{ XOR( "aimbot_hide_shots_key" ), pre_defined },
 	{ XOR( "aimbot_hide_shots_key_type" ), pre_defined },

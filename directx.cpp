@@ -99,7 +99,7 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 		g_hvh.m_invert = g_config.get_hotkey( XOR( "aa_inverter_key" ) );
 		g_hvh.m_auto_peek = g_config.get_hotkey( XOR( "misc_auto_peek" ) );
 
-		g_cl.m_goal_shift = ( g_hvh.m_hide_shots && !g_hvh.m_double_tap ) ? ( g_cl.m_max_lag / 2 ) : ( g_cl.m_max_lag - 1);
+		g_cl.m_goal_shift = ( g_hvh.m_hide_shots && !g_hvh.m_double_tap ) ? ( g_cl.m_max_lag / 2 ) : ( g_cl.m_max_lag - ( 14 - g_cfg[ XOR( "aimbot_exploits_teleport_ticks" ) ].get< int >( ) ) );
 
 		if ( old_tickbase != g_tickbase.m_shift_data.m_should_attempt_shift ) {
 			auto old_time = g_csgo.m_globals->m_curtime;
