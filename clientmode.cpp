@@ -46,7 +46,7 @@ void Hooks::OverrideView( CViewSetup* view ) {
 	}
 	else view->m_fov = g_cfg[ XOR( "misc_override_fov_amount" ) ].get< float >( );
 
-	if ( g_config.get_hotkey ( XOR ( "misc_fakeduck_key" ) ) )
+	if ( g_hvh.m_fake_duck )
 		view->m_origin.z = g_cl.m_local->GetAbsOrigin ( ).z + 64.f;
 	
 	g_visuals.Zoom( view );
