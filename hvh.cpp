@@ -460,7 +460,7 @@ LABEL_43:
 	
 	// "invertflip" - credits: llama
 	bool running = ( ( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) ) && ( g_cl.m_local->m_vecVelocity( ).length_2d( ) > 136.0 ) && g_cfg[ XOR( "invertflip_moving" ) ].get< bool >( );
-	bool air = g_cfg[ XOR( "invertflip_air" ) ].get< bool >( ) && !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND );
+	bool air = g_cfg[ XOR( "invertflip_air" ) ].get< bool >( ) && !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && g_cl.m_local->m_MoveType( ) != MOVETYPE_LADDER;
 	bool walking = ( g_cl.m_local->m_vecVelocity( ).length_2d( ) < 136.0 ) && ( ( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) ) && ( g_cl.m_local->m_vecVelocity( ).length_2d( ) > 30.0 ) && g_cfg[ XOR( "invertflip_walking" ) ].get< bool >( );
 	if( running || air || walking ) {
 		m_bStaticInvert1 = m_bLastInvert;
