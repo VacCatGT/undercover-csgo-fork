@@ -42,6 +42,7 @@ struct HitscanData_t {
 struct HitboxConfig_t {
 	bool head;
 	bool neck;
+	bool upper_chest;
 	bool stomach;
 	bool body;
 	bool legs;

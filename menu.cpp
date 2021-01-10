@@ -169,21 +169,21 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 		
 
 								g_frw.MultiCombo ( XOR ( "Hitboxes" ), { XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_head" ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_upper_body" ) ),
-									XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_lower_body" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_stomach" ),
+									std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_hitbox_upper_chest" ) ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_lower_body" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_stomach" ),
 									XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_legs" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_feet" ) },
-									{ XOR ( "Head" ), XOR ( "Neck" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
+									{ XOR ( "Head" ), XOR ( "Neck" ), XOR( "Upper Chest" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
 
 								g_frw.MultiCombo ( XOR ( "Multipoint Hitboxes" ), { XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_head" ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_upper_body" ) ),
-									XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_lower_body" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_stomach" ),
+									std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_mutlipoint_hitbox_upper_chest" ) ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_lower_body" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_stomach" ),
 									XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_legs" ), std::string ( "aimbot_" + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_feet" ) ) },
-									{ XOR ( "Head" ), XOR ( "Neck" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
+									{ XOR ( "Head" ), XOR ( "Neck" ), XOR( "Upper Chest" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
 
 								g_frw.ComboBox ( XOR ( "Priority Hitbox" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_priority_hitbox" ), XOR ( "Head\0Neck\0Body\0Stomach\0Legs\0Feet" ), 6 );
 
 								g_frw.MultiCombo ( XOR ( "Overriden Hitboxes" ), { std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_head" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_upper_body" ) ),
-									std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_lower_body" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_stomach" ) ),
+									std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_overriden_hitbox_upper_chest" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_lower_body" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_stomach" ) ),
 									std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_legs" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_feet" ) ) },
-									{ XOR ( "Head" ), XOR ( "Neck" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
+									{ XOR ( "Head" ), XOR ( "Neck" ), XOR( "Upper Chest" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
 
 								g_frw.MultiCombo ( XOR ( "Body aim" ), { std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_in_air" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_on_crouch" ) ),
 									std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_lethal" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_lethal2" ) ) },
