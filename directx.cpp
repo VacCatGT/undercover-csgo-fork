@@ -83,7 +83,7 @@ HRESULT WINAPI Hooks::Present( IDirect3DDevice9* pDevice, RECT* pRect1, const RE
 
 		g_visuals.m_zoom = g_config.get_hotkey( XOR( "misc_zoom_key" ) );
 		g_visuals.m_thirdperson = g_config.get_hotkey( XOR( "misc_thirdperson_key" ) );
-		g_hvh.m_fake_duck = g_config.get_hotkey( XOR( "misc_fakeduck_key" ) ) && g_cl.m_cmd && g_cl.m_cmd->m_buttons & IN_BULLRUSH && g_csgo.m_gamerules->m_bFreezePeriod();
+		g_hvh.m_fake_duck = g_config.get_hotkey( XOR( "misc_fakeduck_key" ) ) && g_cl.m_cmd && g_cl.m_cmd->m_buttons & IN_BULLRUSH && g_csgo.m_gamerules && !g_csgo.m_gamerules->m_bFreezePeriod();
 		g_hvh.m_double_tap = g_config.get_hotkey( XOR( "aimbot_exploits_teleport_key" ) );
 		g_hvh.m_hide_shots = g_config.get_hotkey( XOR( "aimbot_hide_shots_key" ) );
 		g_movement.m_slow_motion = g_config.get_hotkey( XOR( "misc_slowwalk_bind" ) );
