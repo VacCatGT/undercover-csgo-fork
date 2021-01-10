@@ -133,6 +133,7 @@ void Menu::Think( IDirect3DDevice9* device ) {
 									weapon_cfg_name = XOR( "gen" );
 								}
 								g_frw.NumberPicker( XOR( "Minimum Hitchance" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_hc" ) ), 0, 100, XOR( "%0.f" ), 1 );
+								g_frw.NumberPicker( XOR( "Minimum Overriden Hitchance" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_overriden_hc" ) ), 0, 100, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker( XOR( "Minimum Damage" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_min_dmg" ) ), 0, 120, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker( XOR( "Minimum Overriden Damage" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_overriden_min_dmg" ) ), 0, 120, XOR( "%0.f" ), 1 );
 
