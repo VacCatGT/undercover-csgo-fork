@@ -170,6 +170,7 @@ public:
 	bool m_stop;
 	bool m_did_stop;
 	bool m_override_damage;
+	bool m_override_hitchance;
 	bool m_force_body;
 	bool m_shoot_next_tick;
 	bool m_force_safepoint;
@@ -178,6 +179,7 @@ public:
 	// settings.
 	int m_minimum_damage;
 	int m_minimum_hitchance;
+	int m_overriden_hitchance;
 	int m_overriden_damage;
 	bool m_enable;
 	bool m_override_hitboxes;

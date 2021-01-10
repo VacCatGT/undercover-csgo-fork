@@ -1187,8 +1187,9 @@ GENERAL:
 
 	m_autostop = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop" ) ) ) ].get<bool>( );
 	m_minimum_hitchance = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "hc" ) ) ) ].get<int>( );
+	m_overriden_hitchance = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hc" ) ) ) ].get<int>( );
 	m_minimum_damage = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "min_dmg" ) ) ) ].get<int>( );
-	m_overriden_damage = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop" ) ) ) ].get<int>( );
+	m_overriden_damage = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_min_dmg" ) ) ) ].get<int>( );
 	m_autoscope = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autoscope" ) ) ) ].get<bool>( );
 	m_between_shots = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_between" ) ) ) ].get<bool>( );
 	m_force_accuracy = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_force" ) ) ) ].get<bool>( );

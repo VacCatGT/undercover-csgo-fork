@@ -112,7 +112,9 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								//g_frw.KeybindCheckbox( XOR( "Force Safepoint" ) );
 								//g_frw.GetKey( XOR( "safepoint" ), XOR( "safepoint_key" ), XOR( "safepoint_key_type" ) );
 								g_frw.KeybindCheckbox ( XOR ( "Override Damage" ) );
-								g_frw.GetKey ( XOR ( "override_min_dmg" ), XOR ( "override_min_dmg_key" ), XOR ( "override_min_dmg_type" ) );
+								g_frw.GetKey ( XOR ( "override_min_dmg" ), XOR ( "override_min_dmg_key" ), XOR ( "override_min_dmg_key_type" ) );
+								g_frw.KeybindCheckbox( XOR( "Override Hitchance" ) );
+								g_frw.GetKey( XOR( "override_hc" ), XOR( "override_hc_key" ), XOR( "override_hc_key_type" ) );
 
 							} g_frw.EndModule ( );
 
@@ -150,6 +152,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.RenderModule ( positions::right_top, sizes::full, XOR ( "AIMBOT_CONFIG2" ) ); {
 
 								g_frw.NumberPicker ( XOR ( "Minimum Hitchance" ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_hc" ) ), 0, 100, XOR ( "%0.f" ), 1 );
+								g_frw.NumberPicker( XOR( "Minimum Overriden Hitchance" ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_overriden_hc" ) ), 0, 100, XOR( "%0.f" ), 1 );
 								g_frw.NumberPicker ( XOR ( "Minimum Damage" ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_min_dmg" ) ), 0, 120, XOR ( "%0.f" ), 1 );
 								g_frw.NumberPicker ( XOR ( "Minimum Overriden Damage" ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_overriden_min_dmg" ) ), 0, 120, XOR ( "%0.f" ), 1 );
 
