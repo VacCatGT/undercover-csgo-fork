@@ -319,9 +319,6 @@ inline float AngleNormalizePositive ( float angle )
 
 float build_server_abs_yaw ( Player* m_player, float angle )
 {
-	// rebuilding server goalfeet yaw calc - https://github.com/click4dylan/CSGO_AnimationCode_Reversed/blob/master/C_CSGOPlayerAnimState_New.cpp
-	// and partly kidua cause yh why not
-
 	vec3_t velocity = m_player->m_vecVelocity ( );
 	auto anim_state = m_player->m_PlayerAnimState ( );
 	float m_flEyeYaw = angle;

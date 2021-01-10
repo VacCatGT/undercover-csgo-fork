@@ -1,10 +1,17 @@
 #include "undercover.h"
 
+const auto ptr_setupbones =  ( pattern::find ( g_csgo.m_client_dll, XOR ( "8B 40 ? FF D0 84 C0 74 ? F3 0F 10 05 ? ? ? ? EB ?" )));
+const auto ptr_setupbones_timing = ( pattern::find ( g_csgo.m_client_dll, XOR ( "84 C0 74 0A F3 0F 10 05 ? ? ? ? EB 05" )));
+
 bool Hooks::InPrediction( ) {
 	Stack stack;
 	ang_t* angles;
 
 	if ( stack.ReturnAddress( ) == g_csgo.MaintainSequenceTransition )
+		return false;
+	if ( stack.ReturnAddress ( ) == ptr_setupbones )
+		return false;
+	if ( stack.ReturnAddress ( ) == ptr_setupbones_timing )
 		return false;
 
 	if( g_cl.m_local && g_cfg[ XOR( "visuals_misc_remove_visual_recoil" ) ].get< bool >( ) ) {
@@ -39,6 +46,9 @@ void Hooks::RunCommand( Entity* ent, CUserCmd* cmd, IMoveHelper* movehelper ) {
 		cmd->m_predicted = true;
 		return;
 	}
+	static bool m_bLastAttack = false;
+	static bool m_bInvalidCycle = false;
+	static float m_flLastCycle = 0.f;
 
 	// get player pointer.
 	Player* player = ( Player* )ent;
@@ -48,14 +58,21 @@ void Hooks::RunCommand( Entity* ent, CUserCmd* cmd, IMoveHelper* movehelper ) {
 	float backup_curtime = g_csgo.m_globals->m_curtime;
 
 	// fix tickbase when shifting.
-//	if( cmd->m_command_number == g_tickbase.m_prediction.m_shifted_command ) {
-//		player->m_nTickBase( ) = ( g_tickbase.m_prediction.m_original_tickbase - g_tickbase.m_prediction.m_shifted_ticks + 1 );
-//		++player->m_nTickBase( );
-//			
-//		g_csgo.m_globals->m_curtime = game::TICKS_TO_TIME( player->m_nTickBase( ) );
-//	}
+	if( cmd->m_command_number == g_tickbase.m_prediction.m_shifted_command ) {
+		player->m_nTickBase( ) = ( g_tickbase.m_prediction.m_original_tickbase - g_tickbase.m_prediction.m_shifted_ticks + 1 );
+		++player->m_nTickBase( );
+			
+	g_csgo.m_globals->m_curtime = game::TICKS_TO_TIME( player->m_nTickBase( ) );
+	}
 
 	float m_flVelModBackup = player->m_flVelocityModifier( );
+
+	m_bLastAttack = cmd->m_weapon_select || ( cmd->m_buttons & IN_ATTACK );
+	m_flLastCycle = g_cl.m_local->m_flCycle ( );
+
+	if ( m_bInvalidCycle )
+		g_cl.m_local->m_flCycle ( ) = m_flLastCycle;
+
 	if( g_cl.m_update && cmd->m_command_number == g_csgo.m_cl->m_last_command_ack + 1 )
 		player->m_flVelocityModifier( ) = g_inputpred.m_stored_variables.m_flVelocityModifier;
 
@@ -66,11 +83,18 @@ void Hooks::RunCommand( Entity* ent, CUserCmd* cmd, IMoveHelper* movehelper ) {
 		player->m_flVelocityModifier( ) = m_flVelModBackup;
 
 	// restore tickbase and curtime.
-//	if( cmd->m_command_number == g_tickbase.m_prediction.m_shifted_command ) {
-//		player->m_nTickBase( ) = backup_tickbase;
+	if( cmd->m_command_number == g_tickbase.m_prediction.m_shifted_command ) {
+		player->m_nTickBase( ) = backup_tickbase;
 
-//		g_csgo.m_globals->m_curtime = backup_curtime;
-//	}
+		g_csgo.m_globals->m_curtime = backup_curtime;
+	}
+
+
+	if ( m_bLastAttack && !m_bInvalidCycle )
+		m_bInvalidCycle = g_cl.m_local->m_flCycle ( ) == 0.f && m_flLastCycle > 0.f;
+
+	if ( m_bInvalidCycle )
+		g_cl.m_local->m_flCycle ( ) = m_flLastCycle;
 
 	// store non compressed netvars.
 	g_netdata.store( );
