@@ -473,6 +473,9 @@ void Aimbot::find( test_parallel_t& data ) {
 		if ( !g_aimbot.AdjustVelocity( ) )
 			return;
 
+		if ( g_aimbot.m_duck && !( !( g_cl.m_local->m_fFlags( ) & FL_ONGROUND ) && !g_aimbot.m_in_air ))
+			g_cl.m_cmd->m_buttons |= IN_DUCK;
+
 		if ( !g_cl.m_weapon_fire )
 			return;
 
@@ -1208,6 +1211,7 @@ GENERAL:
 	m_between_shots = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_between" ) ) ) ].get<bool>( );
 	m_force_accuracy = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_force" ) ) ) ].get<bool>( );
 	m_in_air = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_air" ) ) ) ].get<bool>( );
+	m_duck = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_duck" ) ) ) ].get<bool>( );
 
 	m_bodyscale = g_cfg [ std::string ( XOR ( "aimbot_" ) + std::string ( weapon_name ) + std::string ( XOR ( "_" ) ) + std::string ( XOR ( "bodyscale" ) ) ) ].get<int> ( );
 	m_headscale = g_cfg [ std::string ( XOR ( "aimbot_" ) + std::string ( weapon_name ) + std::string ( XOR ( "_" ) ) + std::string ( XOR ( "headscale" ) ) ) ].get<int> ( );

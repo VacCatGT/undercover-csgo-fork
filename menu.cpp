@@ -159,7 +159,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								if ( weapon_name == XOR ( "Scout" ) || weapon_name == XOR ( "Autosniper" ) || weapon_name == XOR ( "AWP" ) || weapon_name == XOR ( "Other" ) || weapon_name == XOR ( "General" ) )
 									g_frw.Checkbox ( XOR ( "Auto Scope" ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autoscope" ) ) );
 
-								g_frw.MultiCombo ( XOR ( "Auto Stop" ), { XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autostop_between" ) ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autostop_air" ) ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autostop_force" ) ) }, { XOR ( "Between Shots" ), XOR ( "In Air" ), XOR ( "Force Accuracy" ) } );
+								g_frw.MultiCombo ( XOR ( "Auto Stop" ), { XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autostop_between" ) ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autostop_air" ) ), XOR ( "aimbot_" + weapon_cfg_name + XOR ( "_autostop_force" ) ), XOR( "aimbot_" + weapon_cfg_name + XOR( "_autostop_duck" ) ) }, { XOR ( "Between Shots" ), XOR ( "In Air" ), XOR ( "Force Accuracy" ), XOR( "Duck" ) } );
 
 								if ( weapon_name == XOR ( "Scout" ) || weapon_name == XOR ( "General" ) )
 									g_frw.Checkbox ( XOR ( "Jumpscout" ), XOR ( "aimbot_jumpscout" ) );
@@ -178,7 +178,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 									XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_legs" ), std::string ( "aimbot_" + weapon_cfg_name + XOR ( "_mutlipoint_hitbox_feet" ) ) },
 									{ XOR ( "Head" ), XOR ( "Neck" ), XOR( "Upper Chest" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
 
-								g_frw.ComboBox ( XOR ( "Priority Hitbox" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_priority_hitbox" ), XOR ( "Head\0Neck\0Body\0Stomach\0Legs\0Feet" ), 6 );
+								g_frw.ComboBox ( XOR ( "Priority Hitbox" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_priority_hitbox" ), XOR ( "Head\0Neck\0Upper Chest\0Body\0Stomach\0Legs\0Feet" ), 6 );
 
 								g_frw.MultiCombo ( XOR ( "Overriden Hitboxes" ), { std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_head" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_upper_body" ) ),
 									std::string( XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_overriden_hitbox_upper_chest" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_lower_body" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_stomach" ) ),

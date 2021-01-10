@@ -193,6 +193,7 @@ public:
 	bool m_between_shots;
 	bool m_force_accuracy;
 	bool m_in_air;
+	bool m_duck;
 
 	bool m_body_in_air;
 	bool m_body_on_crouch;

@@ -46,6 +46,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "aimbot_pistol_autostop_between" ), pre_defined },
 	{ XOR( "aimbot_pistol_autostop_air" ), pre_defined },
 	{ XOR( "aimbot_pistol_autostop_force" ), pre_defined },
+	{ XOR( "aimbot_pistol_autostop_duck" ), pre_defined },
 	{ XOR( "aimbot_pistol_headscale" ), pre_defined },
 	{ XOR( "aimbot_pistol_bodyscale" ), pre_defined },
 	{ XOR( "aimbot_pistol_no_legs" ), pre_defined },
