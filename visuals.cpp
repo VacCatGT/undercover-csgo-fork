@@ -1270,7 +1270,7 @@ void Visuals::DrawPlayer(Player* player) {
 			// get flag job (pair).
 			const auto& f = flags[i];
 
-			int offset = i * 15;
+			int offset = i * 8;
 
 			// draw flag.
 			render::pixel.string(box.x + box.w + 3,box.y + offset,f.second,f.first);

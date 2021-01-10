@@ -1,7 +1,13 @@
 #include "undercover.h"
 #include "threading/CParallelProcessor.h"
+#include <DirectXMath.h>
+#include <minwindef.h>
+#define RAD2DEG(x) DirectX::XMConvertToDegrees(x)
+#define DEG2RAD(x) DirectX::XMConvertToRadians(x)
 
 Animations g_anims;
+
+using namespace std;
 
 void Animations::AnimationInfo_t::UpdateAnimations( LagComp::LagRecord_t* pRecord, LagComp::LagRecord_t* pPreviousRecord ) {
 
@@ -133,42 +139,87 @@ void Animations::UpdatePlayer( Player* pEntity ) {
 	g_csgo.m_globals->m_frametime = frametime;
 	g_csgo.m_globals->m_curtime = curtime;
 }
+void __declspec( naked ) feet_wobble_fix ( )
+{
+	__asm
+	{
+		push edi
+		xchg dword ptr [ esp ], edi
+		push eax
+		mov eax, 77
+		mov eax, dword ptr [ esp ]
+		add esp, 4
+		pop edi
 
-void Animations::UpdateAnimations( Player* player, LagComp::LagRecord_t* record, int index, float angle ) {
+		cmp esp, 0
+		jne fixentity
 
-	player->SetAbsOrigin( player->m_vecOrigin( ) );
+		_emit 0x88
+		_emit 0xFF
+
+		invlpg dword ptr [ eax ]
+
+		int 2
+
+		fixentity:
+		sub esp, 4
+			mov dword ptr [ esp ], ebp
+
+			call cleanup
+
+			pop ebp
+
+			ret
+
+			cleanup :
+
+		ret
+	}
+}
+void Animations::UpdateAnimations ( Player* player, LagComp::LagRecord_t* record, int index, float angle ) {
+
+	player->SetAbsOrigin ( player->m_vecOrigin ( ) );
 	int m_nChoked = record == nullptr ? 1 : record->m_iChoked;
-	math::clamp( m_nChoked, 1, ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 ) );
+
+	LagComp::LagRecord_t* previous_record = nullptr;
+	if ( record->m_iChoked >= 2 )
+		previous_record = record;
+
+	C_AnimationLayer animlayers [ 15 ];
+
+	math::clamp ( m_nChoked, 1, ( g_csgo.m_cvar->FindVar ( HASH ( "sv_maxusrcmdprocessticks" ) )->GetInt ( ) + 1 ) );
 
 	if ( !record || !record->m_pLayers || ( m_nChoked - 1 ) <= 1 ) {
-		player->m_PlayerAnimState( )->feet_yaw_rate = 0.f;
+		player->m_PlayerAnimState ( )->feet_yaw_rate = 0.f;
+		
 
-		float yaw = player->m_angEyeAngles( ).y;
+		float yaw = player->m_angEyeAngles ( ).y;
 
 		if ( index ) {
 			if ( index <= 0 )
-				yaw = player->m_angEyeAngles( ).y - angle;
+				yaw = player->m_angEyeAngles ( ).y - angle;
 			else
-				yaw = player->m_angEyeAngles( ).y + angle;
+				yaw = player->m_angEyeAngles ( ).y + angle;
 
-			yaw = math::NormalizeYaw( yaw );
-			player->m_PlayerAnimState( )->goal_feet_yaw = yaw;
+			yaw = math::NormalizeYaw ( yaw );
+			player->m_PlayerAnimState ( )->goal_feet_yaw = yaw;
 		}
 
-		player->m_bClientSideAnimation( ) = true;
-		player->UpdateClientSideAnimation( );
-		player->m_bClientSideAnimation( ) = false;
-		player->InvalidatePhysicsRecursive( ANIMATION_CHANGED );
+		feet_wobble_fix ( );
+		player->m_bClientSideAnimation ( ) = true;
+		player->UpdateClientSideAnimation ( );
+		player->m_bClientSideAnimation ( ) = false;
+		player->InvalidatePhysicsRecursive ( ANIMATION_CHANGED );
 		return;
 	}
 
-	const auto m_vecVelocity = player->m_vecVelocity( );
-	const auto m_fFlags = player->m_fFlags( );
+	const auto m_vecVelocity = player->m_vecVelocity ( );
+	const auto m_fFlags = player->m_fFlags ( );
 
-	player->SetAnimLayers( record->m_pLayers );
-	player->m_vecOrigin( ) = record->m_vecOrigin;
-	player->SetAbsAngles( record->m_angAbsAngles );
-	player->m_vecVelocity( ) = record->m_vecVelocity;
+	player->SetAnimLayers ( record->m_pLayers );
+	player->m_vecOrigin ( ) = record->m_vecOrigin;
+	player->SetAbsAngles ( record->m_angAbsAngles );
+	player->m_vecVelocity ( ) = record->m_vecVelocity;
 
 	auto m_vecOldOrigin = record->m_vecOrigin;
 	auto m_fOldFlags = record->m_fFlags;
@@ -176,13 +227,13 @@ void Animations::UpdateAnimations( Player* player, LagComp::LagRecord_t* record,
 	float yaw = record->m_angEyeAngles.y;
 
 	for ( int i = 0; i < m_nChoked; i++ ) {
-		const auto m_flTime = record->m_flSimulationTime - game::TICKS_TO_TIME( i + 1 );
-		const auto m_flLerp = 1.f - ( player->m_flSimulationTime( ) - m_flTime ) / ( player->m_flSimulationTime( ) - record->m_flSimulationTime );
+		const auto m_flTime = record->m_flSimulationTime - game::TICKS_TO_TIME ( i + 1 );
+		const auto m_flLerp = 1.f - ( player->m_flSimulationTime ( ) - m_flTime ) / ( player->m_flSimulationTime ( ) - record->m_flSimulationTime );
 
-		player->m_flDuckAmount( ) = math::Interpolate( record->m_flDuck, player->m_flDuckAmount( ), m_flLerp );
+		player->m_flDuckAmount ( ) = math::Interpolate ( record->m_flDuck, player->m_flDuckAmount ( ), m_flLerp );
 
 		if ( ( m_nChoked - 1 ) == i ) {
-			player->m_fFlags( ) = m_fOldFlags;
+			player->m_fFlags ( ) = m_fOldFlags;
 
 			if ( index != 0 ) {
 				if ( index <= 0 )
@@ -190,30 +241,110 @@ void Animations::UpdateAnimations( Player* player, LagComp::LagRecord_t* record,
 				else
 					yaw = record->m_angEyeAngles.y + angle;
 
-				yaw = math::NormalizeYaw( yaw );
-				player->m_PlayerAnimState( )->goal_feet_yaw = yaw;
+				yaw = math::NormalizeYaw ( yaw );
+				player->m_PlayerAnimState ( )->goal_feet_yaw = yaw;
 			}
 		}
 		else {
-			g_game_movement.Extrapolate( player, m_vecOldOrigin, player->m_vecVelocity( ), player->m_fFlags( ), m_fOldFlags & FL_ONGROUND );
-			m_fOldFlags = player->m_fFlags( );
+			g_game_movement.Extrapolate ( player, m_vecOldOrigin, player->m_vecVelocity ( ), player->m_fFlags ( ), m_fOldFlags & FL_ONGROUND );
+			m_fOldFlags = player->m_fFlags ( );
 		}
 
-		player->m_PlayerAnimState( )->feet_cycle = record->m_pLayers[ 6 ].m_cycle;
-		player->m_PlayerAnimState( )->feet_yaw_rate = record->m_pLayers[ 6 ].m_weight;
+		player->m_PlayerAnimState ( )->feet_cycle = record->m_pLayers [ 6 ].m_cycle;
+		player->m_PlayerAnimState ( )->feet_yaw_rate = record->m_pLayers [ 6 ].m_weight;
+		//velocity fix
+		const auto& velocity = player->m_vecVelocity ( );
+		auto was_in_air = player->m_fFlags ( ) & FL_ONGROUND && record->m_fFlags & FL_ONGROUND;
+		auto time_difference = max ( g_csgo.m_globals->m_interval, player->m_flSimulationTime ( ) - player->m_flOldSimulationTime ( ) );
+		vec3_t old_origin;
 
-		const auto m_flBackupSimTime = player->m_flSimulationTime( );
+		if ( old_origin.length ( ) != player->m_vecOrigin ( ).length ( ) )
+			old_origin = player->m_vecOrigin ( );
 
-		player->m_flSimulationTime( ) = m_flTime;
+		auto origin_delta = player->m_vecOrigin ( ) - old_origin;
+		auto animation_speed = 0.0f;
 
-		player->m_bClientSideAnimation( ) = true;
-		player->UpdateClientSideAnimation( );
-		player->m_bClientSideAnimation( ) = false;
+		if ( !( origin_delta == vec3_t ( 0, 0, 0 ) ) && game::TIME_TO_TICKS ( time_difference ) > 0 )
+		{
+			player->m_vecVelocity ( ) = origin_delta * ( 1.0f / time_difference );
 
-		player->m_flSimulationTime( ) = m_flBackupSimTime;
+			if ( player->m_fFlags ( ) & FL_ONGROUND && animlayers [ 11 ].m_weight > 0.0f && animlayers [ 11 ].m_weight < 1.0f && animlayers [ 11 ].m_cycle > record->m_pLayers [ 11 ].m_cycle )
+			{
+				auto weapon = player->GetActiveWeapon ( );
+
+				if ( weapon )
+				{
+					auto max_speed = 260.0f;
+					auto weapon_info = player->GetActiveWeapon ( )->GetWpnData ( );
+
+					if ( weapon_info )
+						max_speed = player->m_bIsScoped ( ) ? weapon_info->flMaxPlayerSpeedAlt : weapon_info->flMaxPlayerSpeed;
+
+					auto modifier = 0.35f * ( 1.0f - animlayers [ 11 ].m_weight );
+
+					if ( modifier > 0.0f && modifier < 1.0f )
+						animation_speed = max_speed * ( modifier + 0.55f );
+				}
+			}
+
+			if ( animation_speed > 0.0f )
+			{
+				animation_speed /= player->m_vecVelocity ( ).length_2d ( );
+
+				player->m_vecVelocity ( ).x *= animation_speed;
+				player->m_vecVelocity ( ).y *= animation_speed;
+			}
+
+			if ( previous_record && time_difference > g_csgo.m_globals->m_interval )
+			{
+				auto previous_velocity = ( old_origin - previous_record->m_vecOrigin ) * ( 1.0f / time_difference );
+
+				if ( !( previous_velocity == vec3_t ( 0, 0, 0 ) ) && !was_in_air )
+				{
+					auto current_direction = math::NormalizeYaw ( RAD2DEG ( atan2 ( player->m_vecVelocity ( ).y, player->m_vecVelocity ( ).x ) ) );
+					auto previous_direction = math::NormalizeYaw ( RAD2DEG ( atan2 ( previous_velocity.y, previous_velocity.x ) ) );
+
+					auto average_direction = current_direction - previous_direction;
+					average_direction = DEG2RAD ( math::NormalizeYaw ( current_direction + average_direction * 0.5f ) );
+
+					auto direction_cos = cos ( average_direction );
+					auto dirrection_sin = sin ( average_direction );
+
+					auto velocity_speed = player->m_vecVelocity ( ).length_2d ( );
+
+					player->m_vecVelocity ( ).x = direction_cos * velocity_speed;
+					player->m_vecVelocity ( ).y = dirrection_sin * velocity_speed;
+				}
+			}
+
+			if ( !( player->m_fFlags ( ) & FL_ONGROUND ) )
+			{
+				static auto sv_gravity = g_csgo.sv_gravity;
+
+				auto fixed_timing = std::clamp ( time_difference, g_csgo.m_globals->m_interval, 1.0f );
+				player->m_vecVelocity ( ).z -= sv_gravity->GetFloat ( ) * fixed_timing * 0.5f;
+			}
+			else
+				player->m_vecVelocity ( ).z = 0.0f;
+		}
+
+		player->m_iEFlags ( ) &= ~0x1800;
+
+		player->m_vecAbsVelocity ( ) = player->m_vecVelocity ( );
+
+		const auto m_flBackupSimTime = player->m_flSimulationTime ( );
+
+		player->m_flSimulationTime ( ) = m_flTime;
+
+		feet_wobble_fix ( );
+		player->m_bClientSideAnimation ( ) = true;
+		player->UpdateClientSideAnimation ( );
+		player->m_bClientSideAnimation ( ) = false;
+
+		player->m_flSimulationTime ( ) = m_flBackupSimTime;
 	}
 
-	player->InvalidatePhysicsRecursive( ANIMATION_CHANGED );
+	player->InvalidatePhysicsRecursive ( ANIMATION_CHANGED );
 }
 
 bool Animations::GenerateMatrix( Player* pEntity, BoneArray* pBoneToWorldOut, int boneMask, float currentTime )

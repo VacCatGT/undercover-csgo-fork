@@ -22,6 +22,8 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "override_min_dmg_key" ), pre_defined },
 	{ XOR( "override_min_dmg_key_type" ), pre_defined },
 	{ XOR( "override_hc" ), pre_defined },
+	{ XOR ( "aa_fl_triggers_amt" ), pre_defined },
+	{ XOR ( "skins_agent" ), pre_defined },
 	{ XOR( "override_hc_key" ), pre_defined },
 	{ XOR( "override_hc_key_type" ), pre_defined },
 	{ XOR( "aimbot_exploits_teleport" ), pre_defined },
