@@ -439,7 +439,7 @@ std::map< std::string, value > g_cfg{
 	{ XOR( "misc_slowwalk_bind" ), pre_defined },
 	{ XOR( "misc_slowwalk_bind_type" ), pre_defined },
 	{ XOR( "misc_slide" ), pre_defined },
-	{ XOR( "Trollbot_Bind" ), pre_defined },
+	{ XOR( "trollbot_Bind" ), pre_defined },
 	{ XOR( "misc_blockbot_bind" ), pre_defined },
 	{ XOR( "misc_blockbot_bind_type" ), pre_defined },
 	{ XOR( "Quickpeek_Bind" ), pre_defined },

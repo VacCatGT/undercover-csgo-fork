@@ -77,13 +77,13 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.BeginModuleHeader ( );
 
 							g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "AIMBOT_MAIN" ) ); {
-								g_frw.Checkbox ( XOR ( "Aimbot enable" ), XOR ( "aimbot_enable" ) );
+								g_frw.Checkbox ( XOR ( "Enable Aimbot" ), XOR ( "aimbot_enable" ) );
 								g_frw.ComboBox ( XOR ( "Target Selection" ), XOR ( "aimbot_target_selection" ), XOR ( "Closest To Crosshair\0Lowest Distance\0Highest Damage" ), 3 );
 								g_frw.Checkbox ( XOR ( "Auto Shoot" ), XOR ( "aimbot_autofire" ) );
 								g_frw.Checkbox ( XOR ( "Silent" ), XOR ( "aimbot_silent" ) );
 								g_frw.Checkbox ( XOR ( "Resolver" ), XOR ( "aimbot_resolver" ) );
+								g_frw.Checkbox( XOR( "Pitch Resolver" ), XOR( "aimbot_pitch_resolver" ) );
 								g_frw.Checkbox ( XOR ( "Fix Lag" ), XOR ( "aimbot_fix_lag" ) );
-								g_frw.Checkbox ( XOR ( "Pitch Resolver" ), XOR ( "aimbot_pitch_resolver" ) );
 								//g_frw.Checkbox( XOR( "Taser Bot" ), XOR( "aimbot_zeusbot" ) );
 								//g_frw.Checkbox( XOR( "Extend Backtrack Window" ), XOR( "aimbot_extended_bt" ) );
 
@@ -110,9 +110,9 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								g_frw.GetKey ( XOR ( "override_hitbox" ), XOR ( "hitbox_override_key" ), XOR ( "hitbox_override_key_type" ) );
 								//g_frw.KeybindCheckbox( XOR( "Force Safepoint" ) );
 								//g_frw.GetKey( XOR( "safepoint" ), XOR( "safepoint_key" ), XOR( "safepoint_key_type" ) );
-								g_frw.KeybindCheckbox ( XOR ( "Override Damage" ) );
+								g_frw.KeybindCheckbox ( XOR ( "Override Minimum Damage" ) );
 								g_frw.GetKey ( XOR ( "override_min_dmg" ), XOR ( "override_min_dmg_key" ), XOR ( "override_min_dmg_key_type" ) );
-								g_frw.KeybindCheckbox( XOR( "Override Hitchance" ) );
+								g_frw.KeybindCheckbox( XOR( "Override Minimum Hitchance" ) );
 								g_frw.GetKey( XOR( "override_hc" ), XOR( "override_hc_key" ), XOR( "override_hc_key_type" ) );
 
 							} g_frw.EndModule ( );
@@ -212,8 +212,8 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								g_frw.NumberPicker ( XOR ( "Yaw Offset" ), XOR ( "aa_yaw_offset" ), -180, 180, XOR ( "%0.f" ), 1 );
 								g_frw.NumberPicker ( XOR ( "Jitter Offset" ), XOR ( "aa_jitter_offset" ), -180, 180, XOR ( "%0.f" ), 1 );
 								g_frw.Checkbox ( XOR ( "Fake Enable" ), XOR ( "aa_fake" ) );
-								g_frw.ComboBox ( XOR ( "Air mode" ), XOR ( "aa_air_mode" ), XOR ( "Normal\0Spin" ), 2 );
-								g_frw.ComboBox ( XOR ( "LBY mode" ), XOR ( "aa_lby_mode" ), XOR ( "Normal\0Opposite\0Sway" ), 3 );
+								g_frw.ComboBox ( XOR ( "Air Mode" ), XOR ( "aa_air_mode" ), XOR ( "Normal\0Spin" ), 2 );
+								g_frw.ComboBox ( XOR ( "LBY Mode" ), XOR ( "aa_lby_mode" ), XOR ( "Normal\0Opposite\0Sway" ), 3 );
 								g_frw.Checkbox ( XOR ( "Fake Desync" ), XOR ( "aa_fake_desync" ) );
 								g_frw.MultiCombo ( XOR ( "Inverter Flip" ), { XOR ( "invertflip_walking" ), XOR ( "invertflip_moving" ), XOR ( "invertflip_air" ) }, { XOR ( "Walk" ), XOR ( "Run" ), XOR ( "In Air" ) } );
 							}g_frw.EndModule ( );
@@ -257,40 +257,40 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 						g_frw.BeginModuleHeader ( );
 						g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "PLAYERS" ) ); {
 							g_frw.Checkbox ( XOR ( "Box##Enemy" ), XOR ( "esp_enemies_box" ) );
-							g_frw.ColorPicker ( XOR ( "Box color##Enemy" ), XOR ( "esp_enemies_box_color" ) );
+							g_frw.ColorPicker ( XOR ( "Box Color##Enemy" ), XOR ( "esp_enemies_box_color" ) );
 							g_frw.Checkbox ( XOR ( "Name##Enemy" ), XOR ( "esp_enemies_name" ) );
-							g_frw.ColorPicker ( XOR ( "Name color##Enemy" ), XOR ( "esp_enemies_name_color" ) );
+							g_frw.ColorPicker ( XOR ( "Name Color##Enemy" ), XOR ( "esp_enemies_name_color" ) );
 							g_frw.Checkbox ( XOR ( "Health##Enemy" ), XOR ( "esp_enemies_health" ) );
 							if ( g_cfg [ XOR ( "esp_enemies_health" ) ].get<bool> ( ) ) {
 								g_frw.Checkbox ( XOR ( "Override Health Color##Enemy" ), XOR ( "esp_enemies_health_override" ) );
 								g_frw.ColorPicker ( XOR ( "Health Color" ), XOR ( "esp_enemies_health_color" ) );
 							}
 							g_frw.Checkbox ( XOR ( "Weapon##Enemy" ), XOR ( "esp_enemies_weapon" ) );
-							g_frw.ColorPicker ( XOR ( "Weapon color##Enemy" ), XOR ( "esp_enemies_weapon_color" ) );
+							g_frw.ColorPicker ( XOR ( "Weapon Color##Enemy" ), XOR ( "esp_enemies_weapon_color" ) );
 							g_frw.Checkbox ( XOR ( "Ammo##Enemy" ), XOR ( "esp_enemies_ammo" ) );
-							g_frw.ColorPicker ( XOR ( "Ammo color##Enemy" ), XOR ( "esp_enemies_ammo_color" ) );
+							g_frw.ColorPicker ( XOR ( "Ammo Color##Enemy" ), XOR ( "esp_enemies_ammo_color" ) );
 							g_frw.Checkbox ( XOR ( "Flags##Enemy" ), XOR ( "esp_enemies_flags" ) );
 							g_frw.Checkbox ( XOR ( "Glow##Enemy" ), XOR ( "esp_enemy_glow" ) );
 							if ( !g_cfg [ XOR ( "esp_enemy_glow_healthcolor" ) ].get<bool> ( ) ) {
-								g_frw.ColorPicker ( XOR ( "Glow color##Enemy" ), XOR ( "esp_enemy_glow_color" ) );
+								g_frw.ColorPicker ( XOR ( "Glow Color##Enemy" ), XOR ( "esp_enemy_glow_color" ) );
 							}
 							if ( g_cfg [ XOR ( "esp_enemy_glow" ) ].get<bool> ( ) )
-								g_frw.Checkbox ( XOR ( "Glow health color##Enemy" ), XOR ( "esp_enemy_glow_healthcolor" ) );
+								g_frw.Checkbox ( XOR ( "Glow Color Based On Health##Enemy" ), XOR ( "esp_enemy_glow_healthcolor" ) );
 
 							//g_frw.NumberPicker( XOR( "Fade time" ), XOR( "esp_enemies_dormant_time" ), 0, 100, XOR( "%0.f" ), 1 );
 
-							g_frw.Checkbox ( XOR ( "Money flag##Enemy" ), XOR ( "esp_enemies_flags_money" ) );
-							g_frw.Checkbox ( XOR ( "Armor flag##Enemy" ), XOR ( "esp_enemies_flags_armor" ) );
-							g_frw.Checkbox ( XOR ( "Scope flag##Enemy" ), XOR ( "esp_enemies_flags_scope" ) );
-							g_frw.Checkbox ( XOR ( "Flash flag##Enemy" ), XOR ( "esp_enemies_flags_flash" ) );
-							g_frw.Checkbox ( XOR ( "Reload flag##Enemy" ), XOR ( "esp_enemies_flags_reload" ) );
-							g_frw.Checkbox ( XOR ( "Bomb flag##Enemy" ), XOR ( "esp_enemies_flags_bomb" ) );
+							g_frw.Checkbox ( XOR ( "Money Flag##Enemy" ), XOR ( "esp_enemies_flags_money" ) );
+							g_frw.Checkbox ( XOR ( "Armor Flag##Enemy" ), XOR ( "esp_enemies_flags_armor" ) );
+							g_frw.Checkbox ( XOR ( "Scope Flag##Enemy" ), XOR ( "esp_enemies_flags_scope" ) );
+							g_frw.Checkbox ( XOR ( "Flash Flag##Enemy" ), XOR ( "esp_enemies_flags_flash" ) );
+							g_frw.Checkbox ( XOR ( "Reload Flag##Enemy" ), XOR ( "esp_enemies_flags_reload" ) );
+							g_frw.Checkbox ( XOR ( "Bomb Flag##Enemy" ), XOR ( "esp_enemies_flags_bomb" ) );
 
 							//	g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
 
-							g_frw.NumberPicker ( XOR ( "Visual interpolation" ), XOR ( "visuals_vis_interpolation_amt" ), 0, 14, XOR ( "%0.f" ), 1 );
+							g_frw.NumberPicker ( XOR ( "Visual Interpolation" ), XOR ( "visuals_vis_interpolation_amt" ), 0, 14, XOR ( "%0.f" ), 1 );
 							if ( g_cfg [ XOR ( "visuals_vis_interpolation_amt" ) ].get<bool> ( ) )
-								g_frw.Checkbox ( XOR ( "Only when dead" ), XOR ( "visuals_vis_interpolation_dead" ) );
+								g_frw.Checkbox ( XOR ( "Only When Dead" ), XOR ( "visuals_vis_interpolation_dead" ) );
 
 
 							//g_frw.Checkbox( XOR( "OOF arrows" ), XOR( "idk" ) );
@@ -308,17 +308,17 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 						g_frw.ContinueModule ( );
 
 						g_frw.RenderModule ( positions::right_top, sizes::full, XOR ( "COLORED_MODELS" ) ); {
-							g_frw.Checkbox ( XOR ( "Enemies visible chams" ), XOR ( "chams_enemy" ) );
+							g_frw.Checkbox ( XOR ( "Enemies Visible Chams" ), XOR ( "chams_enemy" ) );
 							g_frw.ColorPicker ( XOR ( "Visible color" ), XOR ( "esp_chams_enemies_color" ) );
 							g_frw.ComboBox ( XOR ( "Material" ), XOR ( "esp_chams_visible_enemies" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
-							g_frw.Checkbox ( XOR ( "Enemies hidden chams" ), XOR ( "chams_enemy_hidden" ) );
-							g_frw.ColorPicker ( XOR ( "Invisible color" ), XOR ( "esp_chams_enemies_invis_color" ) );
+							g_frw.Checkbox ( XOR ( "Enemies Hidden Chams" ), XOR ( "chams_enemy_hidden" ) );
+							g_frw.ColorPicker ( XOR ( "Invisible Color" ), XOR ( "esp_chams_enemies_invis_color" ) );
 							g_frw.ComboBox ( XOR ( "Hidden Material" ), XOR ( "esp_chams_invis_enemies" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
-							g_frw.Checkbox ( XOR ( "Enemies history chams" ), XOR ( "chams_enemy_history" ) );
-							g_frw.ColorPicker ( XOR ( "History color" ), XOR ( "esp_chams_enemies_history_color" ) );
+							g_frw.Checkbox ( XOR ( "Enemies History Chams" ), XOR ( "chams_enemy_history" ) );
+							g_frw.ColorPicker ( XOR ( "History Color" ), XOR ( "esp_chams_enemies_history_color" ) );
 							g_frw.ComboBox ( XOR ( "History Material" ), XOR ( "esp_chams_history_enemies" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
-							g_frw.Checkbox ( XOR ( "Enemies corpse chams" ), XOR ( "chams_enemy_ragdoll" ) );
-							g_frw.ColorPicker ( XOR ( "Corpse color" ), XOR ( "esp_chams_enemies_corpse_color" ) );
+							g_frw.Checkbox ( XOR ( "Enemies Corpse Chams" ), XOR ( "chams_enemy_ragdoll" ) );
+							g_frw.ColorPicker ( XOR ( "Corpse Color" ), XOR ( "esp_chams_enemies_corpse_color" ) );
 							g_frw.ComboBox ( XOR ( "Corpse Material" ), XOR ( "esp_chams_corpse_enemies" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
 							/*g_frw.Checkbox( XOR( "Enemies wounded chams" ), XOR( "chams_enemy_hit" ) );
 							g_frw.ColorPicker( XOR( "Wounded color" ), XOR( "esp_chams_enemies_wounded_color" ) );
@@ -335,20 +335,20 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 
 						g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "WORLD" ) ); {
 							g_frw.Checkbox ( XOR ( "Nightmode" ), XOR ( "misc_world_night" ) );
-							g_frw.NumberPicker ( XOR ( "Nightmode amount" ), XOR ( "misc_world_night_darkness" ), 0, 95, XOR ( "%0.f" ), 1 );
-							g_frw.NumberPicker ( XOR ( "Props alpha" ), XOR ( "misc_world_prop_opacity" ), 0, 100, XOR ( "%0.f" ), 1 );
+							g_frw.NumberPicker ( XOR ( "Nightmode Amount" ), XOR ( "misc_world_night_darkness" ), 0, 95, XOR ( "%0.f" ), 1 );
+							g_frw.NumberPicker ( XOR ( "Props Alpha" ), XOR ( "misc_world_prop_opacity" ), 0, 100, XOR ( "%0.f" ), 1 );
 							g_frw.Checkbox ( XOR ( "Enable Fog" ), XOR ( "fog_enable" ) );
-							g_frw.ColorPicker ( XOR ( "Fog color" ), XOR ( "fog_color" ) );
+							g_frw.ColorPicker ( XOR ( "Fog Color" ), XOR ( "fog_color" ) );
 							g_frw.NumberPicker ( XOR ( "Fog Amount" ), XOR ( "fog_density" ), 0, 100, XOR ( "%0.f" ), 1 );
 							g_frw.NumberPicker ( XOR ( "Fog Length" ), XOR ( "fog_length" ), 0, 2500, XOR ( "%0.f" ), 1 );
 							g_frw.Checkbox ( XOR ( "Fullbright" ), XOR ( "misc_world_fullbright" ) );
 							g_frw.ComboBox ( XOR ( "Skybox" ), XOR ( "misc_world_skybox" ), XOR ( "Default\0Night01\0Night02\0Cloudy\0Clear\0Dawn" ), 4 );
-							g_frw.Checkbox ( XOR ( "Grenade prediction" ), XOR ( "visuals_misc_grenade_prediction" ) );
-							g_frw.NumberPicker ( XOR ( "Ragdoll thrust" ), XOR ( "visuals_misc_ragdoll_thrust" ), 0, 1000, XOR ( "%0.f" ), 1 );
-							g_frw.Checkbox ( XOR ( "Fire proximity" ), XOR ( "misc_world_fire_proximity" ) );
-							g_frw.ColorPicker ( XOR ( "Fire proximity color" ), XOR ( "misc_world_fire_proximity_color" ) );
-							g_frw.Checkbox ( XOR ( "Smoke proximity" ), XOR ( "misc_world_smoke_proximity" ) );
-							g_frw.ColorPicker ( XOR ( "Smoke proximity color" ), XOR ( "misc_world_smoke_proximity_color" ) );
+							g_frw.Checkbox ( XOR ( "Grenade Prediction" ), XOR ( "visuals_misc_grenade_prediction" ) );
+							g_frw.NumberPicker ( XOR ( "Ragdoll Thrust" ), XOR ( "visuals_misc_ragdoll_thrust" ), 0, 1000, XOR ( "%0.f" ), 1 );
+							g_frw.Checkbox ( XOR ( "Fire Proximity" ), XOR ( "misc_world_fire_proximity" ) );
+							g_frw.ColorPicker ( XOR ( "Fire Proximity Color" ), XOR ( "misc_world_fire_proximity_color" ) );
+							g_frw.Checkbox ( XOR ( "Smoke Proximity" ), XOR ( "misc_world_smoke_proximity" ) );
+							g_frw.ColorPicker ( XOR ( "Smoke Proximity Color" ), XOR ( "misc_world_smoke_proximity_color" ) );
 
 
 						} g_frw.EndModule ( );
@@ -356,29 +356,29 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 						g_frw.ContinueModule ( );
 
 						g_frw.RenderModule ( positions::right_top, sizes::full, XOR ( "OTHERS" ) ); {
-							g_frw.NumberPicker ( XOR ( "Override FOV" ), XOR ( "misc_override_fov_amount" ), 80, 120, XOR ( "%0.f" ), 0.5 );
-							g_frw.NumberPicker ( XOR ( "Viewmodel fov" ), XOR ( "misc_viewmodel_fov" ), 60, 90, XOR ( "%0.f" ), 0.5 );
-							g_frw.NumberPicker ( XOR ( "Viewmodel yaw" ), XOR ( "misc_viewmodel_x" ), -10, 10, XOR ( "%0.f" ), 0.5 );
-							g_frw.NumberPicker ( XOR ( "Viewmodel pitch" ), XOR ( "misc_viewmodel_y" ), -10, 10, XOR ( "%0.f" ), 0.5 );
-							g_frw.NumberPicker ( XOR ( "Viewmodel roll" ), XOR ( "misc_viewmodel_z" ), -10, 10, XOR ( "%0.f" ), 0.5 );
+							g_frw.NumberPicker ( XOR ( "FOV" ), XOR ( "misc_override_fov_amount" ), 80, 120, XOR ( "%0.f" ), 0.5 );
+							g_frw.NumberPicker ( XOR ( "Viewmodel FOV" ), XOR ( "misc_viewmodel_fov" ), 60, 90, XOR ( "%0.f" ), 0.5 );
+							g_frw.NumberPicker ( XOR ( "Viewmodel Yaw" ), XOR ( "misc_viewmodel_x" ), -10, 10, XOR ( "%0.f" ), 0.5 );
+							g_frw.NumberPicker ( XOR ( "Viewmodel Pitch" ), XOR ( "misc_viewmodel_y" ), -10, 10, XOR ( "%0.f" ), 0.5 );
+							g_frw.NumberPicker ( XOR ( "Viewmodel Roll" ), XOR ( "misc_viewmodel_z" ), -10, 10, XOR ( "%0.f" ), 0.5 );
 							g_frw.KeybindCheckbox ( XOR ( "Zoom" ) );
 							g_frw.GetKey ( XOR ( "zoom_key_enable" ), XOR ( "misc_zoom_key" ), XOR ( "misc_zoom_key_type" ) );
 							g_frw.NumberPicker ( XOR ( "Zoom Amount" ), XOR ( "misc_zoom_fov" ), 0, 100, XOR ( "%0.f" ), 1 );
-							g_frw.KeybindCheckbox ( XOR ( "Force thirdperson" ) );
+							g_frw.KeybindCheckbox ( XOR ( "Force Thirdperson" ) );
 							g_frw.GetKey ( XOR ( "misc_thirdperson_enable" ), XOR ( "misc_thirdperson_key" ), XOR ( "misc_thirdperson_key_type" ) );
-							g_frw.NumberPicker ( XOR ( "Thirdperson distance" ), XOR ( "misc_thirdperson_distance" ), 80, 150, XOR ( "%0.f" ), 1 );
-							g_frw.Checkbox ( XOR ( "Damage indicator" ), XOR ( "misc_damage_indicator" ) );
-							g_frw.Checkbox ( XOR ( "Autowall crosshair" ), XOR ( "visuals_misc_penetration_crosshair" ) );
+							g_frw.NumberPicker ( XOR ( "Thirdperson Distance" ), XOR ( "misc_thirdperson_distance" ), 80, 150, XOR ( "%0.f" ), 1 );
+							g_frw.Checkbox ( XOR ( "Damage Indicator" ), XOR ( "misc_damage_indicator" ) );
+							g_frw.Checkbox ( XOR ( "Autowall Crosshair" ), XOR ( "visuals_misc_penetration_crosshair" ) );
 
-							g_frw.MultiCombo ( "Removals", { XOR ( "misc_override_fov_scoped" ), XOR ( "visuals_misc_remove_scope" ), XOR ( "visuals_misc_remove_smoke" ), XOR ( "visuals_misc_remove_flash" ), XOR ( "visuals_misc_remove_visual_recoil" ), XOR ( "visuals_misc_remove_fog" ), XOR ( "visuals_misc_remove_view_bob" ), XOR ( "visuals_misc_remove_entity_shadows" ), XOR ( "visuals_misc_remove_sleeves" ) }, { XOR ( "Zoom" ), XOR ( "Scope" ), XOR ( "Smoke" ), XOR ( "Flash" ), XOR ( "Visual recoil" ), XOR ( "Post-processing" ), XOR ( "View Bob" ), XOR ( "Entity Shadows" ), XOR ( "Sleeves" ) } );
-							g_frw.Checkbox ( XOR ( "Force crosshair" ), XOR ( "misc_force_crosshair" ) );
+							g_frw.MultiCombo ( "Removals", { XOR ( "misc_override_fov_scoped" ), XOR ( "visuals_misc_remove_scope" ), XOR ( "visuals_misc_remove_smoke" ), XOR ( "visuals_misc_remove_flash" ), XOR ( "visuals_misc_remove_visual_recoil" ), XOR ( "visuals_misc_remove_fog" ), XOR ( "visuals_misc_remove_view_bob" ), XOR ( "visuals_misc_remove_entity_shadows" ), XOR ( "visuals_misc_remove_sleeves" ) }, { XOR ( "Zoom" ), XOR ( "Scope" ), XOR ( "Smoke" ), XOR ( "Flash" ), XOR ( "Visual Recoil" ), XOR ( "Post Processing" ), XOR ( "View Bob" ), XOR ( "Entity Shadows" ), XOR ( "Sleeves" ) } );
+							g_frw.Checkbox ( XOR ( "Force Crosshair" ), XOR ( "misc_force_crosshair" ) );
 							g_frw.MultiCombo ( XOR ( "Bullet Impacts" ), { XOR ( "misc_bullet_impacts_client" ), XOR ( "misc_bullet_impacts_server" ) }, { XOR ( "Client" ), XOR ( "Server" ) } );
-							g_frw.Checkbox ( XOR ( "Override client color" ), XOR ( "misc_bullet_impacts_client_override" ) );
+							g_frw.Checkbox ( XOR ( "Override Client Color" ), XOR ( "misc_bullet_impacts_client_override" ) );
 							g_frw.ColorPicker ( XOR ( "Client Color" ), XOR ( "misc_bullet_impacts_client_color" ) );
-							g_frw.Checkbox ( XOR ( "Override server color" ), XOR ( "misc_bullet_impacts_server_override" ) );
+							g_frw.Checkbox ( XOR ( "Override Server Color" ), XOR ( "misc_bullet_impacts_server_override" ) );
 							g_frw.ColorPicker ( XOR ( "Server Color" ), XOR ( "misc_bullet_impacts_server_color" ) );
-							g_frw.Checkbox ( XOR ( "Bullet beams" ), XOR ( "visuals_misc_bullet_beam" ) );
-							g_frw.ColorPicker ( XOR ( "Bullet beam color" ), XOR ( "visuals_misc_bullet_beam_color" ) );
+							g_frw.Checkbox ( XOR ( "Bullet Beams" ), XOR ( "visuals_misc_bullet_beam" ) );
+							g_frw.ColorPicker ( XOR ( "Bullet Beam Color" ), XOR ( "visuals_misc_bullet_beam_color" ) );
 
 						} g_frw.EndModule ( );
 						g_frw.ConcludeModuleHeader ( );
@@ -612,12 +612,12 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							//	g_frw.KeybindCheckbox( XOR( "Enable Rare Animations" ) );
 							g_frw.MultiCombo ( XOR ( "Force Rare Animations" ), { XOR ( "skins_rare_deagle" ), XOR ( "skins_rare_r8" ), XOR ( "skins_rare_falcheon" ) }, { XOR ( "Deagle" ), XOR ( "Revolver" ), XOR ( "Falchion Knife" ) } );
 							//g_frw.KeybindCheckbox( XOR( "Enable Glove Changer" ) );
-							g_frw.ComboBox ( XOR ( "Glove model" ), XOR ( "skins_gloves" ), XOR ( "Disabled\0Bloodhound\0Sport\0Driver\0Handwraps\0Motorcycle\0Specialist\0Hydra\0Broken Fang" ), 8 );
+							g_frw.ComboBox ( XOR ( "Glove Model" ), XOR ( "skins_gloves" ), XOR ( "Disabled\0Bloodhound\0Sport\0Driver\0Handwraps\0Motorcycle\0Specialist\0Hydra\0Broken Fang" ), 8 );
 							//	g_frw.KeybindCheckbox( XOR( "Enable Glove Skin" ) );
 							ImGui::SetCursorPosX ( ImGui::GetCursorPosX ( ) + 3 );
 							ImGui::SetCursorPosY ( ImGui::GetCursorPosY ( ) + 5 );
 							if ( !g_skins.m_glove_kits.empty ( ) ) {
-								g_frw.ListBox ( XOR ( "Glove skin" ), XOR ( "skins_glove_kit" ), g_skins.m_glove_kits, 3 );
+								g_frw.ListBox ( XOR ( "Glove Skin" ), XOR ( "skins_glove_kit" ), g_skins.m_glove_kits, 3 );
 							}
 							ImGui::SetCursorPosX ( ImGui::GetCursorPosX ( ) + 3 );
 							g_frw.Button ( XOR ( "Refresh" ), &g_skins.m_update );
@@ -632,17 +632,17 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 						{
 							g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "LOCAL" ) ); {
 
-								g_frw.Checkbox ( XOR ( "Hand chams" ), XOR ( "chams_hand" ) );
-								g_frw.ColorPicker ( XOR ( "Hand color" ), XOR ( "hand_chams_color" ) );
-								g_frw.ComboBox ( XOR ( "Hand material" ), XOR ( "hand_chams_material" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
+								g_frw.Checkbox ( XOR ( "Hand Chams" ), XOR ( "chams_hand" ) );
+								g_frw.ColorPicker ( XOR ( "Hand Color" ), XOR ( "hand_chams_color" ) );
+								g_frw.ComboBox ( XOR ( "Hand Material" ), XOR ( "hand_chams_material" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
 
-								g_frw.Checkbox ( XOR ( "Local chams" ), XOR ( "chams_local" ) );
-								g_frw.ColorPicker ( XOR ( "Local color" ), XOR ( "local_chams_color" ) );
+								g_frw.Checkbox ( XOR ( "Local Chams" ), XOR ( "chams_local" ) );
+								g_frw.ColorPicker ( XOR ( "Local Color" ), XOR ( "local_chams_color" ) );
 								g_frw.ComboBox ( XOR ( "Local Material" ), XOR ( "local_chams_material" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
 								g_frw.Checkbox ( XOR ( "Hold Firing Animation" ), XOR ( "firing_anim" ) );
 
-								g_frw.Checkbox ( XOR ( "Fake chams" ), XOR ( "chams_desync" ) );
-								g_frw.ColorPicker ( XOR ( "Fake color" ), XOR ( "desync_chams_color" ) );
+								g_frw.Checkbox ( XOR ( "Fake Chams" ), XOR ( "chams_desync" ) );
+								g_frw.ColorPicker ( XOR ( "Fake Color" ), XOR ( "desync_chams_color" ) );
 								g_frw.ComboBox ( XOR ( "Fake Material" ), XOR ( "desyc_chams_material" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
 
 								g_frw.Checkbox ( XOR ( "Local Glow" ), XOR ( "esp_local_glow" ) );
@@ -664,27 +664,27 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.BeginModuleHeader ( );
 
 							g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "MAIN" ) ); {
-								g_frw.Checkbox ( XOR ( "Auto jump" ), XOR ( "misc_bhop" ) );
-								g_frw.Checkbox ( XOR ( "Fast duck" ), XOR ( "misc_duck_stamina" ) );
-								g_frw.ComboBox ( XOR ( "Auto strafer" ), XOR ( "misc_autostrafer_mode" ), XOR ( "Disabled\0View\0Movement Input" ), 4 );
+								g_frw.Checkbox ( XOR ( "Auto Jump" ), XOR ( "misc_bhop" ) );
+								g_frw.Checkbox ( XOR ( "Fast Duck" ), XOR ( "misc_duck_stamina" ) );
+								g_frw.ComboBox ( XOR ( "Auto Strafer" ), XOR ( "misc_autostrafer_mode" ), XOR ( "Disabled\0View\0Movement Input" ), 4 );
 								if ( g_cfg [ XOR ( "misc_autostrafer_mode" ) ].get<int> ( ) )
 									g_frw.NumberPicker ( XOR ( "Strafe speed" ), XOR ( "strafe_speed" ), 0, 100, XOR ( "%0.f" ), 1 );
-								g_frw.Checkbox ( XOR ( "Slide walk" ), XOR ( "misc_slide" ) );
-								g_frw.KeybindCheckbox ( XOR ( "Block bot" ) );
-								g_frw.GetKey ( XOR ( "Trollbot_Bind" ), XOR ( "misc_blockbot_bind" ), XOR ( "misc_blockbot_bind_type" ) );
-								g_frw.KeybindCheckbox ( XOR ( "Quickpeek" ) );
+								g_frw.Checkbox ( XOR ( "Slidewalk" ), XOR ( "misc_slide" ) );
+								//g_frw.KeybindCheckbox ( XOR ( "Block Bot" ) );
+								//g_frw.GetKey ( XOR ( "Trollbot_Bind" ), XOR ( "misc_blockbot_bind" ), XOR ( "misc_blockbot_bind_type" ) );
+								g_frw.KeybindCheckbox ( XOR ( "Auto Peek" ) );
 								g_frw.GetKey ( XOR ( "Quickpeek_Bind" ), XOR ( "misc_auto_peek" ), XOR ( "misc_auto_peek_type" ) );
 								g_frw.KeybindCheckbox ( XOR ( "Edge Jump" ) );
 								g_frw.GetKey ( XOR ( "Edge jump bind" ), XOR ( "movement_edgejump" ), XOR ( "movement_edgejump_type" ) );
 								g_frw.Checkbox ( XOR ( "Fast Stop" ), XOR ( "misc_faststop" ) );
 								g_frw.Checkbox ( XOR ( "Hitsound" ), XOR ( "misc_hitsound" ) );
-								g_frw.Checkbox ( XOR ( "Preserve killfeed" ), XOR ( "misc_preserve_killfeed" ) );
-								g_frw.Checkbox ( XOR ( "Unlock all convars" ), XOR ( "misc_unlock_cvars" ) );
+								g_frw.Checkbox ( XOR ( "Preserve Killfeed" ), XOR ( "misc_preserve_killfeed" ) );
+								g_frw.Checkbox ( XOR ( "Unlock All Convars" ), XOR ( "misc_unlock_cvars" ) );
 								if ( g_cfg [ XOR ( "misc_unlock_cvars" ) ].get<bool> ( ) )
 									g_cl.UnlockHiddenConvars ( );
 
-								g_frw.Checkbox ( XOR ( "Spectator list" ), XOR ( "misc_spectators" ) );
-								g_frw.Checkbox ( XOR ( "Keybinds list" ), XOR ( "misc_keybinds" ) );
+								g_frw.Checkbox ( XOR ( "Spectator List" ), XOR ( "misc_spectators" ) );
+								g_frw.Checkbox ( XOR ( "Keybind List" ), XOR ( "misc_keybinds" ) );
 
 							}g_frw.EndModule ( );
 
@@ -732,14 +732,14 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 											g_frw.Checkbox( XOR( "Nades" ), XOR( "misc_buybot_loadout4_nades" ) );
 											break;
 									}*/
-								g_frw.ComboBox ( XOR ( "Clantag type" ), XOR ( "misc_clantag_type" ), XOR ( "None\0Undercover\0Custom" ), 4 );
-								g_frw.ComboBox ( XOR ( "Clantag mode" ), XOR ( "misc_clantag_mode" ), XOR ( "Static\0Rotating " ), 4 );
+								g_frw.ComboBox ( XOR ( "Clantag Type" ), XOR ( "misc_clantag_type" ), XOR ( "None\0Undercover\0Custom" ), 4 );
+								g_frw.ComboBox ( XOR ( "Clantag Mode" ), XOR ( "misc_clantag_mode" ), XOR ( "Static\0Rotating " ), 4 );
 
 								if ( g_cfg [ XOR ( "misc_clantag_type" ) ].get<int> ( ) == 2 ) {
 
 									ImGui::SetCursorPosX ( ImGui::GetCursorPosX ( ) + 22 );
 									ImGui::SetCursorPosY ( ImGui::GetCursorPosY ( ) - 9 );
-									g_frw.TextInput ( XOR ( "Custom clantag" ), g_cl.clantag_lable, false );
+									g_frw.TextInput ( XOR ( "Custom Clantag" ), g_cl.clantag_lable, false );
 								}
 							}g_frw.EndModule ( );
 
@@ -761,19 +761,19 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 									static bool sure_save = false;
 									static bool sure_delete = false;
 									g_frw.TextInput ( XOR ( "Name" ), config_name, true );
-									g_frw.Button ( XOR ( "Create new file" ), &t4 );
+									g_frw.Button ( XOR ( "Create New File" ), &t4 );
 									if ( t4 ) {
 										g_config.create ( config_name );
 										sure_save = false;
 										sure_delete = false;
 									}
-									g_frw.Button ( XOR ( "Refresh list" ), &t1 );
+									g_frw.Button ( XOR ( "Refresh List" ), &t1 );
 									if ( t1 ) {
 										g_config.refresh ( );
 										sure_save = false;
 										sure_delete = false;
 									}
-									g_frw.Button ( sure_save ? XOR ( "Are you sure?" ) : XOR ( "Save to file" ), &t2 );
+									g_frw.Button ( sure_save ? XOR ( "Are You Sure?" ) : XOR ( "Save To File" ), &t2 );
 									if ( t2 ) {
 										sure_delete = false;
 										if ( !sure_save ) {
@@ -790,7 +790,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 										sure_save = false;
 										sure_delete = false;
 									}
-									g_frw.Button ( sure_delete ? XOR ( "Are you sure?" ) : XOR ( "Delete file" ), &t5 );
+									g_frw.Button ( sure_delete ? XOR ( "Are You Sure?" ) : XOR ( "Delete File" ), &t5 );
 									if ( t5 )
 									{
 										sure_save = false;
