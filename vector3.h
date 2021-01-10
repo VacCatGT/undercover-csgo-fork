@@ -238,7 +238,18 @@ public:
 
 		return delta.length_2d( );
 	}
-
+	vec3_t Normalized ( ) const
+	{
+		vec3_t res = *this;
+		float l = res.length ( );
+		if ( l != 0.0f ) {
+			res /= l;
+		}
+		else {
+			res.x = res.y = res.z = 0.0f;
+		}
+		return res;
+	}
 	__forceinline float normalize( ) {
 		float len = length( );
 
