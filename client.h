@@ -7,8 +7,8 @@ public:
 	int   m_seq;
 
 public:
-	__forceinline Sequence ( ) : m_time { }, m_state { }, m_seq { } {};
-	__forceinline Sequence ( float time, int state, int seq ) : m_time { time }, m_state { state }, m_seq { seq } {};
+	__forceinline Sequence( ) : m_time{ }, m_state{ }, m_seq{ } {};
+	__forceinline Sequence( float time, int state, int seq ) : m_time{ time }, m_state{ state }, m_seq{ seq } {};
 };
 
 class NetPos {
@@ -17,8 +17,8 @@ public:
 	vec3_t m_pos;
 
 public:
-	__forceinline NetPos ( ) : m_time { }, m_pos { } {};
-	__forceinline NetPos ( float time, vec3_t pos ) : m_time { time }, m_pos { pos } {};
+	__forceinline NetPos( ) : m_time{ }, m_pos{ } {};
+	__forceinline NetPos( float time, vec3_t pos ) : m_time{ time }, m_pos{ pos } {};
 };
 
 namespace mouse {
@@ -31,44 +31,44 @@ namespace mouse {
 class Client {
 public:
 	// hack thread.
-	static ulong_t __stdcall init ( void* arg );
+	static ulong_t __stdcall init( void* arg );
 
-	void StartMove ( CUserCmd* cmd );
-	void EndMove ( CUserCmd* cmd );
-	void DoMove ( );
-	void UpdateAnimData ( );
-	void KillFeed ( );
-	bool NewDataRecievedFromServer ( );
-	void ClanTag ( );
-	void UnlockHiddenConvars ( );
-	void MouseDelta ( );
+	void StartMove( CUserCmd* cmd );
+	void EndMove( CUserCmd* cmd );
+	void DoMove( );
+	void UpdateAnimData( );
+	void KillFeed( );
+	bool NewDataRecievedFromServer( );
+	void ClanTag( );
+	void UnlockHiddenConvars( );
+	void MouseDelta();
 
-	void OnRender ( );
-	void OnPaint ( );
-	void OnMapload ( );
-	void OnTick ( CUserCmd* cmd );
+	void OnRender( );
+	void OnPaint( );
+	void OnMapload( );
+	void OnTick( CUserCmd* cmd );
 
 	// debugprint function.
-	void print ( const std::string text, ... );
+	void print( const std::string text, ... );
 
 	// check if we are able to fire this tick.
-	bool CanFireWeapon ( float curtime );
-	bool IsFiring ( float curtime );
-	void UpdateRevolverCock ( );
-	void UpdateIncomingSequences ( );
-	void BuildSeedTable ( );
-	void Purchasebot ( );
-	void FixEvents ( );
+	bool CanFireWeapon( float curtime );
+	bool IsFiring( float curtime );
+	void UpdateRevolverCock( );
+	void UpdateIncomingSequences( );
+	void BuildSeedTable( );
+	void Purchasebot( );
+	void FixEvents( );
 
 public:
 	// local player variables.
-	Player* m_local;
+	Player*  m_local;
 	bool     m_processing;
 	int      m_flags;
 	vec3_t	 m_shoot_pos;
 	bool     m_player_fire;
 	bool	 m_shot;
-	int		 m_missed_shots [ 65 ];
+	int		 m_missed_shots[ 65 ];
 	bool	 m_old_shot;
 	bool     m_pressing_move;
 	bool     m_negate_desync;
@@ -95,7 +95,7 @@ public:
 	int      m_lag;
 	int	     m_old_lag;
 	bool     m_packet;
-	bool* m_final_packet;
+	bool*    m_final_packet;
 	bool	 m_old_packet;
 	float	 m_lerp;
 	float    m_latency;
@@ -107,7 +107,7 @@ public:
 	bool	 m_in_glow;
 	bool	 m_update_night;
 	bool	 m_update_sound;
-	char     clantag_lable [ 25 ];
+	char     clantag_lable[25];
 	int		 m_fakelag_jitter_value;
 
 	// usercommand variables.
@@ -141,22 +141,22 @@ public:
 	bool             m_lagcomp;
 	ang_t            m_real_abs_ang;
 
-	float            m_real_poses [ 24 ];
-	float            m_fake_poses [ 24 ];
-	float            m_backup_poses [ 24 ];
+	float            m_real_poses[ 24 ];
+	float            m_fake_poses[ 24 ];
+	float            m_backup_poses[ 24 ];
 	float            m_fake_abs;
 
-	C_AnimationLayer m_real_layers [ 13 ];
-	C_AnimationLayer m_fake_layers [ 13 ];
-	C_AnimationLayer m_backup_layers [ 13 ];
+	C_AnimationLayer m_real_layers[ 13 ];
+	C_AnimationLayer m_fake_layers[ 13 ];
+	C_AnimationLayer m_backup_layers[ 13 ];
 
 	// other variables.
-	CCSGOPlayerAnimState* m_fake_state;
-	CCSGOPlayerAnimState* m_fake_state_allocated;
+	CCSGOPlayerAnimState*    m_fake_state;
+	CCSGOPlayerAnimState*    m_fake_state_allocated;
 	ulong_t                  m_ent_handle;
 	float                    m_spawn_time;
-	BoneArray                m_real_matrix [ 128 ];
-	BoneArray                m_fake_matrix [ 128 ];
+	BoneArray                m_real_matrix[ 128 ];
+	BoneArray                m_fake_matrix[ 128 ];
 	std::vector<std::string> m_hitsounds;
 
 	// hack username.
