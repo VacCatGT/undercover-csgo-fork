@@ -252,7 +252,8 @@ void Animations::UpdateAnimations ( Player* player, LagComp::LagRecord_t* record
 
 		player->m_PlayerAnimState ( )->feet_cycle = record->m_pLayers [ 6 ].m_cycle;
 		player->m_PlayerAnimState ( )->feet_yaw_rate = record->m_pLayers [ 6 ].m_weight;
-		//velocity fix
+
+		//velocity fix, testing rn so might be dogshit
 		const auto& velocity = player->m_vecVelocity ( );
 		auto was_in_air = player->m_fFlags ( ) & FL_ONGROUND && record->m_fFlags & FL_ONGROUND;
 		auto time_difference = max ( g_csgo.m_globals->m_interval, player->m_flSimulationTime ( ) - player->m_flOldSimulationTime ( ) );

@@ -6,26 +6,26 @@ class C_CSGameRules;
 
 class CSGO {
 public:
-	using MD5_PseudoRandom_t = uint32_t( __thiscall* )( uint32_t );
+	using MD5_PseudoRandom_t = uint32_t ( __thiscall* )( uint32_t );
 	using GetGlowObjectManager_t = CGlowObjectManager * ( __cdecl* )( );
-	using RandomSeed_t = void( __cdecl* )( int );
-	using RandomInt_t = int( __cdecl* )( int, int );
-	using RandomFloat_t = float( __cdecl* )( float, float );
-	using IsBreakableEntity_t = bool( __thiscall* )( Entity* );
-	using AngleMatrix_t = void( __fastcall* )( const ang_t&, matrix3x4_t& );
-	using LoadFromBuffer_t = bool( __thiscall* )( KeyValues*, const char*, const char*, void*, void*, void* );
-	using ServerRankRevealAll_t = bool( __cdecl* )( CCSUsrMsg_ServerRankRevealAll* );
-	using IsReady_t = void( __cdecl* )( );
-	using ShowAndUpdateSelection_t = void( __thiscall* )( CHudElement*, int, Weapon*, bool );
+	using RandomSeed_t = void ( __cdecl* )( int );
+	using RandomInt_t = int ( __cdecl* )( int, int );
+	using RandomFloat_t = float ( __cdecl* )( float, float );
+	using IsBreakableEntity_t = bool ( __thiscall* )( Entity* );
+	using AngleMatrix_t = void ( __fastcall* )( const ang_t&, matrix3x4_t& );
+	using LoadFromBuffer_t = bool ( __thiscall* )( KeyValues*, const char*, const char*, void*, void*, void* );
+	using ServerRankRevealAll_t = bool ( __cdecl* )( CCSUsrMsg_ServerRankRevealAll* );
+	using IsReady_t = void ( __cdecl* )( );
+	using ShowAndUpdateSelection_t = void ( __thiscall* )( CHudElement*, int, Weapon*, bool );
 	using GetEconItemView_t = C_EconItemView * ( __thiscall* )( Weapon* );
 	using GetStaticData_t = CEconItemDefinition * ( __thiscall* )( C_EconItemView* );
-	using ConcatTransforms_t = void( __fastcall* )( );
+	using ConcatTransforms_t = void ( __fastcall* )( );
 	using BeamAlloc_t = Beam_t * ( __thiscall* )( IViewRenderBeams*, bool );
-	using SetupBeam_t = void( __stdcall* )( Beam_t*, const BeamInfo_t& );
-	using ClearNotices_t = void( __thiscall* )( KillFeed_t* );
-	using AddListenerEntity_t = void( __stdcall* )( IEntityListener* );
-	using GetShotgunSpread_t = void( __stdcall* )( int, int, int, float*, float* );
-	using GetPlayerMaxSpeed_t = float( __thiscall* )( void* );
+	using SetupBeam_t = void ( __stdcall* )( Beam_t*, const BeamInfo_t& );
+	using ClearNotices_t = void ( __thiscall* )( KillFeed_t* );
+	using AddListenerEntity_t = void ( __stdcall* )( IEntityListener* );
+	using GetShotgunSpread_t = void ( __stdcall* )( int, int, int, float*, float* );
+	using GetPlayerMaxSpeed_t = float ( __thiscall* )( void* );
 
 public:
 	bool m_done;
@@ -87,7 +87,7 @@ public:
 	C_CSGameRules* m_gamerules;
 	IViewRenderBeams* m_beams;
 	void* m_radar;
-	void *m_hookable_cl;
+	void* m_hookable_cl;
 
 	IDirect3DDevice9* m_device;
 	HWND m_window;
@@ -195,7 +195,7 @@ public:
 	Address                  RenderingOrder1;
 	Address                  RenderingOrder2;
 	Address                  InvalidateAnimState;
-	DWORD*                   SetupBonesPointer;
+	DWORD* SetupBonesPointer;
 	GetPlayerMaxSpeed_t		 GetPlayerMaxSpeed;
 
 	size_t BoneAccessor;
@@ -220,42 +220,42 @@ public:
 	inline static std::vector<std::pair<float, float>> m_computed_seeds;
 
 	// initialize class.
-	bool init( );
+	bool init ( );
 };
 
 extern CSGO g_csgo;
 
 namespace game {
-	__forceinline float GetClientInterpAmount( ) {
-		return std::max( g_csgo.cl_interp->GetFloat( ), g_csgo.cl_interp_ratio->GetFloat( ) / g_csgo.cl_updaterate->GetFloat( ) );
+	__forceinline float GetClientInterpAmount ( ) {
+		return std::max ( g_csgo.cl_interp->GetFloat ( ), g_csgo.cl_interp_ratio->GetFloat ( ) / g_csgo.cl_updaterate->GetFloat ( ) );
 	}
 
-	__forceinline int TIME_TO_TICKS( float time ) {
-		return ( int )( 0.5f + time / g_csgo.m_globals->m_interval );
+	__forceinline int TIME_TO_TICKS ( float time ) {
+		return ( int ) ( 0.5f + time / g_csgo.m_globals->m_interval );
 	}
 
-	__forceinline float TICKS_TO_TIME( int ticks ) {
-		return g_csgo.m_globals->m_interval * ( float )( ticks );
+	__forceinline float TICKS_TO_TIME ( int ticks ) {
+		return g_csgo.m_globals->m_interval * ( float ) ( ticks );
 	}
 
-	__forceinline bool IsFakePlayer( int index ) {
+	__forceinline bool IsFakePlayer ( int index ) {
 		player_info_t info;
-		if( g_csgo.m_engine->GetPlayerInfo( index, &info ) )
+		if ( g_csgo.m_engine->GetPlayerInfo ( index, &info ) )
 			return info.m_fake_player;
 
 		return false;
 	}
 
-	__forceinline const char* GetPlayerName( int index ) {
+	__forceinline const char* GetPlayerName ( int index ) {
 		player_info_t info;
-		if( g_csgo.m_engine->GetPlayerInfo( index, &info ) )
+		if ( g_csgo.m_engine->GetPlayerInfo ( index, &info ) )
 			return info.m_name;
 
 		return nullptr;
 	}
 
-	__forceinline bool IsValidHitgroup( int index ) {
-		if( ( index >= HITGROUP_HEAD && index <= HITGROUP_RIGHTLEG ) || index == HITGROUP_GEAR )
+	__forceinline bool IsValidHitgroup ( int index ) {
+		if ( ( index >= HITGROUP_HEAD && index <= HITGROUP_RIGHTLEG ) || index == HITGROUP_GEAR )
 			return true;
 
 		return false;
@@ -263,50 +263,50 @@ namespace game {
 
 	// note - dex; all of the static sigscans here should be moved to CSGO class... funcs that rely on these do 2 test statements to make sure the data is initialized
 	//             also, nitro, is there a reason these are not __forceinline? i forget if you told me they must be inline.
-	inline void CreateAnimationState( Player* holder, CCSGOPlayerAnimState* state ) {
-		using CreateAnimState_t = void( __thiscall* )( CCSGOPlayerAnimState*, Player* );
+	inline void CreateAnimationState ( Player* holder, CCSGOPlayerAnimState* state ) {
+		using CreateAnimState_t = void ( __thiscall* )( CCSGOPlayerAnimState*, Player* );
 
-		static auto func = pattern::find( g_csgo.m_client_dll, XOR( "55 8B EC 56 8B F1 B9 ? ? ? ? C7 46" ) ).as< CreateAnimState_t >( );
-		if( !func )
+		static auto func = pattern::find ( g_csgo.m_client_dll, XOR ( "55 8B EC 56 8B F1 B9 ? ? ? ? C7 46" ) ).as< CreateAnimState_t > ( );
+		if ( !func )
 			return;
 
-		func( state, holder );
+		func ( state, holder );
 
 	}
 
-	inline void UpdateAnimationState( CCSGOPlayerAnimState* state, ang_t ang ) {
-		using fn = void( __vectorcall* )( void*, void*, float, float, float, void* );
-		static auto ret = pattern::find( g_csgo.m_client_dll, XOR( "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 F3 0F 11 54 24" ) ).as< fn >( );
+	inline void UpdateAnimationState ( CCSGOPlayerAnimState* state, ang_t ang ) {
+		using fn = void ( __vectorcall* )( void*, void*, float, float, float, void* );
+		static auto ret = pattern::find ( g_csgo.m_client_dll, XOR ( "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 F3 0F 11 54 24" ) ).as< fn > ( );
 
-		if( !ret || !state )
+		if ( !ret || !state )
 			return;
 
-		ret( state, nullptr, 0.f, ang.y, ang.x, nullptr );
+		ret ( state, nullptr, 0.f, ang.y, ang.x, nullptr );
 	}
 
-	inline void ResetAnimationState( CCSGOPlayerAnimState* state ) {
-		using ResetAnimState_t = void( __thiscall* )( CCSGOPlayerAnimState* );
+	inline void ResetAnimationState ( CCSGOPlayerAnimState* state ) {
+		using ResetAnimState_t = void ( __thiscall* )( CCSGOPlayerAnimState* );
 
-		static auto func = pattern::find( g_csgo.m_client_dll, XOR( "56 6A 01 68 ? ? ? ? 8B F1" ) ).as< ResetAnimState_t >( );
-		if( !func )
+		static auto func = pattern::find ( g_csgo.m_client_dll, XOR ( "56 6A 01 68 ? ? ? ? 8B F1" ) ).as< ResetAnimState_t > ( );
+		if ( !func )
 			return;
 
-		func( state );
+		func ( state );
 	}
 
-	__forceinline void UpdateAllViewmodelAddons( Entity* entity ) {
-		using UpdateAllViewmodelAddons_t = int( __fastcall* )( Entity* );
-		static UpdateAllViewmodelAddons_t UpdateAllViewmodelAddonsFn = pattern::find( g_csgo.m_client_dll, XOR( "55 8B EC 83 E4 ? 83 EC ? 53 8B D9 56 57 8B 03 FF 90 ? ? ? ? 8B F8 89 7C 24 ? 85 FF 0F 84 ? ? ? ? 8B 17 8B CF" ) ).as< UpdateAllViewmodelAddons_t >( );
+	__forceinline void UpdateAllViewmodelAddons ( Entity* entity ) {
+		using UpdateAllViewmodelAddons_t = int ( __fastcall* )( Entity* );
+		static UpdateAllViewmodelAddons_t UpdateAllViewmodelAddonsFn = pattern::find ( g_csgo.m_client_dll, XOR ( "55 8B EC 83 E4 ? 83 EC ? 53 8B D9 56 57 8B 03 FF 90 ? ? ? ? 8B F8 89 7C 24 ? 85 FF 0F 84 ? ? ? ? 8B 17 8B CF" ) ).as< UpdateAllViewmodelAddons_t > ( );
 
-		if( !UpdateAllViewmodelAddonsFn )
+		if ( !UpdateAllViewmodelAddonsFn )
 			return;
 
-		UpdateAllViewmodelAddonsFn( entity );
+		UpdateAllViewmodelAddonsFn ( entity );
 	}
 
-	__forceinline void UTIL_ClipTraceToPlayers( const vec3_t& start, const vec3_t& end, uint32_t mask, ITraceFilter* filter, CGameTrace* tr, float range ) {
-		static auto func = pattern::find( g_csgo.m_client_dll, XOR( "E8 ? ? ? ? 83 C4 14 8A 56 37" ) ).rel32< uintptr_t >( 0x1 );
-		if( !func )
+	__forceinline void UTIL_ClipTraceToPlayers ( const vec3_t& start, const vec3_t& end, uint32_t mask, ITraceFilter* filter, CGameTrace* tr, float range ) {
+		static auto func = pattern::find ( g_csgo.m_client_dll, XOR ( "E8 ? ? ? ? 83 C4 14 8A 56 37" ) ).rel32< uintptr_t > ( 0x1 );
+		if ( !func )
 			return;
 
 		__asm {
@@ -321,9 +321,9 @@ namespace game {
 		}
 	}
 
-	__forceinline void ConcatTransforms( const matrix3x4_t& in1, const matrix3x4_t& in2, matrix3x4_t& output ) {
-		static auto func = pattern::find( g_csgo.m_client_dll, XOR( "E8 ? ? ? ? 0F 28 44 24" ) ).rel32< uintptr_t >( 0x1 );
-		if( !func )
+	__forceinline void ConcatTransforms ( const matrix3x4_t& in1, const matrix3x4_t& in2, matrix3x4_t& output ) {
+		static auto func = pattern::find ( g_csgo.m_client_dll, XOR ( "E8 ? ? ? ? 0F 28 44 24" ) ).rel32< uintptr_t > ( 0x1 );
+		if ( !func )
 			return;
 
 		__asm {
@@ -336,31 +336,31 @@ namespace game {
 	}
 
 	template<class T = DWORD>
-	__forceinline T* FindHudElement( const char* name ) {
-		static auto pThis = *pattern::find( g_csgo.m_client_dll, XOR( "B9 ? ? ? ? E8 ? ? ? ? 8B 5D 08" ) ).add( 0x1 ).as< DWORD**>( );
+	__forceinline T* FindHudElement ( const char* name ) {
+		static auto pThis = *pattern::find ( g_csgo.m_client_dll, XOR ( "B9 ? ? ? ? E8 ? ? ? ? 8B 5D 08" ) ).add ( 0x1 ).as< DWORD**> ( );
 
-		static auto find_hud_element = pattern::find( g_csgo.m_client_dll, "55 8B EC 53 8B 5D 08 56 57 8B F9 33 F6 39"	).as<DWORD( __thiscall* )( void*, const char* )>( );
-		return ( T* )find_hud_element( pThis, name );
+		static auto find_hud_element = pattern::find ( g_csgo.m_client_dll, "55 8B EC 53 8B 5D 08 56 57 8B F9 33 F6 39" ).as<DWORD ( __thiscall* )( void*, const char* )> ( );
+		return ( T* ) find_hud_element ( pThis, name );
 	}
-	 
-	__forceinline void SetPostProcess( bool value ) {
+
+	__forceinline void SetPostProcess ( bool value ) {
 		// get post process address
-		static bool* disable_post_process = *g_csgo.DisablePostProcess.as<bool**>( );
+		static bool* disable_post_process = *g_csgo.DisablePostProcess.as<bool**> ( );
 
 		// set it.
-		if( *disable_post_process != !value )
+		if ( *disable_post_process != !value )
 			*disable_post_process = !value;
 	}
 
-	__forceinline void SetSkybox( const char* name ) {
+	__forceinline void SetSkybox ( const char* name ) {
 		// get load_named_sky func address.
-		static auto load_named_sky = pattern::find( g_csgo.m_engine_dll, XOR( "55 8B EC 81 EC ? ? ? ? 56 57 8B F9 C7 45" ) ).as< void( __fastcall* )( const char* ) >();
-		
+		static auto load_named_sky = pattern::find ( g_csgo.m_engine_dll, XOR ( "55 8B EC 81 EC ? ? ? ? 56 57 8B F9 C7 45" ) ).as< void ( __fastcall* )( const char* ) > ( );
+
 		// set it.
-		load_named_sky( name );
+		load_named_sky ( name );
 	}
 
-	void RemoveChokeLimit( );
-	bool   IsBreakable( Entity* ent );
-	Beam_t* CreateGenericBeam( const BeamInfo_t& beam_info );
+	void RemoveChokeLimit ( );
+	bool   IsBreakable ( Entity* ent );
+	Beam_t* CreateGenericBeam ( const BeamInfo_t& beam_info );
 }
