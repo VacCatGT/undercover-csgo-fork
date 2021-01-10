@@ -1237,6 +1237,7 @@ GENERAL:
 
 	m_overriden_hitboxes.head = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_head" ) ) ) ].get<bool>( );
 	m_overriden_hitboxes.neck = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_upper_body" ) ) ) ].get<bool>( );
+	m_overriden_hitboxes.upper_chest = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_upper_chest" ) ) ) ].get<bool>( );
 	m_overriden_hitboxes.body = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_lower_body" ) ) ) ].get<bool>( );
 	m_overriden_hitboxes.stomach = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_stomach" ) ) ) ].get<bool>( );
 	m_overriden_hitboxes.feet = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hitbox_legs" ) ) ) ].get<bool>( );
