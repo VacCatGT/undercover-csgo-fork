@@ -70,7 +70,7 @@ void Resolver::StoreMatrices ( LagComp::LagRecord_t& record ) {
 	memcpy ( record.center_matrix, m_pPlayer->m_BoneCache ( ).m_pCachedBones->Base ( ), sizeof ( matrix3x4_t ) * m_pPlayer->GetBoneCount ( ) );
 	memcpy ( g_chams.m_stored_matrices [ m_pPlayer->index ( ) - 1 ], record.center_matrix, sizeof ( matrix3x4_t ) * m_pPlayer->GetBoneCount ( ) );
 	m_pPlayer->GetAnimLayers ( record.center_layers );
-	//g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 0 ] );//TESTING
+	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 0 ] );//TESTING
 
 	// restore.
 	g_resolver.RestoreData ( &data );
@@ -88,7 +88,7 @@ void Resolver::StoreMatrices ( LagComp::LagRecord_t& record ) {
 		m_pPlayer->SetupBones ( nullptr, 128, BONE_USED_BY_ANYTHING, m_pPlayer->m_flSimulationTime ( ) );
 		memcpy ( record.right_matrix, m_pPlayer->m_BoneCache ( ).m_pCachedBones->Base ( ), sizeof ( matrix3x4_t ) * m_pPlayer->GetBoneCount ( ) );
 	}
-	//	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 1 ] );//TESTING
+	g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 1 ] );//TESTING
 
 			// restore.
 	g_resolver.RestoreData ( &data );
@@ -107,7 +107,7 @@ void Resolver::StoreMatrices ( LagComp::LagRecord_t& record ) {
 	}
 
 	// store data from rebuilt animations.
- //  g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 2 ] ); //TESTING
+    g_anims.RebuiltLayer6( m_pPlayer, &record.m_LayerData[ 2 ] ); //TESTING
 
 	// restore.
 	g_resolver.RestoreData ( &data );
@@ -469,7 +469,6 @@ void Resolver::ResolveEntity ( Player* player, AimPlayer* data, LagComp::LagReco
 		if ( record->m_pEntity->m_vecVelocity ( ).length_2d ( ) <= 0.1 ) {
 			float angle_difference = math::AngleDiff ( eye_yaw, record->m_pState->goal_feet_yaw );
 			data->m_index = 2 * angle_difference <= 0.0f ? 1 : -1;
-			data->m_brute_mode = 1;
 		}
 		else
 		{
@@ -495,64 +494,20 @@ void Resolver::ResolveEntity ( Player* player, AimPlayer* data, LagComp::LagReco
 				{
 					data->m_index = -1;
 				}
-				data->m_brute_mode = 2;
 			}
 		}
 	}
-	switch ( data->m_brute_mode )
-	{
-		default:
-		{
-			switch ( data->m_missed_shots % 3 ) {
-				case 0: //default
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y + max_rotation;
-				break;
-				case 1: //reverse
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y - max_rotation;
-				break;
-				case 2: //middle
-				record->m_pState->goal_feet_yaw = record->m_angEyeAngles.y;
-				break;
-			}
-		}
-		break;
-		case 1:
-		{
-			switch ( data->m_missed_shots % 5 ) {
-				case 0: //default
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + max_rotation * data->m_index);
-				break;
-				case 1: //reverse
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + max_rotation * -data->m_index );
-				break;
-				case 2: //middle
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y );
-				break;
-				case 3: //half
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + ( max_rotation / 2 ) * -data->m_index );
-				break;
-				case 4: //half reverse
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + ( max_rotation / 2 ) * -data->m_index );
-				break;
-			}
-		case 2:
-		{
-			switch ( data->m_missed_shots % 3 ) {
-				case 0: //default
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw(player,record->m_angEyeAngles.y + max_rotation * data->m_index);
-				break;
-				case 1: //reverse
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + max_rotation * -data->m_index );
-				break;
-				case 2: //middle
-				record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y );
-				break;
-			}
-		}
-		break;
-		}
-		break;
 
+	switch ( data->m_missed_shots % 3 ) {
+		case 0: //default
+		record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + max_rotation * data->m_index );
+		break;
+		case 1: //reverse
+		record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y + max_rotation * -data->m_index );
+		break;
+		case 2: //middle
+		record->m_pState->goal_feet_yaw = build_server_abs_yaw ( player, record->m_angEyeAngles.y );
+		break;
 	}
 
 }

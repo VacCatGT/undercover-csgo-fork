@@ -32,9 +32,9 @@ LagComp::LagRecord_t::LagRecord_t( Player* pEntity ) {
 
 	m_bValid = m_iChoked >= 0 && m_iChoked <= ( g_csgo.m_cvar->FindVar( HASH( "sv_maxusrcmdprocessticks" ) )->GetInt( ) + 1 );
 
-	//	memcpy( left_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_left_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
+		//memcpy( left_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_left_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
 	//	memcpy( right_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_right_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
-	//	memcpy( center_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_center_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
+		//memcpy( center_matrix, g_aimbot.m_overlap_data[ pEntity->index( ) - 1 ].m_center_matrix, sizeof( matrix3x4_t ) * pEntity->GetBoneCount( ) );
 
 }
 
@@ -229,6 +229,7 @@ bool LagComp::BreakingLagCompensation( Player* pEntity ) {
 		auto delta = record->m_vecOrigin - prev_org;
 		if ( delta.length_2d_sqr( ) > 4096.f )
 		{
+
 			return true;
 		}
 

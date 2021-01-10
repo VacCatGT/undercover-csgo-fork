@@ -571,13 +571,13 @@ bool AimPlayer::SetupHitboxPoints( LagComp::LagRecord_t* record, BoneArray* bone
 
 
 	// get hitbox scales.
-	float scale = 85 * 0.01;
+	float scale = 45 * 0.01;
 
 	// big inair fix.
 	if ( !( record->m_fFlags  & FL_ONGROUND ) )
 		scale = 0.7f;
 
-	float bscale = 85 * 0.01;
+	float bscale = 45 * 0.01;
 
 	// calculate dynamic scale
 	auto transformed_center = ( bbox->m_mins + bbox->m_maxs ) * 0.5f;
@@ -658,8 +658,11 @@ bool AimPlayer::SetupHitboxPoints( LagComp::LagRecord_t* record, BoneArray* bone
 	// these hitboxes are capsules.
 	else {
 		// factor in the pointscale.
-		float r = bbox->m_radius * scale;
-		float br = bbox->m_radius * bscale;
+		float r = bbox->m_radius * g_aimbot.m_headscale;
+		float br = bbox->m_radius * g_aimbot.m_headscale;
+
+		float r2 = bbox->m_radius * g_aimbot.m_bodyscale;
+		float br2 = bbox->m_radius * g_aimbot.m_bodyscale;
 
 		// compute raw center point.
 		vec3_t center = ( bbox->m_mins + bbox->m_maxs ) / 2.f;
@@ -712,12 +715,12 @@ bool AimPlayer::SetupHitboxPoints( LagComp::LagRecord_t* record, BoneArray* bone
 
 			// back.
 			if ( g_aimbot.m_multipoint_hitboxes.stomach )
-				points.push_back( { center.x, bbox->m_maxs.y - br, center.z } );
+				points.push_back( { center.x, bbox->m_maxs.y - br2, center.z } );
 		}
 
 		else if ( index == HITBOX_PELVIS || index == HITBOX_UPPER_CHEST ) {
 			// back.
-			points.push_back( { center.x, bbox->m_maxs.y - r, center.z } );
+			points.push_back( { center.x, bbox->m_maxs.y - r2, center.z } );
 		}
 
 		// other stomach/chest hitboxes have 2 points.
@@ -727,7 +730,7 @@ bool AimPlayer::SetupHitboxPoints( LagComp::LagRecord_t* record, BoneArray* bone
 
 			// add extra point on back.
 			if ( g_aimbot.m_multipoint_hitboxes.body )
-				points.push_back( { center.x, bbox->m_maxs.y - r, center.z } );
+				points.push_back( { center.x, bbox->m_maxs.y - r2, center.z } );
 		}
 
 		else if ( index == HITBOX_R_CALF || index == HITBOX_L_CALF ) {
@@ -1194,6 +1197,9 @@ GENERAL:
 	m_between_shots = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_between" ) ) ) ].get<bool>( );
 	m_force_accuracy = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_force" ) ) ) ].get<bool>( );
 	m_in_air = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_air" ) ) ) ].get<bool>( );
+
+	m_bodyscale = g_cfg [ std::string ( XOR ( "aimbot_" ) + std::string ( weapon_name ) + std::string ( XOR ( "_" ) ) + std::string ( XOR ( "bodyscale" ) ) ) ].get<int> ( );
+	m_headscale = g_cfg [ std::string ( XOR ( "aimbot_" ) + std::string ( weapon_name ) + std::string ( XOR ( "_" ) ) + std::string ( XOR ( "headscale" ) ) ) ].get<int> ( );
 
 	m_normal_hitboxes.head = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "hitbox_head" ) ) ) ].get<bool>( );
 	m_normal_hitboxes.neck = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "hitbox_upper_body" ) ) ) ].get<bool>( );

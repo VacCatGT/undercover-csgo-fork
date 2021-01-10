@@ -77,7 +77,6 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.BeginModuleHeader ( );
 
 							g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "AIMBOT_MAIN" ) ); {
-								g_frw.KeybindCheckbox ( XOR ( "Aimbot" ) );
 								g_frw.Checkbox ( XOR ( "Aimbot enable" ), XOR ( "aimbot_enable" ) );
 								g_frw.ComboBox ( XOR ( "Target Selection" ), XOR ( "aimbot_target_selection" ), XOR ( "Closest To Crosshair\0Lowest Distance\0Highest Damage" ), 3 );
 								g_frw.Checkbox ( XOR ( "Auto Shoot" ), XOR ( "aimbot_autofire" ) );
@@ -163,10 +162,10 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 
 								if ( weapon_name == XOR ( "Scout" ) || weapon_name == XOR ( "General" ) )
 									g_frw.Checkbox ( XOR ( "Jumpscout" ), XOR ( "aimbot_jumpscout" ) );
-								//g_frw.Checkbox( XOR( "Stop Between Shots" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_between_shots" ) );
-								//g_frw.NumberPicker( XOR( "Head Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_headscale" ), 0, 100, XOR( "%0.f" ), 1 );
-								//g_frw.NumberPicker( XOR( "Body Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_bodyscale" ), 0, 100, XOR( "%0.f" ), 1 );
-								//g_frw.Checkbox( XOR( "Ignore Limbs when Moving" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_no_legs" ) );
+	
+								g_frw.NumberPicker( XOR( "Head Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_headscale" ), 0, 100, XOR( "%0.f" ), 1 );
+								g_frw.NumberPicker( XOR( "Body Point Scale" ), XOR( "aimbot_" ) + weapon_cfg_name + XOR( "_bodyscale" ), 0, 100, XOR( "%0.f" ), 1 );
+		
 
 								g_frw.MultiCombo ( XOR ( "Hitboxes" ), { XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_head" ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_upper_body" ) ),
 									XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_lower_body" ), XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_hitbox_stomach" ),

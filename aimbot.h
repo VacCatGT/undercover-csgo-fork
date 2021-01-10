@@ -184,6 +184,8 @@ public:
 	bool m_enable;
 	bool m_override_hitboxes;
 	bool m_autostop;
+	int m_headscale;
+	int m_bodyscale;
 	int m_autostop_mode;
 	bool m_autoscope;
 	bool m_between_shots;

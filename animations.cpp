@@ -253,90 +253,93 @@ void Animations::UpdateAnimations ( Player* player, LagComp::LagRecord_t* record
 		player->m_PlayerAnimState ( )->feet_cycle = record->m_pLayers [ 6 ].m_cycle;
 		player->m_PlayerAnimState ( )->feet_yaw_rate = record->m_pLayers [ 6 ].m_weight;
 		//velocity fix
-		const auto& velocity = player->m_vecVelocity ( );
-		auto was_in_air = player->m_fFlags ( ) & FL_ONGROUND && record->m_fFlags & FL_ONGROUND;
-		auto time_difference = max ( g_csgo.m_globals->m_interval, player->m_flSimulationTime ( ) - player->m_flOldSimulationTime ( ) );
-		vec3_t old_origin;
-
-		if ( old_origin.length ( ) != player->m_vecOrigin ( ).length ( ) )
-			old_origin = player->m_vecOrigin ( );
-
-		auto origin_delta = player->m_vecOrigin ( ) - old_origin;
-		auto animation_speed = 0.0f;
-
-		if ( !( origin_delta == vec3_t ( 0, 0, 0 ) ) && game::TIME_TO_TICKS ( time_difference ) > 0 )
+		if ( previous_record )
 		{
-			player->m_vecVelocity ( ) = origin_delta * ( 1.0f / time_difference );
+			const auto& velocity = player->m_vecVelocity ( );
+			auto was_in_air = player->m_fFlags ( ) & FL_ONGROUND && record->m_fFlags & FL_ONGROUND;
+			auto time_difference = max ( g_csgo.m_globals->m_interval, player->m_flSimulationTime ( ) - player->m_flOldSimulationTime ( ) );
+			vec3_t old_origin;
 
-			if ( player->m_fFlags ( ) & FL_ONGROUND && animlayers [ 11 ].m_weight > 0.0f && animlayers [ 11 ].m_weight < 1.0f && animlayers [ 11 ].m_cycle > record->m_pLayers [ 11 ].m_cycle )
+			if ( old_origin.length ( ) != player->m_vecOrigin ( ).length ( ) )
+				old_origin = player->m_vecOrigin ( );
+
+			auto origin_delta = player->m_vecOrigin ( ) - old_origin;
+			auto animation_speed = 0.0f;
+
+			if ( !( origin_delta == vec3_t ( 0, 0, 0 ) ) && game::TIME_TO_TICKS ( time_difference ) > 0 )
 			{
-				auto weapon = player->GetActiveWeapon ( );
+				player->m_vecVelocity ( ) = origin_delta * ( 1.0f / time_difference );
 
-				if ( weapon )
+				if ( player->m_fFlags ( ) & FL_ONGROUND && animlayers [ 11 ].m_weight > 0.0f && animlayers [ 11 ].m_weight < 1.0f && animlayers [ 11 ].m_cycle > record->m_pLayers [ 11 ].m_cycle )
 				{
-					auto max_speed = 260.0f;
-					auto weapon_info = player->GetActiveWeapon ( )->GetWpnData ( );
+					auto weapon = player->GetActiveWeapon ( );
 
-					if ( weapon_info )
-						max_speed = player->m_bIsScoped ( ) ? weapon_info->flMaxPlayerSpeedAlt : weapon_info->flMaxPlayerSpeed;
+					if ( weapon )
+					{
+						auto max_speed = 260.0f;
+						auto weapon_info = player->GetActiveWeapon ( )->GetWpnData ( );
 
-					auto modifier = 0.35f * ( 1.0f - animlayers [ 11 ].m_weight );
+						if ( weapon_info )
+							max_speed = player->m_bIsScoped ( ) ? weapon_info->flMaxPlayerSpeedAlt : weapon_info->flMaxPlayerSpeed;
 
-					if ( modifier > 0.0f && modifier < 1.0f )
-						animation_speed = max_speed * ( modifier + 0.55f );
+						auto modifier = 0.35f * ( 1.0f - animlayers [ 11 ].m_weight );
+
+						if ( modifier > 0.0f && modifier < 1.0f )
+							animation_speed = max_speed * ( modifier + 0.55f );
+					}
 				}
-			}
 
-			if ( animation_speed > 0.0f )
-			{
-				animation_speed /= player->m_vecVelocity ( ).length_2d ( );
-
-				player->m_vecVelocity ( ).x *= animation_speed;
-				player->m_vecVelocity ( ).y *= animation_speed;
-			}
-
-			if ( previous_record && time_difference > g_csgo.m_globals->m_interval )
-			{
-				auto previous_velocity = ( old_origin - previous_record->m_vecOrigin ) * ( 1.0f / time_difference );
-
-				if ( !( previous_velocity == vec3_t ( 0, 0, 0 ) ) && !was_in_air )
+				if ( animation_speed > 0.0f )
 				{
-					auto current_direction = math::NormalizeYaw ( RAD2DEG ( atan2 ( player->m_vecVelocity ( ).y, player->m_vecVelocity ( ).x ) ) );
-					auto previous_direction = math::NormalizeYaw ( RAD2DEG ( atan2 ( previous_velocity.y, previous_velocity.x ) ) );
+					animation_speed /= player->m_vecVelocity ( ).length_2d ( );
 
-					auto average_direction = current_direction - previous_direction;
-					average_direction = DEG2RAD ( math::NormalizeYaw ( current_direction + average_direction * 0.5f ) );
-
-					auto direction_cos = cos ( average_direction );
-					auto dirrection_sin = sin ( average_direction );
-
-					auto velocity_speed = player->m_vecVelocity ( ).length_2d ( );
-
-					player->m_vecVelocity ( ).x = direction_cos * velocity_speed;
-					player->m_vecVelocity ( ).y = dirrection_sin * velocity_speed;
+					player->m_vecVelocity ( ).x *= animation_speed;
+					player->m_vecVelocity ( ).y *= animation_speed;
 				}
+
+				if ( previous_record && time_difference > g_csgo.m_globals->m_interval )
+				{
+					auto previous_velocity = ( old_origin - previous_record->m_vecOrigin ) * ( 1.0f / time_difference );
+
+					if ( !( previous_velocity == vec3_t ( 0, 0, 0 ) ) && !was_in_air )
+					{
+						auto current_direction = math::NormalizeYaw ( RAD2DEG ( atan2 ( player->m_vecVelocity ( ).y, player->m_vecVelocity ( ).x ) ) );
+						auto previous_direction = math::NormalizeYaw ( RAD2DEG ( atan2 ( previous_velocity.y, previous_velocity.x ) ) );
+
+						auto average_direction = current_direction - previous_direction;
+						average_direction = DEG2RAD ( math::NormalizeYaw ( current_direction + average_direction * 0.5f ) );
+
+						auto direction_cos = cos ( average_direction );
+						auto dirrection_sin = sin ( average_direction );
+
+						auto velocity_speed = player->m_vecVelocity ( ).length_2d ( );
+
+						player->m_vecVelocity ( ).x = direction_cos * velocity_speed;
+						player->m_vecVelocity ( ).y = dirrection_sin * velocity_speed;
+					}
+				}
+
+				if ( !( player->m_fFlags ( ) & FL_ONGROUND ) )
+				{
+					static auto sv_gravity = g_csgo.sv_gravity;
+
+					auto fixed_timing = std::clamp ( time_difference, g_csgo.m_globals->m_interval, 1.0f );
+					player->m_vecVelocity ( ).z -= sv_gravity->GetFloat ( ) * fixed_timing * 0.5f;
+				}
+				else
+					player->m_vecVelocity ( ).z = 0.0f;
 			}
 
-			if ( !( player->m_fFlags ( ) & FL_ONGROUND ) )
-			{
-				static auto sv_gravity = g_csgo.sv_gravity;
+			player->m_iEFlags ( ) &= ~0x1800;
 
-				auto fixed_timing = std::clamp ( time_difference, g_csgo.m_globals->m_interval, 1.0f );
-				player->m_vecVelocity ( ).z -= sv_gravity->GetFloat ( ) * fixed_timing * 0.5f;
-			}
-			else
-				player->m_vecVelocity ( ).z = 0.0f;
+			player->m_vecAbsVelocity ( ) = player->m_vecVelocity ( );
 		}
-
-		player->m_iEFlags ( ) &= ~0x1800;
-
-		player->m_vecAbsVelocity ( ) = player->m_vecVelocity ( );
 
 		const auto m_flBackupSimTime = player->m_flSimulationTime ( );
 
 		player->m_flSimulationTime ( ) = m_flTime;
 
-		feet_wobble_fix ( );
+	//	feet_wobble_fix ( ); //idk what it does so i wont use it
 		player->m_bClientSideAnimation ( ) = true;
 		player->UpdateClientSideAnimation ( );
 		player->m_bClientSideAnimation ( ) = false;
