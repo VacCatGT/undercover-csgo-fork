@@ -178,6 +178,7 @@ public:
 
 	// settings.
 	int m_minimum_damage;
+	int m_minimum_penetration_damage;
 	int m_minimum_hitchance;
 	int m_overriden_hitchance;
 	int m_overriden_damage;

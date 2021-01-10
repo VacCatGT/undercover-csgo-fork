@@ -788,7 +788,10 @@ bool AimPlayer::GetBestAimPosition( vec3_t& aim, float& damage, int& hitbox, Lag
 		if( dmg > hp )
 			dmg = hp;
 
-		pendmg = dmg;
+		pendmg = g_aimbot.m_override_damage ? g_aimbot.m_overriden_damage : g_aimbot.m_minimum_penetration_damage;
+
+		if ( pendmg > hp )
+			pendmg = hp;
 
 		pen = true;
 	}
@@ -1189,6 +1192,7 @@ GENERAL:
 	m_minimum_hitchance = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "hc" ) ) ) ].get<int>( );
 	m_overriden_hitchance = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_hc" ) ) ) ].get<int>( );
 	m_minimum_damage = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "min_dmg" ) ) ) ].get<int>( );
+	m_minimum_penetration_damage = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "min_penetration_dmg" ) ) ) ].get<int>( );
 	m_overriden_damage = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "overriden_min_dmg" ) ) ) ].get<int>( );
 	m_autoscope = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autoscope" ) ) ) ].get<bool>( );
 	m_between_shots = g_cfg[ std::string( XOR( "aimbot_" ) + std::string( weapon_name ) + std::string( XOR( "_" ) ) + std::string( XOR( "autostop_between" ) ) ) ].get<bool>( );
