@@ -638,7 +638,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								g_frw.Checkbox ( XOR ( "Local Chams" ), XOR ( "chams_local" ) );
 								g_frw.ColorPicker ( XOR ( "Local Color" ), XOR ( "local_chams_color" ) );
 								g_frw.ComboBox ( XOR ( "Local Material" ), XOR ( "local_chams_material" ), XOR ( "Disabled\0Flat\0Normal\0Glow" ), 4 );
-								g_frw.Checkbox ( XOR ( "Hold Firing Animation" ), XOR ( "firing_anim" ) );
+								//g_frw.Checkbox ( XOR ( "Hold Firing Animation" ), XOR ( "firing_anim" ) );
 
 								g_frw.Checkbox ( XOR ( "Fake Chams" ), XOR ( "chams_desync" ) );
 								g_frw.ColorPicker ( XOR ( "Fake Color" ), XOR ( "desync_chams_color" ) );
