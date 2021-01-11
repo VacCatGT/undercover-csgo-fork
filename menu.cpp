@@ -183,8 +183,8 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 									std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_legs" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_overriden_hitbox_feet" ) ) },
 									{ XOR ( "Head" ), XOR ( "Neck" ), XOR( "Upper Chest" ), XOR ( "Body" ), XOR ( "Stomach" ), XOR ( "Legs" ), XOR ( "Feet" ) } );
 
-								g_frw.MultiCombo ( XOR ( "Body aim" ), { std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_in_air" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_on_crouch" ) ),
-									std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_lethal" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "body_lethal2" ) ) },
+								g_frw.MultiCombo ( XOR ( "Body aim" ), { std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_body_in_air" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_body_on_crouch" ) ),
+									std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_body_lethal" ) ), std::string ( XOR ( "aimbot_" ) + weapon_cfg_name + XOR ( "_body_lethal2" ) ) },
 									{ XOR ( "In air" ), XOR ( "On crouch" ), XOR ( "If lethal" ), XOR ( "If lethal x2" ) } );
 
 							} g_frw.EndModule ( );
