@@ -96,6 +96,9 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.ContinueModule ( );
 
 							g_frw.RenderModule ( positions::right_top, sizes::full, XOR ( "AIMBOT_CONFIG" ) ); {
+								if ( g_cfg [ XOR ( "aimbot_exploits_teleport_ticks" ) ].get< int > ( ) == 0 )
+									g_cfg [ XOR ( "aimbot_exploits_teleport_ticks" ) ].set< int > ( 10 );
+
 								g_frw.KeybindCheckbox ( XOR ( "Doubletap" ) );
 								g_frw.GetKey ( XOR ( "aimbot_exploits_teleport" ), XOR ( "aimbot_exploits_teleport_key" ), XOR ( "aimbot_exploits_teleport_key_type" ) );
 								g_frw.NumberPicker ( XOR ( "Doubletap Ticks" ), XOR ( "aimbot_exploits_teleport_ticks" ), 10, 13, XOR ( "%0.f" ), 1 );
@@ -333,7 +336,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 
 						g_frw.RenderModule ( positions::left_top, sizes::full, XOR ( "WORLD" ) ); {
 							g_frw.Checkbox ( XOR ( "Nightmode" ), XOR ( "misc_world_night" ) );
-							g_frw.NumberPicker ( XOR ( "Nightmode Amount" ), XOR ( "misc_world_night_darkness" ), 0, 100, XOR ( "%0.f" ), 1 );
+							g_frw.NumberPicker ( XOR ( "Nightmode Amount" ), XOR ( "misc_world_night_darkness" ), 0, 95, XOR ( "%0.f" ), 1 );
 							g_frw.NumberPicker ( XOR ( "Props Alpha" ), XOR ( "misc_world_prop_opacity" ), 0, 100, XOR ( "%0.f" ), 1 );
 							g_frw.Checkbox ( XOR ( "Enable Fog" ), XOR ( "fog_enable" ) );
 							g_frw.ColorPicker ( XOR ( "Fog Color" ), XOR ( "fog_color" ) );
@@ -354,7 +357,6 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 						g_frw.ContinueModule ( );
 
 						g_frw.RenderModule ( positions::right_top, sizes::full, XOR ( "OTHERS" ) ); {
-
 							g_frw.NumberPicker ( XOR ( "FOV" ), XOR ( "misc_override_fov_amount" ), 80, 120, XOR ( "%0.f" ), 0.5 );
 							g_frw.NumberPicker ( XOR ( "Viewmodel FOV" ), XOR ( "misc_viewmodel_fov" ), 60, 90, XOR ( "%0.f" ), 0.5 );
 							g_frw.NumberPicker ( XOR ( "Viewmodel Yaw" ), XOR ( "misc_viewmodel_x" ), -10, 10, XOR ( "%0.f" ), 0.5 );

@@ -119,12 +119,7 @@ void AimPlayer::SetupHitboxes( LagComp::LagRecord_t* record, bool history ) {
 
 	if ( g_cl.m_weapon_id == ZEUS ) {
 		// hitboxes for the zeus.
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
-		return;
-	}
-
-	if ( g_csgo.mp_damage_headshot_only->GetInt( ) > 0 ) {
-		m_hitboxes.push_back( { HITBOX_HEAD, HitscanMode::PREFER, false } );
+		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER } );
 		return;
 	}
 
@@ -523,9 +518,6 @@ bool Aimbot::CheckHitchance( Player* player, const ang_t& angle, LagComp::LagRec
 	float      inaccuracy, spread;
 	CGameTrace tr;
 	size_t     total_hits{ }, needed_hits{ ( size_t )std::ceil( ( m_minimum_hitchance * SEED_MAX ) / HITCHANCE_MAX ) };
-
-	if ( g_csgo.weapon_accuracy_nospread->GetInt( ) > 0 )
-		return true;
 
 	// get needed directional vectors.
 	math::AngleVectors( angle, &fwd, &right, &up );

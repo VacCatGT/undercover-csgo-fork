@@ -92,7 +92,6 @@ bool CSGO::init( ) {
 	cl_interp = m_cvar->FindVar( HASH( "cl_interp" ) );
 	cl_interp_ratio = m_cvar->FindVar( HASH( "cl_interp_ratio" ) );
 	mp_c4timer = m_cvar->FindVar( HASH( "mp_c4timer" ) );
-	mp_damage_headshot_only = m_cvar->FindVar( HASH( "mp_damage_headshot_only" ) );
 	cl_updaterate = m_cvar->FindVar( HASH( "cl_updaterate" ) );
 	cl_cmdrate = m_cvar->FindVar( HASH( "cl_cmdrate" ) );
 	cl_lagcompensation = m_cvar->FindVar( HASH( "cl_lagcompensation" ) );
@@ -111,7 +110,6 @@ bool CSGO::init( ) {
 	hud_scaling = m_cvar->FindVar( HASH( "hud_scaling" ) );
 	sv_clip_penetration_traces_to_players = m_cvar->FindVar( HASH( "sv_clip_penetration_traces_to_players" ) );
 	weapon_accuracy_shotgun_spread_patterns = m_cvar->FindVar( HASH( "weapon_accuracy_shotgun_spread_patterns" ) );
-	weapon_accuracy_nospread = m_cvar->FindVar( HASH( "weapon_accuracy_nospread" ) );
 	viewmodel_offset_x = m_cvar->FindVar( HASH( "viewmodel_offset_x" ) );
 	viewmodel_offset_y = m_cvar->FindVar( HASH( "viewmodel_offset_y" ) );
 	viewmodel_offset_z = m_cvar->FindVar( HASH( "viewmodel_offset_z" ) );
