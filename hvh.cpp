@@ -679,7 +679,7 @@ LABEL_5:
 			v69 = true;
 	}
 
-	if( g_cfg[ XOR( "aa_fl_break_lagcomp" ) ].get< bool >( ) ) {
+	if ( g_cfg[ XOR( "aa_fl_break_lagcomp" ) ].get< bool >( ) ) {
 		if( g_cl.m_lagcomp )
 			v81 = v9;
 	}
@@ -691,7 +691,10 @@ LABEL_5:
 	else
 		math::clamp( v81, 1, g_cl.m_max_lag );
 
-	g_cl.m_packet = g_csgo.m_cl->m_choked_commands >= v81;
+	if ( g_cl.m_old_shot && !g_hvh.m_fake_duck )
+		g_cl.m_packet = true;
+	else
+		g_cl.m_packet = g_csgo.m_cl->m_choked_commands >= v81;
 }
 
 void HVH::FakeDuck( )

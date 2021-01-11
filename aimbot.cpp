@@ -118,8 +118,12 @@ void AimPlayer::SetupHitboxes( LagComp::LagRecord_t* record, bool history ) {
 	m_hitboxes.clear( );
 
 	if ( g_cl.m_weapon_id == ZEUS ) {
-		// hitboxes for the zeus.
-		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER } );
+		m_hitboxes.push_back( { HITBOX_BODY, HitscanMode::PREFER, false } );
+		return;
+	}
+
+	if ( g_csgo.m_cvar->FindVar( HASH( "mp_damage_headshot_only" ) )->GetInt( ) ) {
+		m_hitboxes.push_back( { HITBOX_HEAD, HitscanMode::PREFER, false } );
 		return;
 	}
 
@@ -519,6 +523,9 @@ bool Aimbot::CheckHitchance( Player* player, const ang_t& angle, LagComp::LagRec
 	CGameTrace tr;
 	size_t     total_hits{ }, needed_hits{ ( size_t )std::ceil( ( m_minimum_hitchance * SEED_MAX ) / HITCHANCE_MAX ) };
 
+	if ( g_csgo.m_cvar->FindVar( HASH( "weapon_accuracy_nospread" ) )->GetInt( ) )
+		return true;
+
 	// get needed directional vectors.
 	math::AngleVectors( angle, &fwd, &right, &up );
 
@@ -758,7 +765,7 @@ bool AimPlayer::SetupHitboxPoints( LagComp::LagRecord_t* record, BoneArray* bone
 		}
 
 		// arms get only one point.
-		else if ( 0 && index == HITBOX_R_UPPER_ARM || 0 && index == HITBOX_L_UPPER_ARM ) { //ignore arms
+		else if ( false && (index == HITBOX_R_UPPER_ARM || index == HITBOX_L_UPPER_ARM) ) { //ignore arms
 			// elbow.
 			points.push_back( { bbox->m_maxs.x + bbox->m_radius, center.y, center.z } );
 		}

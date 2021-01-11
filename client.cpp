@@ -18,9 +18,11 @@ ulong_t __stdcall Client::init( void* arg ) {
 		return 0;
 
 	// set needed menu items.
-	g_cfg[ XOR( "misc_world_prop_opacity" ) ].set< float >( 100.f );
-	g_cfg[ XOR( "misc_override_fov_amount" ) ].set< float >( 90 );
+	g_cfg[ XOR( "aimbot_exploits_teleport_ticks" ) ].set< int >( 10 );
+	g_cfg[ XOR( "misc_override_fov_amount" ) ].set< int >( 90 );
 	g_cfg[ XOR( "misc_viewmodel_fov" ) ].set< int >( 68 );
+	g_cfg[ XOR( "misc_world_prop_opacity" ) ].set< float >( 100.f );
+	g_cfg[ XOR( "misc_thirdperson_distance" ) ].set< float >( 80.f );
 	g_anims.m_recreate_fake = true;
 
 	return 1;
