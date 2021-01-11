@@ -108,6 +108,7 @@ public:
 	ConVar* cl_interp;
 	ConVar* cl_interp_ratio;
 	ConVar* mp_c4timer;
+	ConVar* mp_damage_headshot_only;
 	ConVar* cl_updaterate;
 	ConVar* cl_cmdrate;
 	ConVar* cl_lagcompensation;
@@ -126,6 +127,7 @@ public:
 	ConVar* hud_scaling;
 	ConVar* sv_clip_penetration_traces_to_players;
 	ConVar* weapon_accuracy_shotgun_spread_patterns;
+	ConVar* weapon_accuracy_nospread;
 	ConVar* viewmodel_offset_x;
 	ConVar* viewmodel_offset_y;
 	ConVar* viewmodel_offset_z;
