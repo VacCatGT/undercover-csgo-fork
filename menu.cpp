@@ -108,9 +108,9 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								g_frw.GetKey ( XOR ( "override_hitbox" ), XOR ( "hitbox_override_key" ), XOR ( "hitbox_override_key_type" ) );
 								//g_frw.KeybindCheckbox( XOR( "Force Safepoint" ) );
 								//g_frw.GetKey( XOR( "safepoint" ), XOR( "safepoint_key" ), XOR( "safepoint_key_type" ) );
-								g_frw.KeybindCheckbox ( XOR ( "Override Minimum Damage" ) );
+								g_frw.KeybindCheckbox ( XOR ( "Override Damage" ) );
 								g_frw.GetKey ( XOR ( "override_min_dmg" ), XOR ( "override_min_dmg_key" ), XOR ( "override_min_dmg_key_type" ) );
-								g_frw.KeybindCheckbox( XOR( "Override Minimum Hitchance" ) );
+								g_frw.KeybindCheckbox( XOR( "Override Hitchance" ) );
 								g_frw.GetKey( XOR( "override_hc" ), XOR( "override_hc_key" ), XOR( "override_hc_key_type" ) );
 
 							} g_frw.EndModule ( );
