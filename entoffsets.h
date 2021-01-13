@@ -57,6 +57,7 @@ public:
 	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_nTickBase;
 	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_flNextAttack;
 	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_flDuckAmount;
+	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_flDuckSpeed;
 	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_nForceBone;
 	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_flSimulationTime;
 	XoredNetvar< GET_XOR_KEYUI32, __COUNTER__ > m_flOldSimulationTime;
@@ -177,6 +178,7 @@ public:
 		INIT_XOREDNETVAR( m_nTickBase, HASH( "DT_CSPlayer" ), HASH( "m_nTickBase" ) );
 		INIT_XOREDNETVAR( m_flNextAttack, HASH( "DT_CSPlayer" ), HASH( "m_flNextAttack" ) );
 		INIT_XOREDNETVAR( m_flDuckAmount, HASH( "DT_BasePlayer" ), HASH( "m_flDuckAmount" ) );
+		INIT_XOREDNETVAR( m_flDuckSpeed, HASH( "DT_BasePlayer" ), HASH( "m_flDuckSpeed" ) );
 		INIT_XOREDNETVAR( m_nForceBone, HASH( "DT_BaseAnimating" ), HASH( "m_nForceBone" ) );
 		INIT_XOREDNETVAR( m_flSimulationTime, HASH( "DT_BaseEntity" ), HASH( "m_flSimulationTime" ) );
 		INIT_XOREDNETVAR( m_flLowerBodyYawTarget, HASH( "DT_CSPlayer" ), HASH( "m_flLowerBodyYawTarget" ) );

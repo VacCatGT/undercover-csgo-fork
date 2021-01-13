@@ -1244,6 +1244,10 @@ public:
 		return get< float >( g_entoffsets.m_flDuckAmount );
 	}
 
+	__forceinline float& m_flDuckSpeed( ) {
+		return get< float >( g_entoffsets.m_flDuckSpeed );
+	}
+
 	__forceinline float& m_flSimulationTime( ) {
 		return get< float >( g_entoffsets.m_flSimulationTime );
 	}

@@ -1214,7 +1214,7 @@ void Visuals::DrawPlayer(Player* player) {
 	}
 
 	// draw flags.
-	{
+	if ( g_cfg[ XOR( "esp_enemies_flags" ) ].get<bool>( ) ) {
 		std::vector< std::pair< std::string,Color > > flags;
 
 		bool money = (enemy && g_cfg[XOR("esp_enemies_flags_money")].get<bool>()) || (!enemy && g_cfg[XOR("esp_team_flags_money")].get<bool>());
@@ -1223,6 +1223,7 @@ void Visuals::DrawPlayer(Player* player) {
 		bool flash = (enemy && g_cfg[XOR("esp_enemies_flags_flash")].get<bool>()) || (!enemy && g_cfg[XOR("esp_team_flags_flash")].get<bool>());
 		bool reload = (enemy && g_cfg[XOR("esp_enemies_flags_reload")].get<bool>()) || (!enemy && g_cfg[XOR("esp_team_flags_reload")].get<bool>());
 		bool bomb = (enemy && g_cfg[XOR("esp_enemies_flags_bomb")].get<bool>()) || (!enemy && g_cfg[XOR("esp_team_flags_bomb")].get<bool>());
+		bool fakeduck = ( enemy && g_cfg[ XOR( "esp_enemies_flags_fakeduck" ) ].get<bool>( ) ) || ( !enemy && g_cfg[ XOR( "esp_team_flags_fakeduck" ) ].get<bool>( ) );
 
 		// bomb.
 		if (bomb && player->HasC4())
@@ -1248,21 +1249,37 @@ void Visuals::DrawPlayer(Player* player) {
 		}
 
 		// scoped.
-		if (scope && player->m_bIsScoped())
-			flags.push_back({XOR("ZOOM"),{60,180,225,low_alpha}});
+		if ( scope && player->m_bIsScoped( ) )
+			flags.push_back( { XOR( "ZOOM" ), { 60, 180, 225, low_alpha } } );
 
 		// flashed.
-		if (flash && player->m_flFlashBangTime() > 0.f)
-			flags.push_back({XOR("FLASH"),{255,255,0,low_alpha}});
+		if ( flash && player->m_flFlashBangTime( ) > 0.f )
+			flags.push_back( { XOR( "FLASH" ), { 255, 255, 0, low_alpha } } );
 
 		// reload.
-		if (reload) {
+		if ( reload ) {
 			// get ptr to layer 1.
-			C_AnimationLayer* layer1 = &player->m_AnimOverlay()[1];
+			C_AnimationLayer* layer1 = &player->m_AnimOverlay( )[ 1 ];
 
 			// check if reload animation is going on.
-		//	if (layer1->m_weight != 0.f && player->GetSequenceActivity(layer1->m_sequence) == 967 /* ACT_CSGO_RELOAD */)
-		//		flags.push_back({ XOR("RELOAD"), { 60, 180, 225, low_alpha } });
+			if ( layer1->m_weight != 0.f && player->GetSequenceActivity( layer1->m_sequence ) == 967 /* ACT_CSGO_RELOAD */ )
+				flags.push_back( { XOR( "RELOAD" ), { 60, 180, 225, low_alpha } } );
+		}
+
+		// fakeduck.
+		if ( fakeduck ) {
+			int m_crouched_ticks[64];
+			int m_stored_tick = 0;
+
+			if ( player->m_flDuckAmount( ) > 0.01 && player->m_flDuckAmount( ) <= 0.9 && player->m_flDuckSpeed( ) == 8 && player->m_fFlags( ) & FL_ONGROUND ) {
+				if ( m_stored_tick != g_csgo.m_globals->m_tick_count ) {
+					m_crouched_ticks[ player->index( ) ]++;
+					m_stored_tick = g_csgo.m_globals->m_tick_count;
+				}
+
+				if ( m_crouched_ticks[ player->index( ) ] >= 5 )
+					flags.push_back( { XOR( "DUCK" ), { 255, 0, 0, low_alpha } } );
+			}
 		}
 
 		// iterate flags.

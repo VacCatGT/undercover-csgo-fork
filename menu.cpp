@@ -284,6 +284,7 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.Checkbox ( XOR ( "Flash Flag##Enemy" ), XOR ( "esp_enemies_flags_flash" ) );
 							g_frw.Checkbox ( XOR ( "Reload Flag##Enemy" ), XOR ( "esp_enemies_flags_reload" ) );
 							g_frw.Checkbox ( XOR ( "Bomb Flag##Enemy" ), XOR ( "esp_enemies_flags_bomb" ) );
+							g_frw.Checkbox ( XOR( "Fakeduck Flag##Enemy" ), XOR( "esp_enemies_flags_fakeduck" ) );
 
 							//	g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
 
