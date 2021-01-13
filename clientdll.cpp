@@ -291,8 +291,6 @@ bool __fastcall Detours::SetupBones( void* ecx, void* edx, matrix3x4_t* bone_to_
 
 		*( uint32_t* )( uintptr_t( pEnt ) + 0xA68 ) = 0;
 	}
-	else
-		pEnt->m_AnimOverlay( )[ 12 ].m_weight = 0.0f;
 
 	pEnt->m_fEffects( ) |= EF_NOINTERP;
 	bool m_bSetuped = g_detours.oSetupBones ( ecx, bone_to_world_out, max_bones, bone_mask, curtime );
