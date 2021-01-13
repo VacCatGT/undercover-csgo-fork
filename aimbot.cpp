@@ -1146,7 +1146,7 @@ bool Aimbot::CanHit( vec3_t start, vec3_t end, LagComp::LagRecord_t* record, int
 		return false;
 
 	vec3_t min, max;
-	const auto IsCapsule = bbox->m_radius != -1.f;
+	const auto IsCapsule = false && bbox->m_radius != -1.f; //crash
 
 	if ( IsCapsule ) {
 		math::VectorTransform( bbox->m_mins, matrix[ bbox->m_bone ], min );

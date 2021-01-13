@@ -358,13 +358,13 @@ void Shots::OnFrameStage( )
 			vec3_t end = start + dir * start.dist_to( it->m_record->m_vecOrigin ) * 6.6f;
 
 			if ( g_cfg[ XOR( "cheat_mode" ) ].get< int >( ) == 0 ) {
-			/*	if ( !g_aimbot.CanHit( start, end, it->m_record, it->m_hitbox, true, it->m_matrix ) ) {
+				if ( !g_aimbot.CanHit( start, end, it->m_record, it->m_hitbox, true, it->m_matrix ) ) {
 					g_notify.add( XOR( "Missed due to spread." ), colors::red );
 
 					it = m_shots.erase( it );
 
 					continue;
-				}*/
+				}
 			}
 
 			// let's not increment this if this is a shot record.
