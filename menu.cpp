@@ -269,6 +269,13 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 							g_frw.Checkbox ( XOR ( "Ammo##Enemy" ), XOR ( "esp_enemies_ammo" ) );
 							g_frw.ColorPicker ( XOR ( "Ammo Color##Enemy" ), XOR ( "esp_enemies_ammo_color" ) );
 							g_frw.Checkbox ( XOR ( "Flags##Enemy" ), XOR ( "esp_enemies_flags" ) );
+
+							if ( g_cfg[ XOR( "esp_enemies_flags" ) ].get<bool>( ) )
+								g_frw.MultiCombo( XOR( "Flags" ), { XOR( "esp_enemies_flags_money" ), XOR( "esp_enemies_flags_armor" ),
+									XOR( "esp_enemies_flags_scope" ), XOR( "esp_enemies_flags_flash" ), XOR( "esp_enemies_flags_reload" ),
+									XOR( "esp_enemies_flags_bomb" ), XOR( "esp_enemies_flags_fakeduck" ) },
+								{ XOR( "Money" ), XOR( "Armor" ), XOR( "Scope" ), XOR( "Flash" ), XOR( "Reload" ), XOR( "Bomb" ), XOR( "Fakeduck" ) } );
+
 							g_frw.Checkbox ( XOR ( "Glow##Enemy" ), XOR ( "esp_enemy_glow" ) );
 							if ( !g_cfg [ XOR ( "esp_enemy_glow_healthcolor" ) ].get<bool> ( ) ) {
 								g_frw.ColorPicker ( XOR ( "Glow Color##Enemy" ), XOR ( "esp_enemy_glow_color" ) );
@@ -277,14 +284,6 @@ void Menu::Think ( IDirect3DDevice9* device ) {
 								g_frw.Checkbox ( XOR ( "Glow Color Based On Health##Enemy" ), XOR ( "esp_enemy_glow_healthcolor" ) );
 
 							//g_frw.NumberPicker( XOR( "Fade time" ), XOR( "esp_enemies_dormant_time" ), 0, 100, XOR( "%0.f" ), 1 );
-
-							g_frw.Checkbox ( XOR ( "Money Flag##Enemy" ), XOR ( "esp_enemies_flags_money" ) );
-							g_frw.Checkbox ( XOR ( "Armor Flag##Enemy" ), XOR ( "esp_enemies_flags_armor" ) );
-							g_frw.Checkbox ( XOR ( "Scope Flag##Enemy" ), XOR ( "esp_enemies_flags_scope" ) );
-							g_frw.Checkbox ( XOR ( "Flash Flag##Enemy" ), XOR ( "esp_enemies_flags_flash" ) );
-							g_frw.Checkbox ( XOR ( "Reload Flag##Enemy" ), XOR ( "esp_enemies_flags_reload" ) );
-							g_frw.Checkbox ( XOR ( "Bomb Flag##Enemy" ), XOR ( "esp_enemies_flags_bomb" ) );
-							g_frw.Checkbox ( XOR( "Fakeduck Flag##Enemy" ), XOR( "esp_enemies_flags_fakeduck" ) );
 
 							//	g_frw.Checkbox(XOR("Print animlayers"), XOR("misc_animlayer"));
 

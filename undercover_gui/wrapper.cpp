@@ -279,7 +279,7 @@ void MenuFramework::MultiCombo( std::string name, std::vector<std::string> confi
 	if ( !is_active )
 		display_value = XOR( "None" );
 
-	if ( ImGui::BeginCombo( name.c_str( ), display_value.c_str( ), ImVec2( 0, ( config_values.size( ) * 22 ) + 5 ) ) ) {
+	if ( ImGui::BeginCombo( name.c_str( ), display_value.c_str( ), ImVec2( 0, ( ( config_values.size( ) - 1 ) * 22 ) + 5 ) ) ) {
 		ImGui::SetCursorPosY( ImGui::GetCursorPosY( ) - 5 );
 
 		for ( int i = 0; i < config_values.size( ); i++ ) {
